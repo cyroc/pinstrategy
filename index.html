@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f0f14" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Pinball Strategy</title>
+  <style>
+    /* ── Reset & Tokens ─────────────────────────────────── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --bg:        #0f0f14;
+      --surface:   #1a1a26;
+      --surface2:  #22223a;
+      --accent:    #e8a020;
+      --accent-dim:#7a5510;
+      --indigo:    #6366f1;
+      --safe:      #22c55e;
+      --danger:    #ef4444;
+      --text:      #e2e8f0;
+      --text-dim:  #94a3b8;
+      --border:    rgba(255,255,255,0.09);
+      --radius:    14px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      max-width: 430px;
+      margin: 0 auto;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── Utility ─────────────────────────────────────────── */
+    .hidden { display: none !important; }
+    button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+    /* ══════════════════════════════════════════════════════
+       HOME SCREEN
+    ══════════════════════════════════════════════════════ */
+    #home {
+      min-height: 100dvh;
+      padding-bottom: env(safe-area-inset-bottom, 16px);
+    }
+
+    .home-hero {
+      padding: calc(env(safe-area-inset-top, 0px) + 48px) 22px 30px;
+      background: linear-gradient(160deg, #1a1a30 0%, var(--bg) 100%);
+    }
+
+    .home-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .home-title {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      line-height: 1.1;
+    }
+
+    .home-title em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .home-sub {
+      margin-top: 8px;
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .machine-list {
+      padding: 6px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+
+    .machine-card {
+      background: var(--surface);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .machine-card:active { transform: scale(0.97); }
+
+    .machine-card-img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+
+    .machine-card-body { padding: 16px 18px 18px; }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .card-year {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .card-mfr {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .machine-card-name {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+    }
+
+    .machine-card-tagline {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .card-footer {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .difficulty-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .diff-hard   { background: rgba(239,68,68,.14); color: #ef4444; }
+    .diff-medium { background: rgba(234,179,8,.14); color: #eab308; }
+    .diff-easy   { background: rgba(34,197,94,.14); color: #22c55e; }
+
+    .card-arrow {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      font-size: 14px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       MACHINE VIEW
+    ══════════════════════════════════════════════════════ */
+    #machine-view {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+    }
+
+    /* Sticky header + tabs */
+    .mv-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    .mv-topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px 10px;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 4px 0;
+      flex-shrink: 0;
+    }
+
+    .mv-title-block { flex: 1; min-width: 0; }
+
+    .mv-machine-name {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mv-machine-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 1px;
+    }
+
+    .tab-row {
+      display: flex;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 10px 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dim);
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* Scrollable content area */
+    .mv-content {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* ── INFO TAB ────────────────────────────────────────── */
+    .info-wrap { padding: 20px 18px; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px 14px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .section { margin-bottom: 26px; }
+
+    .section-hd {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .section-hd-text {
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .section-hd-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 15px;
+      margin-bottom: 8px;
+    }
+
+    .feature-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.55;
+    }
+
+    .score-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .score-row:last-child { border-bottom: none; }
+
+    .score-key { font-size: 13px; color: var(--text-dim); }
+
+    .score-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .rule-card {
+      background: rgba(239,68,68,.08);
+      border: 1px solid rgba(239,68,68,.25);
+      border-radius: var(--radius);
+      padding: 13px 15px;
+      margin-bottom: 8px;
+    }
+
+    .rule-card p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #fca5a5;
+    }
+
+    .rule-card strong { color: #ef4444; }
+
+    .benchmark-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 15px;
+      margin-bottom: 8px;
+    }
+
+    .bm-score {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--accent);
+      min-width: 100px;
+    }
+
+    .bm-label { font-size: 13px; color: var(--text-dim); }
+
+    .resource-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 15px;
+      margin-bottom: 8px;
+      text-decoration: none;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .resource-link:active { opacity: .7; }
+
+    .resource-icon { font-size: 18px; }
+
+    .resource-name { font-size: 13px; font-weight: 600; }
+    .resource-url  { font-size: 11px; color: var(--text-dim); }
+
+    /* ── STRATEGY TAB ────────────────────────────────────── */
+    .strat-wrap { padding: 20px 18px; }
+
+    .goal-card {
+      background: linear-gradient(135deg, #1e1e38 0%, #22223a 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .goal-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(232,160,32,.08) 0%, transparent 60%);
+    }
+
+    .goal-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .goal-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-dim);
+      position: relative;
+    }
+
+    .goal-text strong { color: var(--text); }
+
+    .phase-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 16px 16px 20px;
+      margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phase-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+    }
+
+    .phase-num {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .phase-title {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .phase-body {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .phase-body strong { color: var(--text); }
+
+    .shot-item {
+      display: flex;
+      gap: 11px;
+      padding: 13px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+
+    .shot-item.safe  { background: rgba(34,197,94,.06);  border-color: rgba(34,197,94,.22); }
+    .shot-item.avoid { background: rgba(239,68,68,.06);  border-color: rgba(239,68,68,.22); }
+
+    .shot-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .shot-dot.safe  { background: var(--safe); }
+    .shot-dot.avoid { background: var(--danger); }
+
+    .shot-name { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+    .shot-desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+
+    .tip-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px 15px;
+      margin-bottom: 8px;
+    }
+
+    .tip-head {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .tip-body {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.55;
+    }
+
+    .mistake-row {
+      display: flex;
+      gap: 9px;
+      padding: 11px 13px;
+      background: rgba(239,68,68,.06);
+      border: 1px solid rgba(239,68,68,.12);
+      border-radius: 10px;
+      margin-bottom: 6px;
+    }
+
+    .mistake-x {
+      color: #ef4444;
+      font-size: 14px;
+      font-weight: 800;
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+
+    .mistake-text {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* ── PLAYFIELD TAB ───────────────────────────────────── */
+    .pf-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .pf-hint-icon { font-size: 14px; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      padding: 10px 18px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .leg-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+    }
+
+    .leg-dot.key    { background: var(--accent); }
+    .leg-dot.safe   { background: var(--safe); }
+    .leg-dot.avoid  { background: var(--danger); }
+    .leg-dot.info   { background: var(--indigo); }
+
+    .pf-container {
+      position: relative;
+      width: 100%;
+      line-height: 0;
+    }
+
+    .pf-img {
+      width: 100%;
+      display: block;
+    }
+
+    .hs {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      z-index: 10;
+    }
+
+    .hs-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      animation: hs-pulse 2.4s ease-out infinite;
+      pointer-events: none;
+    }
+
+    .hs-ring.key   { background: rgba(232,160,32,.35); }
+    .hs-ring.safe  { background: rgba(34,197,94,.35); }
+    .hs-ring.avoid { background: rgba(239,68,68,.35); }
+    .hs-ring.info  { background: rgba(99,102,241,.35); }
+
+    @keyframes hs-pulse {
+      0%   { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%,-50%) scale(2.6); opacity: 0; }
+    }
+
+    .hs-dot {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800;
+      position: relative;
+      border: 2.5px solid;
+      backdrop-filter: blur(3px);
+      box-shadow: 0 2px 10px rgba(0,0,0,.55);
+      transition: transform .15s;
+    }
+
+    .hs:active .hs-dot { transform: scale(1.25); }
+
+    .hs-dot.key   { background: rgba(232,160,32,.88); border-color: #e8a020; color: #fff; }
+    .hs-dot.safe  { background: rgba(34,197,94,.88);  border-color: #22c55e; color: #fff; }
+    .hs-dot.avoid { background: rgba(239,68,68,.88);  border-color: #ef4444; color: #fff; }
+    .hs-dot.info  { background: rgba(99,102,241,.88); border-color: #6366f1; color: #fff; }
+
+    /* ── BOTTOM SHEET ────────────────────────────────────── */
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s;
+    }
+
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    .sheet {
+      position: fixed;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      width: 100%; max-width: 430px;
+      background: var(--surface);
+      border-radius: 22px 22px 0 0;
+      border-top: 1px solid var(--border);
+      padding: 0 20px calc(env(safe-area-inset-bottom, 16px) + 20px);
+      z-index: 201;
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+      max-height: 70dvh;
+      overflow-y: auto;
+    }
+
+    .sheet.open { transform: translateX(-50%) translateY(0); }
+
+    .sheet-handle {
+      width: 38px; height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin: 14px auto 16px;
+    }
+
+    .sheet-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 10px;
+    }
+
+    .sheet-badge.key   { background: rgba(232,160,32,.15); color: var(--accent); }
+    .sheet-badge.safe  { background: rgba(34,197,94,.15);  color: var(--safe); }
+    .sheet-badge.avoid { background: rgba(239,68,68,.15);  color: var(--danger); }
+    .sheet-badge.info  { background: rgba(99,102,241,.15); color: var(--indigo); }
+
+    .sheet-title {
+      font-size: 20px; font-weight: 800;
+      letter-spacing: -.3px;
+      margin-bottom: 10px;
+    }
+
+    .sheet-body {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.65;
+    }
+
+    .sheet-body strong { color: var(--text); }
+
+    .sheet-close {
+      position: absolute;
+      top: 16px; right: 18px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Scrollbar hide ──────────────────────────────────── */
+    .mv-content::-webkit-scrollbar,
+    .sheet::-webkit-scrollbar { width: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ HOME ══════════════════════════════ -->
+<div id="home">
+  <div class="home-hero">
+    <div class="home-eyebrow">Field Guide</div>
+    <h1 class="home-title">Pinball<br><em>Strategy</em></h1>
+    <p class="home-sub">Score-focused guides for classic Bally machines. Tap a table to get started.</p>
+  </div>
+
+  <div class="machine-list">
+    <div class="section-label">Select a Machine</div>
+
+    <div class="machine-card" onclick="openMachine('paragon')">
+      <img class="machine-card-img" src="images/paragon.jpg" alt="Paragon playfield" />
+      <div class="machine-card-body">
+        <div class="card-meta">
+          <span class="card-year">1979</span>
+          <span class="card-mfr">· Bally Manufacturing</span>
+        </div>
+        <div class="machine-card-name">Paragon</div>
+        <div class="machine-card-tagline">Fantasy widebody · bonus &amp; multiplier marathon</div>
+        <div class="card-footer">
+          <span class="difficulty-badge diff-hard">● Hard</span>
+          <span class="card-arrow">›</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="machine-card" onclick="openMachine('viking')">
+      <img class="machine-card-img" src="images/viking.jpg" alt="Viking playfield" />
+      <div class="machine-card-body">
+        <div class="card-meta">
+          <span class="card-year">1980</span>
+          <span class="card-mfr">· Bally Manufacturing</span>
+        </div>
+        <div class="machine-card-name">Viking</div>
+        <div class="machine-card-tagline">Norse classic · spinner engine &amp; mid-ball collects</div>
+        <div class="card-footer">
+          <span class="difficulty-badge diff-medium">● Easy–Medium</span>
+          <span class="card-arrow">›</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MACHINE VIEW ══════════════════════ -->
+<div id="machine-view" class="hidden">
+
+  <div class="mv-header">
+    <div class="mv-topbar">
+      <button class="back-btn" onclick="goHome()">‹ Back</button>
+      <div class="mv-title-block">
+        <div class="mv-machine-name" id="mv-name"></div>
+        <div class="mv-machine-sub" id="mv-sub"></div>
+      </div>
+    </div>
+    <div class="tab-row">
+      <button class="tab-btn active" data-tab="info"      onclick="switchTab('info')">Info</button>
+      <button class="tab-btn"        data-tab="strategy"  onclick="switchTab('strategy')">Strategy</button>
+      <button class="tab-btn"        data-tab="playfield" onclick="switchTab('playfield')">Playfield</button>
+    </div>
+  </div>
+
+  <div class="mv-content">
+
+    <!-- INFO PANE -->
+    <div class="tab-pane active" id="pane-info">
+      <div class="info-wrap" id="info-content"></div>
+    </div>
+
+    <!-- STRATEGY PANE -->
+    <div class="tab-pane" id="pane-strategy">
+      <div class="strat-wrap" id="strat-content"></div>
+    </div>
+
+    <!-- PLAYFIELD PANE -->
+    <div class="tab-pane" id="pane-playfield">
+      <div class="pf-hint">
+        <span class="pf-hint-icon">👆</span>
+        Tap the markers on the playfield for details
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="leg-dot key"></div>Key Feature</div>
+        <div class="legend-item"><div class="leg-dot safe"></div>Safe Shot</div>
+        <div class="legend-item"><div class="leg-dot avoid"></div>Avoid</div>
+        <div class="legend-item"><div class="leg-dot info"></div>Danger Zone</div>
+      </div>
+      <div class="pf-container" id="pf-container">
+        <img class="pf-img" id="pf-img" src="" alt="Playfield" />
+        <!-- hotspots injected by JS -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bottom Sheet -->
+<div class="overlay" id="overlay" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet">
+  <div class="sheet-handle"></div>
+  <button class="sheet-close" onclick="closeSheet()">✕</button>
+  <div id="sheet-badge" class="sheet-badge"></div>
+  <div class="sheet-title" id="sheet-title"></div>
+  <div class="sheet-body"  id="sheet-body"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════════════ */
+const MACHINES = {
+
+  /* ─── PARAGON ──────────────────────────────────────────── */
+  paragon: {
+    name: "Paragon",
+    sub: "1979 · Bally · Widebody",
+    image: "images/paragon.jpg",
+    difficulty: "Hard",
+    diffClass: "diff-hard",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Bally Mfg. Co." },
+        { label: "Year",         value: "1979" },
+        { label: "Type",         value: "Solid-State EMC" },
+        { label: "Body",         value: "Widebody" },
+        { label: "Flippers",     value: "4 (incl. mini + scissor)" },
+        { label: "Max Bonus",    value: "245,000 pts" },
+      ],
+      theme: "Fantasy / sword-and-sorcery. Named zones across the wide playfield: Valley of Demons, Golden Cliffs, Beast's Lair, and the Waterfall. Bally's first widebody machine.",
+      features: [
+        { name: "Valley of Demons", desc: "Left-side inline drop targets — the most important feature. Each hit advances bonus; completing the bank steps the multiplier from 2× → 3×. Back saucer hits 5× then awards Extra Ball." },
+        { name: "Golden Cliffs Saucer", desc: "Left saucer. Starts at 2,000 pts, climbs +2,000 per visit up to 20,000. Carries between balls. Only awards a bonus advance at its 20K maximum value." },
+        { name: "Paragon Saucer", desc: "Right saucer. Awards one P-A-R-A-G-O-N letter and one bonus advance per visit. Completing all 7 letters = 25,000 pts + Special." },
+        { name: "Center Spinner", desc: "Each pass awards 3–4 bonus advances. Fast bonus builder, but ball exits into unpredictable bumpers." },
+        { name: "Right 3-Bank Drops", desc: "Value sequence: 10K → 15K → 20K → 25K → Special (50K). Hazardous return position — not a primary target." },
+        { name: "Beast's Lair", desc: "Replaces the left outlane. Notoriously punishing. The mini flipper and a hidden escape passage at the bottom are your only rescues." },
+        { name: "Waterfall", desc: "Hidden shot behind the right-side drops. Earns a Special after the drops have been completed 5× across the game. Treat as a bonus, never a target." },
+      ],
+      scoring: [
+        { key: "Bonus advance",          val: "1,000 pts" },
+        { key: "Max base bonus",         val: "49,000 pts" },
+        { key: "Max multiplier",         val: "5×" },
+        { key: "Max bonus payout",       val: "245,000 pts" },
+        { key: "Super bonus (20K lock)", val: "Persists all balls" },
+        { key: "Super bonus (30K lock)", val: "Persists all balls" },
+        { key: "Super bonus (40K lock)", val: "Persists all balls" },
+        { key: "Golden Cliffs max",      val: "20,000 pts" },
+        { key: "PARAGON complete",       val: "25,000 + Special" },
+        { key: "Special value",          val: "50,000 pts" },
+      ],
+      rules: [
+        "<strong>Never hit the center standup.</strong> Ball return is lethal on a widebody. No safe flipper angle exists.",
+        "<strong>Scissor flipper trap:</strong> Holding upper-right AND lower-right flippers simultaneously creates a drain gap between them. Always use quick flips.",
+        "<strong>Beast's Lair:</strong> Flipping the mini flipper too early on a low ball sends it straight down the middle.",
+        "Bonus is collected <strong>only at end of ball</strong> — no mid-ball collect on Paragon.",
+        "Right outlane entrance is positioned <strong>higher</strong> than usual — danger begins above flipper height.",
+      ],
+      benchmarks: [
+        { score: "150,000+", label: "Commendable — everything went right" },
+        { score: "50,000+",  label: "Respectable on a tough day" },
+        { score: "< 50K",    label: "Most games land in five digits" },
+      ],
+      resources: [
+        { name: "IPDB Entry",           url: "https://www.ipdb.org/machine.cgi?id=1755",              icon: "🎯" },
+        { name: "Kineticist Tutorial",  url: "https://www.kineticist.com/news/paragon-pinball-tutorial", icon: "📖" },
+        { name: "Pinside Game Page",    url: "https://pinside.com/pinball/machine/paragon",            icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      goal: "<strong>Reach 5× bonus multiplier via the Valley of Demons, lock in the 20K super bonus threshold as early as ball one, then survive long enough to collect a massive end-of-ball bonus.</strong> Repeat every ball. A great game on Paragon is a marathon of patience and ball control — not aggression.",
+      phases: [
+        {
+          num: "Phase 1 · Early Game",
+          title: "Secure 5× and the Extra Ball",
+          body: "<strong>Valley of Demons first.</strong> From ball one shoot the left-side inline drops from the right lower flipper — mid-strength, no power shots. Each hit advances bonus; completing the bank progresses toward 5×:<br><br>① 3 inline drops → 2× &nbsp; ② 4th drop → 3× &nbsp; ③ Back saucer → 5× (+ Extra Ball or 25K).<br><br>Do not leave this area until 5× is locked. It is the safest shot on the table and the foundation of all your scoring.",
+        },
+        {
+          num: "Phase 2 · Mid Game",
+          title: "Build Bonus Base to 20,000",
+          body: "<strong>Spinner and Golden Cliffs — avoid the center standup entirely.</strong><br><br>With 5× locked, shift to building base bonus toward 20K. The <strong>spinner</strong> is fastest: each rip awards 3–4 bonus advances. Shoot from the right flipper with a firm, controlled stroke. The <strong>Golden Cliffs saucer</strong> builds its value passively with each visit — hit it when the ball feeds you a clean right-flipper shot.<br><br>Once you cross 20K base bonus that value is <em>permanently locked</em> for all remaining balls — even if you drain right now. Push to 30K or 40K if the ball is under control, but 20K is the non-negotiable minimum.",
+        },
+        {
+          num: "Phase 3 · Late Game",
+          title: "Survive for the Bonus",
+          body: "<strong>Keep the ball alive until end-of-ball collection.</strong><br><br>With 5× and 20K+ locked, your only job is to <em>not drain</em>. Every bonus advance adds 5,000 pts to your final payout (5 × 1,000). Continuing the Valley of Demons and spinner is safe, controlled, high-value work. Shoot the Paragon saucer only when the ball naturally feeds a clean right-flipper shot.<br><br>Stay calm. Don't reach for risky shots. End-of-ball bonus on Paragon is everything.",
+        },
+      ],
+      safeShots: [
+        { name: "Valley of Demons (inline drops)", desc: "Safest and most important shot. Direct from right lower flipper, mid-strength. Wide target bank is very forgiving. Shoot confidently throughout the game." },
+        { name: "Golden Cliffs (left saucer)", desc: "Reliable from the right flipper. Ball exits cleanly — no nasty surprises on the return. Best when you have a well-controlled ball." },
+        { name: "Paragon Saucer (right saucer)", desc: "Moderate risk. Worth shooting opportunistically for bonus advances and letters. A lobbed or gentle shot lands more cleanly than a power shot." },
+      ],
+      avoidShots: [
+        { name: "Center Standup", desc: "Completely off-limits. Ball return from this target is unpredictable and lethal on a widebody. No safe flipper is positioned to catch it reliably." },
+        { name: "Right-Side 3-Bank Drops", desc: "Returns frequently feed the right outlane or scissor flipper gap. Not worth targeting unless the ball naturally arrives there." },
+        { name: "Waterfall (behind right drops)", desc: "Treat as a bonus if it happens, never a target. Exit angle changes with ball speed — unpredictable." },
+      ],
+      tips: [
+        { head: "Beast's Lair rescue (mini flipper)", body: "When a ball enters the Beast's Lair, immediately hold up the upper-left mini flipper as a diverter. Do NOT flip unless the ball comes in high enough — a low ball will drain down the middle. If the ball is high, flip decisively toward the left flipper. There is also a hidden escape passage at the bottom." },
+        { head: "Scissor flipper — avoid simultaneous hold", body: "Holding both upper-right (scissor) and lower-right flippers creates an uncovered drain gap between them. Use quick, decisive flips on the scissor — hold only as long as needed, then release immediately." },
+        { head: "Right outlane awareness", body: "The right outlane entrance is positioned higher on the playfield than usual. A ball you think is safely crossing the upper-right can still catch the outlane. Stay alert when the ball is on the right side above flipper height." },
+        { head: "Ball control over power", body: "Paragon rewards careful play. Let the ball roll to the flipper and settle. If you can manage a drop catch, do it. The wide body means balls travel farther and faster — slow everything down." },
+        { head: "Golden Cliffs value management", body: "The saucer value carries between balls. Hitting it 5–6 times over the game gradually builds it to 20K where it starts awarding bonus advances. Don't neglect it early — you are investing in future advances." },
+      ],
+      mistakes: [
+        "Shooting the center standup. Ever. Just don't.",
+        "Holding the scissor and lower-right flipper simultaneously — draining through the gap.",
+        "Draining without reaching the 20K super bonus threshold. Ball one is the most valuable ball to hit 20K.",
+        "Panicking in the Beast's Lair and flipping the mini flipper too early on a low ball.",
+        "Playing aggressively on a widebody. Paragon punishes power shots.",
+        "Ignoring the Golden Cliffs saucer because it starts at 2K — it compounds over multiple visits.",
+      ],
+    },
+
+    hotspots: [
+      { x: 19, y: 55, type: "key",   label: "V", name: "Valley of Demons",          body: "<strong>Most important shot on the table.</strong> Hit inline drop targets from the right lower flipper at mid-strength. Bank progress: 3 drops → 2×, 4 drops → 3×, back saucer → 5× + Extra Ball. Wide and forgiving — your primary destination every ball." },
+      { x: 19, y: 45, type: "key",   label: "S", name: "Valley Back Saucer",         body: "Behind the Valley of Demons drops. <strong>First hit = 5× multiplier secured + Extra Ball (or 25K on points setting).</strong> Do not leave the Valley area until you've hit this." },
+      { x: 22, y: 30, type: "safe",  label: "G", name: "Golden Cliffs Saucer",       body: "Left saucer. Starts at 2,000 pts, increases by 2,000 per visit up to <strong>20,000</strong>. Value carries across balls. Only awards a bonus advance at maximum value. Hit it every time the ball feeds cleanly — you're building future bonus advances." },
+      { x: 76, y: 27, type: "safe",  label: "P", name: "Paragon Saucer",             body: "Right saucer. Each visit awards one <strong>P-A-R-A-G-O-N letter + 1 bonus advance</strong>. Complete all 7 letters = 25,000 pts + Special. Shoot with a lob or gentle shot — power shots miss the saucer. Opportunistic only." },
+      { x: 50, y: 50, type: "safe",  label: "~", name: "Center Spinner",             body: "Each pass through the spinner awards <strong>3–4 bonus advances</strong>. Fastest way to build the base. Shoot from the right flipper with a controlled firm stroke. Ball exits into the bumper cluster — be ready for unpredictable returns." },
+      { x: 50, y: 62, type: "avoid", label: "✕", name: "Center Standup",             body: "<strong>DO NOT AIM HERE — EVER.</strong> Ball return from this target is completely unpredictable and lethal on a widebody layout. No safe flipper is positioned to catch it reliably. There is no scenario where deliberately targeting this is correct." },
+      { x: 74, y: 54, type: "avoid", label: "D", name: "Right 3-Bank Drop Targets",  body: "Value sequence: 10K → 15K → 20K → 25K → Special (50K). The location on the playfield puts returns in a zone that frequently feeds the <strong>right outlane or scissor flipper gap</strong>. Not worth deliberately targeting." },
+      { x: 74, y: 46, type: "info",  label: "W", name: "Waterfall",                  body: "Hidden shot behind the right-side drops. The final reward for completing the right-side drops 5× total across the game. Exit angle changes with ball speed — <strong>unpredictable</strong>. Treat as a bonus if it happens, never a target." },
+      { x: 10, y: 77, type: "avoid", label: "B", name: "Beast's Lair",               body: "<strong>Danger zone — replaces the left outlane entirely.</strong> Balls entering here are extremely difficult to save. Immediately hold up the upper-left mini flipper as a diverter. Do NOT flip if the ball comes in low — it will drain straight down. Watch for the hidden escape passage at the bottom." },
+      { x: 20, y: 73, type: "info",  label: "M", name: "Mini Flipper (Upper-Left)",  body: "Your only tool to rescue balls from the Beast's Lair. <strong>Hold it up as a diverter</strong> when a ball enters the Beast's Lair. Only flip decisively if the ball comes in high enough to redirect toward the left flipper. A premature flip on a low ball drains immediately." },
+      { x: 77, y: 73, type: "info",  label: "✂", name: "Scissor Flipper (Upper-Right)", body: "<strong>Critical danger:</strong> Holding the scissor flipper AND the lower-right flipper simultaneously creates an uncovered drain gap between them. The ball will fall through. Always use quick decisive flips on the scissor — hold only as long as needed, then release immediately." },
+      { x: 85, y: 77, type: "avoid", label: "!", name: "Right Outlane",              body: "The right outlane entrance is positioned <strong>higher on the playfield than usual</strong>. A ball crossing the upper-right area can still catch the outlane when you think it's safe. Stay alert when the ball is on the right side above flipper height." },
+      { x: 50, y: 22, type: "info",  label: "↑", name: "Pop Bumper Cluster",         body: "Top-center bumpers. The spinner exit feeds balls here. Returns are <strong>unpredictable on the wide body</strong> — be prepared for anything. The bumpers also advance bonus with each hit, so they contribute passively to your build." },
+    ],
+  },
+
+  /* ─── VIKING ───────────────────────────────────────────── */
+  viking: {
+    name: "Viking",
+    sub: "1980 · Bally · Standard Body",
+    image: "images/viking.jpg",
+    difficulty: "Easy–Medium",
+    diffClass: "diff-medium",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Bally Mfg. Co." },
+        { label: "Year",         value: "1980" },
+        { label: "Type",         value: "Solid-State EMC" },
+        { label: "Body",         value: "Standard" },
+        { label: "Production",   value: "~2,500 units (rare)" },
+        { label: "Max Bonus",    value: "245,000 pts" },
+      ],
+      theme: "Norse mythology. Longship, runes, and warrior art. One of Bally's late solid-state classics from their golden era.",
+      features: [
+        { name: "Center Spinner", desc: "Starts at 10 pts/spin and self-advances up to 1,000 pts/spin. Each pass also advances the bonus. Value resets if not re-hit before the warning signal." },
+        { name: "Inline Drop Targets (Left)", desc: "Each target advances the bonus multiplier: 2× → 3× → 4× → 5×. Back standup target scores a Special, then 50,000 on repeat hits." },
+        { name: "1-2-3 Memory Drops (Right)", desc: "Hit targets 1, 2, and 3 in sequential order for 10× the current lit value — potentially up to 100,000 pts. Out-of-order hits count toward the bank but miss the jackpot." },
+        { name: "A-B Top Rollover Lanes", desc: "Completing A-B the 1st time lights the bonus collect saucer. 2nd time lights specials. 3rd time+ scores a special each completion." },
+        { name: "Bonus Collect Saucer (Top-Left)", desc: "When lit, collects your full bonus (base × multiplier) mid-ball. Reached via the right S-curve loop. Ball kicks to the top arch afterward." },
+        { name: "Right S-Curve Loop", desc: "The route to the bonus collect saucer. Shoot with medium strength. Repeatable mid-ball loop — the heart of the scoring engine." },
+        { name: "Outlane Bounce-Back Gates", desc: "Gates on both outlanes can redirect a draining ball back to the inlane. A gentle nudge toward the gate saves the ball — one of the most forgiving safety features on any classic Bally." },
+      ],
+      scoring: [
+        { key: "Spinner start",            val: "10 pts/spin" },
+        { key: "Spinner max",              val: "1,000 pts/spin" },
+        { key: "Inline drops (per target)", val: "+1 multiplier step" },
+        { key: "Max multiplier",           val: "5×" },
+        { key: "Max base bonus",           val: "49,000 pts" },
+        { key: "Max bonus payout",         val: "245,000 pts" },
+        { key: "Super bonus (20K lock)",   val: "Persists all balls" },
+        { key: "Super bonus (40K lock)",   val: "Persists all balls" },
+        { key: "1-2-3 sequential jackpot", val: "Up to 100,000 pts" },
+        { key: "Back standup (Special)",   val: "50,000 pts" },
+      ],
+      rules: [
+        "The <strong>spinner value resets</strong> to 10 if not re-triggered before the warning signal. Keep hitting it.",
+        "Bonus is collected at ball end <strong>OR</strong> by shooting the lit saucer — the saucer is the primary mid-ball scoring event.",
+        "Reaching <strong>20K or 40K bonus</strong> before draining locks that amount for subsequent balls.",
+        "The 1-2-3 drops must be hit <strong>in sequential order</strong> (1 then 2 then 3) for the 10× jackpot. Out-of-order hits do not award the multiplied bonus.",
+      ],
+      benchmarks: [
+        { score: "400,000+", label: "Excellent — multiple big saucer collects" },
+        { score: "150,000+", label: "Solid — 5× with at least one collect" },
+        { score: "50,000+",  label: "Decent — hitting the basic loop" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=2737",       icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/viking",     icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      goal: "<strong>Build bonus to 20,000+, lock it with the super bonus threshold, hit the inline drops for 5× multiplier, then collect that bonus as many times as possible via the top-left saucer.</strong> The spinner is your engine — keep ripping it all game.",
+      phases: [
+        {
+          num: "Phase 1 · Early Game",
+          title: "Build Bonus Base & Multiplier",
+          body: "<strong>Inline drops first, then spinner.</strong><br><br>Start by shooting the left inline drop targets to build your bonus multiplier toward 5×. While working the drops, every shot that grazes or passes the spinner adds to your bonus base and climbs the spinner value toward 1,000 pts/spin.<br><br>Keep an eye on the spinner value indicator. If you hear the reset warning, <strong>immediately re-hit the spinner</strong> — losing accumulated value wastes significant potential.",
+        },
+        {
+          num: "Phase 2 · Mid Game",
+          title: "Secure the Super Bonus (20K threshold)",
+          body: "<strong>Reach 20,000 base bonus before ever shooting the collect saucer.</strong><br><br>Once at 5× multiplier, shift focus to building the base to at least 20K. This locks the 20K value for future balls — an insurance policy worth more than one early collect. The spinner is your best tool; keep ripping it.<br><br>Also work the <strong>A-B top lanes</strong> (they light automatically via bumper action after saucer kicks). Completing them once lights the collect saucer. <em>Do NOT shoot the saucer until you have crossed 20K base.</em><br><br>If you can push to <strong>40K base</strong> before collecting, do it. That locks 40K for all remaining balls — every future ball becomes a guaranteed massive payout.",
+        },
+        {
+          num: "Phase 3 · Big Scoring",
+          title: "Loop the S-Curve — Collect Repeatedly",
+          body: "<strong>Shoot the right S-curve repeatedly to loop the bonus collect saucer.</strong><br><br>With 5× multiplier and 20K+ locked, shoot the right S-curve to send the ball into the top-left saucer. Each collect pays base × multiplier, then kicks the ball back up for more bumper scoring and another shot at the loop.<br><br>At 5× × 49K = <strong>245,000 pts per collect</strong>. Even at 20K × 5× = 100K per collect, multiple collects per ball stack to enormous totals. This is the highest-value repeatable scoring on the table.",
+        },
+      ],
+      safeShots: [
+        { name: "Center Spinner", desc: "Safest high-value shot on the table. A direct controlled hit from either flipper is reliable. Even partial passes score and advance bonus. Rip this as often as possible." },
+        { name: "Left Inline Drops", desc: "Direct mid-strength shot from the right flipper. Wide and forgiving. Your multiplier builders — hit confidently, not aggressively." },
+        { name: "Right S-Curve / Saucer Loop", desc: "Medium strength. Once you know the angle from your flipper, this is a repeatable and very rewarding shot. The heart of the scoring engine." },
+      ],
+      avoidShots: [
+        { name: "1-2-3 Memory Drops (aggressive pursuit)", desc: "Requiring exact sequential order makes this unreliable under pressure. The 100K jackpot is real but aim for it only with a well-controlled ball and high lit value. Otherwise treat it as a bonus if it happens." },
+        { name: "Outlanes", desc: "If the ball heads toward an outlane, look for the bounce-back gate opportunity. A gentle nudge toward the gate can redirect to the inlane. Don't tilt chasing it — but never give up early either." },
+      ],
+      tips: [
+        { head: "Spinner reset warning", body: "If you hear the warning signal, immediately pivot to hitting the spinner again. Letting it reset to 10 wastes significant mid-ball scoring potential." },
+        { head: "Super bonus is your long game", body: "Even if a ball ends without a big collect, locking in 20K or 40K bonus means every future ball starts strong. Treat the threshold as a priority equal to collecting." },
+        { head: "Ball control after the saucer", body: "The saucer kicks the ball into the top arch area. Be ready — the ball can return fast via the pops. Don't let a frantic return drain erase a great collect." },
+        { head: "Nudge the outlanes", body: "The bounce-back gates are genuinely useful. A confident, timely nudge toward the gate can save a ball that's already in the gutter channel. Practice reading which direction to nudge." },
+        { head: "Multiplier math", body: "At 5×: 20K = 100K, 30K = 150K, 40K = 200K, 49K = 245K. Each increment in the base bonus is worth 5× as much at max multiplier — always worth one more spinner rip before collecting." },
+      ],
+      mistakes: [
+        "Collecting the saucer too early (before 5× multiplier and 20K base) — leaving the majority of value on the table.",
+        "Letting the spinner value reset by ignoring the warning signal.",
+        "Ignoring the A-B lanes and never lighting the saucer — without it you're entirely dependent on end-of-ball bonus.",
+        "Going for the 1-2-3 sequential jackpot too aggressively and draining trying to set it up.",
+        "Not nudging on outlane close calls — the bounce-back gate is a free save if you act in time.",
+      ],
+    },
+
+    hotspots: [
+      { x: 48, y: 47, type: "key",   label: "~", name: "Center Spinner",               body: "<strong>Your scoring engine.</strong> Starts at 10 pts/spin, self-advances to 1,000 pts/spin. Each pass also advances the bonus base. Rip this as often as possible. <em>Critical:</em> if you hear the reset warning, immediately hit the spinner again or lose your accumulated value." },
+      { x: 24, y: 54, type: "key",   label: "V", name: "Left Inline Drops",            body: "Hit all four targets to advance the bonus multiplier one step each: <strong>2× → 3× → 4× → 5×</strong>. Direct mid-strength shot from the right flipper. Wide and forgiving. Your multiplier builders — hit these every ball before thinking about collecting." },
+      { x: 24, y: 43, type: "key",   label: "S", name: "Back Standup (Behind Drops)",  body: "Behind the inline drop targets. <strong>Scores a Special (50,000 pts) and then 50,000 on every subsequent hit.</strong> A very rewarding shot once the drops have been cleared, but don't target it until the ball naturally arrives." },
+      { x: 18, y: 22, type: "key",   label: "C", name: "Bonus Collect Saucer",         body: "<strong>The jackpot machine.</strong> When lit, collects your full bonus (base × multiplier) mid-ball. With 5× and 49K base = 245,000 pts per collect. Reached via the right S-curve loop. Ball kicks back to the top arch afterward — be ready." },
+      { x: 47, y: 15, type: "info",  label: "A", name: "A-B Top Rollover Lanes",       body: "Completing A and B rollover lanes <strong>lights the bonus collect saucer</strong>. These complete naturally via bumper action after saucer kicks — you rarely need to aim for them directly. 2nd completion lights return lane specials; 3rd+ scores a special each time." },
+      { x: 78, y: 36, type: "safe",  label: "→", name: "Right S-Curve Loop",           body: "<strong>The route to the collect saucer.</strong> Shoot with medium strength from the left flipper. The ball follows the S-curve up to the top-left saucer. Once you know the angle, this is a repeatable, high-value shot. The heart of the Phase 3 scoring loop." },
+      { x: 75, y: 52, type: "info",  label: "3", name: "1-2-3 Memory Drops (Right)",   body: "Hit targets 1, 2, and 3 <strong>in exact sequential order</strong> for 10× the current lit value — up to 100,000 pts. Out-of-order hits count toward the bank but forfeit the jackpot. Pursue this only with a well-controlled ball and high lit value — don't drain chasing it." },
+      { x: 48, y: 28, type: "info",  label: "↑", name: "Pop Bumpers",                  body: "Top-center bumpers. The saucer kicks the ball into these after each collect — expect fast, unpredictable returns. <strong>Be ready at the flippers immediately after every saucer collect.</strong> Bumpers also advance bonus passively with each hit." },
+      { x: 13, y: 80, type: "safe",  label: "←", name: "Left Outlane Bounce-Back Gate", body: "<strong>Free save mechanism.</strong> A gentle nudge toward the gate when the ball enters the left outlane can redirect it back to the inlane. Act immediately and confidently when the ball slides toward this area. Don't tilt — but don't give up the ball early either." },
+      { x: 85, y: 80, type: "safe",  label: "→", name: "Right Outlane Bounce-Back Gate", body: "<strong>Free save mechanism.</strong> Same as the left gate — nudge the machine gently toward the gate when the ball enters the right outlane. Timing and direction matter. Practice reading which way to nudge for each side." },
+    ],
+  },
+};
+
+/* ═══════════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════════ */
+let currentMachine = null;
+let currentTab = 'info';
+
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════════ */
+function openMachine(id) {
+  currentMachine = id;
+  currentTab = 'info';
+  const m = MACHINES[id];
+
+  document.getElementById('mv-name').textContent = m.name;
+  document.getElementById('mv-sub').textContent  = m.sub;
+
+  renderInfo(m);
+  renderStrategy(m);
+  renderPlayfield(m);
+
+  // reset tabs
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-tab="info"]').classList.add('active');
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('pane-info').classList.add('active');
+
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('machine-view').classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  document.getElementById('machine-view').classList.add('hidden');
+  document.getElementById('home').classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('pane-' + tab).classList.add('active');
+  document.querySelector('.mv-content').scrollTop = 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER — INFO
+═══════════════════════════════════════════════════════════ */
+function renderInfo(m) {
+  const info = m.info;
+  let html = '';
+
+  // Stats
+  html += '<div class="stat-grid">';
+  info.stats.forEach(s => {
+    html += `<div class="stat-card"><div class="stat-label">${s.label}</div><div class="stat-value">${s.value}</div></div>`;
+  });
+  html += '</div>';
+
+  // Theme
+  html += sec('Theme & Story');
+  html += `<div class="feature-card"><div class="feature-desc">${info.theme}</div></div>`;
+
+  // Features
+  html += sec('Key Features');
+  info.features.forEach(f => {
+    html += `<div class="feature-card"><div class="feature-name">${f.name}</div><div class="feature-desc">${f.desc}</div></div>`;
+  });
+
+  // Scoring
+  html += sec('Scoring Reference');
+  html += '<div class="score-table">';
+  info.scoring.forEach(s => {
+    html += `<div class="score-row"><span class="score-key">${s.key}</span><span class="score-val">${s.val}</span></div>`;
+  });
+  html += '</div>';
+
+  // Rules
+  html += sec('Important Rules');
+  info.rules.forEach(r => {
+    html += `<div class="rule-card"><p>${r}</p></div>`;
+  });
+
+  // Benchmarks
+  html += sec('Benchmark Scores');
+  info.benchmarks.forEach(b => {
+    html += `<div class="benchmark-row"><div class="bm-score">${b.score}</div><div class="bm-label">${b.label}</div></div>`;
+  });
+
+  // Resources
+  html += sec('Resources');
+  info.resources.forEach(r => {
+    html += `<a class="resource-link" href="${r.url}" target="_blank" rel="noopener">
+      <span class="resource-icon">${r.icon}</span>
+      <div>
+        <div class="resource-name">${r.name}</div>
+        <div class="resource-url">${r.url.replace('https://','')}</div>
+      </div>
+    </a>`;
+  });
+
+  document.getElementById('info-content').innerHTML = html;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER — STRATEGY
+═══════════════════════════════════════════════════════════ */
+function renderStrategy(m) {
+  const s = m.strategy;
+  let html = '';
+
+  // Goal
+  html += `<div class="goal-card"><div class="goal-label">🎯 Goal</div><div class="goal-text">${s.goal}</div></div>`;
+
+  // Phases
+  html += sec('Game Plan');
+  s.phases.forEach(p => {
+    html += `<div class="phase-card">
+      <div class="phase-num">${p.num}</div>
+      <div class="phase-title">${p.title}</div>
+      <div class="phase-body">${p.body}</div>
+    </div>`;
+  });
+
+  // Safe shots
+  html += sec('Safe Shots');
+  s.safeShots.forEach(sh => {
+    html += `<div class="shot-item safe"><div class="shot-dot safe"></div><div><div class="shot-name">${sh.name}</div><div class="shot-desc">${sh.desc}</div></div></div>`;
+  });
+
+  // Avoid shots
+  html += sec('Shots to Avoid');
+  s.avoidShots.forEach(sh => {
+    html += `<div class="shot-item avoid"><div class="shot-dot avoid"></div><div><div class="shot-name">${sh.name}</div><div class="shot-desc">${sh.desc}</div></div></div>`;
+  });
+
+  // Tips
+  html += sec('Tips & Tricks');
+  s.tips.forEach(t => {
+    html += `<div class="tip-card"><div class="tip-head">${t.head}</div><div class="tip-body">${t.body}</div></div>`;
+  });
+
+  // Mistakes
+  html += sec('Common Mistakes');
+  s.mistakes.forEach(mt => {
+    html += `<div class="mistake-row"><div class="mistake-x">✕</div><div class="mistake-text">${mt}</div></div>`;
+  });
+
+  document.getElementById('strat-content').innerHTML = html;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER — PLAYFIELD
+═══════════════════════════════════════════════════════════ */
+function renderPlayfield(m) {
+  const img = document.getElementById('pf-img');
+  img.src = m.image;
+  img.alt = m.name + ' playfield';
+
+  const container = document.getElementById('pf-container');
+  // Remove old hotspots
+  container.querySelectorAll('.hs').forEach(el => el.remove());
+
+  m.hotspots.forEach((hs, i) => {
+    const el = document.createElement('div');
+    el.className = 'hs';
+    el.style.left = hs.x + '%';
+    el.style.top  = hs.y + '%';
+    el.innerHTML = `
+      <div class="hs-ring ${hs.type}"></div>
+      <div class="hs-dot ${hs.type}">${hs.label}</div>
+    `;
+    // Stagger pulse animation so markers don't all flash in sync
+    el.querySelector('.hs-ring').style.animationDelay = (i * 0.18) + 's';
+    el.addEventListener('click', () => openSheet(hs));
+    container.appendChild(el);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BOTTOM SHEET
+═══════════════════════════════════════════════════════════ */
+function openSheet(hs) {
+  const typeLabels = { key: 'Key Feature', safe: 'Safe Shot', avoid: 'Avoid', info: 'Danger Zone' };
+  const badge = document.getElementById('sheet-badge');
+  badge.className = 'sheet-badge ' + hs.type;
+  badge.textContent = typeLabels[hs.type] || hs.type;
+
+  document.getElementById('sheet-title').textContent = hs.name;
+  document.getElementById('sheet-body').innerHTML    = hs.body;
+
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('sheet').classList.add('open');
+}
+
+function closeSheet() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('sheet').classList.remove('open');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════════════════════ */
+function sec(title) {
+  return `<div class="section-hd"><span class="section-hd-text">${title}</span><div class="section-hd-line"></div></div>`;
+}
+</script>
+</body>
+</html>
