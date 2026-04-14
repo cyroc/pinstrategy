@@ -110,6 +110,76 @@
     .diff-easy   { background: rgba(34,197,94,.14);  color: #22c55e; }
     .card-arrow  { width: 32px; height: 32px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 14px; }
 
+    /* ── Filter / Sort Bar ─────────────────────────────── */
+    .filter-bar {
+      padding: 0 22px 4px;
+      display: flex; flex-direction: column; gap: 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+
+    .search-wrap {
+      position: relative; display: flex; align-items: center;
+    }
+    .search-icon {
+      position: absolute; left: 13px; font-size: 17px; color: var(--text-dim);
+      pointer-events: none; line-height: 1;
+    }
+    .search-input {
+      width: 100%; padding: 10px 38px 10px 38px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 12px; color: var(--text); font-size: 15px;
+      font-family: inherit; outline: none;
+      transition: border-color .15s;
+    }
+    .search-input::placeholder { color: var(--text-dim); }
+    .search-input:focus { border-color: rgba(232,160,32,.5); }
+    .search-clear {
+      position: absolute; right: 10px;
+      background: none; border: none; color: var(--text-dim);
+      font-size: 16px; padding: 4px 6px; border-radius: 6px;
+      line-height: 1; cursor: pointer;
+    }
+    .search-clear:hover { color: var(--text); }
+
+    .filter-row {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .filter-row-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--text-dim);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .chip-scroll {
+      display: flex; gap: 6px; overflow-x: auto;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .chip-scroll::-webkit-scrollbar { display: none; }
+    .chip {
+      flex-shrink: 0; padding: 5px 13px;
+      border-radius: 20px; border: 1px solid var(--border);
+      background: var(--surface2); color: var(--text-dim);
+      font-size: 12px; font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: all .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .chip:hover  { border-color: rgba(232,160,32,.4); color: var(--text); }
+    .chip.active { background: var(--accent); border-color: var(--accent); color: #0f0f14; }
+
+    .filter-results {
+      font-size: 11px; color: var(--text-dim); margin-left: auto;
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    .empty-state {
+      text-align: center; padding: 48px 22px;
+      color: var(--text-dim);
+    }
+    .empty-state-icon { font-size: 36px; margin-bottom: 12px; }
+    .empty-state-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .empty-state-sub   { font-size: 13px; line-height: 1.5; }
+
     /* ══════════════════════════════════════════════════════
        MACHINE VIEW
     ══════════════════════════════════════════════════════ */
@@ -364,8 +434,37 @@
     <h1 class="home-title">Pinball<br><em>Strategy</em></h1>
     <p class="home-sub">Score-focused guides for classic machines. Tap a table to get started.</p>
   </div>
+  <!-- Filter / Sort bar -->
+  <div class="filter-bar">
+    <!-- Search -->
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="search-input" class="search-input"
+             placeholder="Search machines…" autocomplete="off" spellcheck="false"
+             oninput="applyFilters()">
+      <button class="search-clear hidden" id="search-clear" onclick="clearSearch()" aria-label="Clear search">✕</button>
+    </div>
+
+    <!-- Era filter (chips built dynamically by JS) -->
+    <div class="filter-row">
+      <span class="filter-row-label">Era</span>
+      <div class="chip-scroll" id="chip-era"></div>
+    </div>
+
+    <!-- Sort + result count -->
+    <div class="filter-row">
+      <span class="filter-row-label">Sort</span>
+      <div class="chip-scroll" id="chip-sort">
+        <button class="chip active" data-sort="az"         onclick="setSort('az',this)">A–Z</button>
+        <button class="chip"        data-sort="year-asc"   onclick="setSort('year-asc',this)">Oldest</button>
+        <button class="chip"        data-sort="year-desc"  onclick="setSort('year-desc',this)">Newest</button>
+        <button class="chip"        data-sort="difficulty" onclick="setSort('difficulty',this)">Difficulty</button>
+      </div>
+      <span class="filter-results" id="filter-results"></span>
+    </div>
+  </div>
+
   <div class="machine-list">
-    <div class="section-label">Select a Machine</div>
     <div id="home-cards"></div>
   </div>
 </div>
@@ -434,7 +533,7 @@ const MACHINES = {
     name: "Paragon",  sub: "1979 · Bally · Widebody",
     tagline: "Fantasy widebody · bonus & multiplier marathon",
     image: "images/paragon.jpg",
-    difficulty: "Hard", diffClass: "diff-hard",
+    difficulty: "Hard", diffClass: "diff-hard", era: "SS",
 
     info: {
       stats: [
@@ -556,7 +655,7 @@ const MACHINES = {
     name: "Viking",  sub: "1980 · Bally · Standard Body",
     tagline: "Norse classic · spinner engine & mid-ball collects",
     image: "images/viking.jpg",
-    difficulty: "Easy–Medium", diffClass: "diff-medium",
+    difficulty: "Easy–Medium", diffClass: "diff-medium", era: "SS",
 
     info: {
       stats: [
@@ -671,7 +770,7 @@ const MACHINES = {
     name: "Johnny Mnemonic",  sub: "1995 · Williams · WPC",
     tagline: "Cyberpunk classic · spinner millions & multiball",
     image: "images/johnny-mnemonic.jpg",
-    difficulty: "Medium", diffClass: "diff-medium",
+    difficulty: "Medium", diffClass: "diff-medium", era: "WPC",
 
     info: {
       stats: [
@@ -806,7 +905,7 @@ const MACHINES = {
 
   /* ─── WHIRLWIND ────────────────────────────────────── */
   whirlwind: {
-    name: "Whirlwind",  sub: "1990 · Williams · WPC",
+    name: "Whirlwind",  sub: "1990 · Williams · WPC", era: "WPC",
     tagline: "Tornado thriller · lock balls, collect Million Plus jackpots",
     image: 'images/whirlwind.jpg',
     difficulty: "Medium–Hard", diffClass: "diff-hard",
@@ -951,7 +1050,7 @@ const MACHINES = {
 
   /* ─── CENTAUR ──────────────────────────────────────── */
   centaur: {
-    name: "Centaur",  sub: "1981 · Bally · Standard Body",
+    name: "Centaur",  sub: "1981 · Bally · Standard Body", era: "SS",
     tagline: "Sci-fi gothic · ORBS multiball & captive ball points",
     image: 'images/centaur.jpg',
     difficulty: "Medium", diffClass: "diff-medium",
@@ -1081,20 +1180,603 @@ const MACHINES = {
     ],
   },
 
+  /* ─── FISH TALES ──────────────────────────────────────────── */
+  fishtales: {
+    name: "Fish Tales",  sub: "1992 · Williams · WPC",
+    tagline: "Fishing frenzy · reel spinner & multiball jackpots",
+    image: "images/fish-tales.webp",
+    difficulty: "Medium", diffClass: "diff-medium", era: "WPC",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1992" },
+        { label: "Designer",     value: "Pat Lawlor" },
+        { label: "Platform",     value: "WPC" },
+        { label: "Multiball",    value: "3-ball" },
+        { label: "Theme",        value: "Fishing / Tall Tales" },
+      ],
+      theme: "Humorous fishing theme full of tall-tale braggadocio. The player casts for the legendary 'Big One' — a giant mechanical fish on the playfield. Designed by Pat Lawlor, the creator of The Addams Family and Twilight Zone.",
+      features: [
+        { name: "The Reel (Center Spinner)", desc: "The most important scoring feature. Each spin scores points and advances the Reel Value. Hitting the Reel repeatedly builds enormous point totals. Value advances through multiple levels." },
+        { name: "Fishin' Hole (Left Ramp)", desc: "Primary path to the Reel. A controlled shot sends the ball up the ramp and past the spinner. Feeds cleanly back to the left flipper on a good ramp shot." },
+        { name: "Lock & Multiball", desc: "Lock balls via the dedicated lock shot. 3 locked balls starts 3-ball multiball. Jackpots are collected at the Fishin' Hole ramp during multiball." },
+        { name: "Cat Tail (Right Loop)", desc: "Right-side loop shot. Completes 'C-A-T' letters for awards. Fast ball return — be ready." },
+        { name: "Worm Award (Top Lanes)", desc: "Completing top lanes cycles through Worm awards (extra ball, special, millions, etc.). Bump with flipper buttons to position the lit lane." },
+      ],
+      scoring: [
+        { key: "Reel value",         val: "Builds per spin" },
+        { key: "Jackpot (multiball)", val: "Millions range" },
+        { key: "Worm awards",        val: "Varies (Extra Ball, Millions)" },
+        { key: "CAT completion",     val: "Award per completion" },
+      ],
+      rules: [
+        "The <strong>Reel spinner</strong> is the engine of the game — every strategy flows through it.",
+        "Lock balls early to enable multiball; jackpots during multiball are massive.",
+        "Completing top <strong>Worm lanes</strong> can light Extra Ball — prioritize if offered.",
+      ],
+      benchmarks: [
+        { score: "500M+",  label: "Excellent — strong multiball and reel play" },
+        { score: "150M+",  label: "Solid — hitting the main loops consistently" },
+        { score: "50M+",   label: "Decent start — getting the feel" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=818",       icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/fish-tales", icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      skillShot: null,
+      multiball: [
+        { name: "Fish Tales Multiball", balls: 3,
+          locks: "Shoot the dedicated lock shot to lock balls. The lock entrance is on the left side of the playfield.",
+          start: "Lock 3 balls to release the 3-ball multiball.",
+          jackpots: "Shoot the Fishin' Hole ramp to collect jackpots. Jackpot value builds with reel hits before multiball.",
+          tip: "Build the Reel value high before starting multiball so jackpots are worth more." },
+      ],
+      goal: "<strong>Build Reel value via the Fishin' Hole ramp and center spinner, then cash in with a 3-ball multiball jackpot run.</strong> The spinner is everything on Fish Tales — keep ripping it.",
+      phases: [
+        { num: "Phase 1 · Early Game", title: "Build the Reel", body: "<strong>Shoot the Fishin' Hole ramp repeatedly.</strong> Each pass through the center Reel spinner adds value and progresses your scoring potential. The ramp feeds back cleanly — it's your primary loop all game." },
+        { num: "Phase 2 · Mid Game", title: "Lock Balls & Get Worm Awards", body: "<strong>Lock balls when the lock shot opens up.</strong> While working toward multiball, watch the top Worm lanes — completing them gives valuable awards including Extra Ball. Use flipper buttons to position the lit lane." },
+        { num: "Phase 3 · Multiball", title: "Jackpot Frenzy", body: "<strong>During 3-ball multiball, funnel balls back to the Fishin' Hole ramp.</strong> Each ramp shot collects a jackpot. Stay controlled — panicking during multiball leads to fast drains. Focus on one ball at a time." },
+      ],
+      safeShots: [
+        { name: "Fishin' Hole Ramp (Left)", desc: "The primary loop shot. Controlled and rewarding — feeds back to the left flipper. Your default destination every ball." },
+        { name: "Top Lanes (Worm)", desc: "Passive scoring via bumpers and lane completions. Use flipper buttons to position the lit lane when you can." },
+      ],
+      avoidShots: [
+        { name: "Cat Tail Loop (Right)", desc: "Fast return angle can be difficult to handle. Only shoot when the ball is well-controlled on the right flipper." },
+      ],
+      tips: [
+        { head: "Reel first, always", body: "Every shot to the Fishin' Hole ramp passes the Reel spinner. Never pass up a clean ramp shot — it builds your scoring foundation." },
+        { head: "Pre-build Reel before multiball", body: "The more Reel value you've built before multiball starts, the bigger your jackpots. Don't rush into locking balls — build the Reel first." },
+      ],
+      mistakes: [
+        "Starting multiball with a low Reel value — jackpots are weak if you haven't spun the Reel enough.",
+        "Panicking during multiball and losing all balls quickly without collecting jackpots.",
+        "Ignoring the Worm top lanes when Extra Ball is available.",
+      ],
+    },
+
+    hotspots: [],
+  },
+
+  /* ─── FLASH GORDON ─────────────────────────────────────────── */
+  flashgordon: {
+    name: "Flash Gordon",  sub: "1981 · Bally · Solid-State",
+    tagline: "Sci-fi classic · drop target combos & saucer scoring",
+    image: "images/flash-gordon.png",
+    difficulty: "Hard", diffClass: "diff-hard", era: "SS",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Bally Mfg. Co." },
+        { label: "Year",         value: "1981" },
+        { label: "Type",         value: "Solid-State (MPU-35)" },
+        { label: "Body",         value: "Standard" },
+        { label: "Theme",        value: "Flash Gordon film (1980)" },
+        { label: "Music",        value: "Queen soundtrack" },
+      ],
+      theme: "Based on the 1980 Flash Gordon film featuring the legendary Queen soundtrack. Flash Gordon must defeat Ming the Merciless. One of Bally's landmark solid-state games with iconic cabinet art.",
+      features: [
+        { name: "Drop Target Banks", desc: "Multiple banks of drop targets on both sides. Completing banks awards increasing point values and can light special features." },
+        { name: "Saucers", desc: "Multiple saucers on the playfield award points and advance bonus. Key scoring features throughout the game." },
+        { name: "Spinner", desc: "Center spinner awards points per spin. Feeds the bumper cluster at the top." },
+        { name: "Top Rollovers", desc: "Lane rollovers at the top advance bonus and can light extra ball or special." },
+        { name: "Bonus Multiplier", desc: "Built via drop target completions. Higher multiplier dramatically increases end-of-ball bonus payout." },
+      ],
+      scoring: [
+        { key: "Drop target banks",  val: "Increasing awards per completion" },
+        { key: "Saucer value",       val: "Builds with hits" },
+        { key: "Bonus multiplier",   val: "Up to 5×" },
+        { key: "End-of-ball bonus",  val: "Primary scoring mechanism" },
+      ],
+      rules: [
+        "End-of-ball <strong>bonus is the primary scoring event</strong> — build base bonus and multiplier throughout each ball.",
+        "Drop target completions advance both the bonus multiplier and unlock saucer awards.",
+        "Outlane balls are typically unrecoverable — play conservatively on this machine.",
+      ],
+      benchmarks: [
+        { score: "500,000+", label: "Excellent — strong bonus collection each ball" },
+        { score: "200,000+", label: "Solid play" },
+        { score: "100,000+", label: "Decent — still learning the layout" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=858",          icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/flash-gordon", icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      skillShot: null,
+      multiball: null,
+      goal: "<strong>Build bonus multiplier via drop target completions, accumulate a large base bonus, and collect a massive end-of-ball payout every ball.</strong> This is a solid-state bonus game — keep the ball alive and build patiently.",
+      phases: [
+        { num: "Phase 1 · Early Game", title: "Build the Multiplier", body: "<strong>Complete the drop target banks to advance the bonus multiplier.</strong> Getting to 3× or 5× early sets up large payouts for the rest of the ball. The banks are your primary destination." },
+        { num: "Phase 2 · Mid Game", title: "Accumulate Bonus Base", body: "<strong>Work the saucers and rollovers to build the base bonus.</strong> With the multiplier locked in, every bonus advance becomes increasingly valuable. Shoot saucers whenever the ball feeds cleanly." },
+        { num: "Phase 3 · Late Game", title: "Survive for the Collect", body: "<strong>Keep the ball alive until end-of-ball bonus collection.</strong> With high multiplier and base bonus, your payout will be substantial. Resist risky shots and play defensively." },
+      ],
+      safeShots: [
+        { name: "Drop Target Banks", desc: "Primary feature — manageable shots with high return value for bonus multiplier advancement." },
+        { name: "Center Saucer", desc: "Safe target when the ball arrives naturally. Each hit advances bonus base." },
+      ],
+      avoidShots: [
+        { name: "Outlane-adjacent shots", desc: "Any shot that risks feeding the outlanes is too costly. Ball loss before end-of-ball collect wastes accumulated bonus." },
+      ],
+      tips: [
+        { head: "Multiplier first", body: "Always prioritize reaching maximum multiplier before spending time on base bonus. A high multiplier magnifies every point you've earned." },
+        { head: "Trap and aim", body: "Flash Gordon rewards patient ball control. Trap the ball on the flipper and aim deliberately rather than reacting frantically." },
+      ],
+      mistakes: [
+        "Draining before collecting the end-of-ball bonus — this is the biggest points wasted in the game.",
+        "Ignoring the multiplier and focusing only on base bonus — the two must be built together.",
+        "Playing aggressively and losing balls before the payout.",
+      ],
+    },
+
+    hotspots: [],
+  },
+
+  /* ─── LETHAL WEAPON 3 ──────────────────────────────────────── */
+  lw3: {
+    name: "Lethal Weapon 3",  sub: "1992 · Data East · Solid-State",
+    tagline: "Action movie theme · ramp combos & multiball madness",
+    image: "images/lethal-weapon-3.webp",
+    difficulty: "Medium", diffClass: "diff-medium", era: "SS",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Data East Pinball" },
+        { label: "Year",         value: "1992" },
+        { label: "Type",         value: "Solid-State" },
+        { label: "Multiball",    value: "3-ball" },
+        { label: "Theme",        value: "Lethal Weapon film series" },
+        { label: "Voices",       value: "Mel Gibson & Danny Glover" },
+      ],
+      theme: "Based on the Lethal Weapon film series featuring Riggs and Murtaugh. One of Data East's most successful licensed titles, featuring digitized speech from the movie actors.",
+      features: [
+        { name: "Left & Right Ramps", desc: "Primary scoring features. Completing both ramps builds toward Ricochet ramp awards. Ramp combo shots score increasing values." },
+        { name: "Police Station (Center Saucer)", desc: "Advances modes and awards points. Key for lighting multiball and collecting awards." },
+        { name: "Multiball", desc: "3-ball multiball with jackpots at the ramps. Start by locking balls via the designated lock shots." },
+        { name: "Extra Ball Lanes", desc: "Top lanes spell E-X-T-R-A or similar — completing awards Extra Ball." },
+        { name: "Ramp Combos (Ricochet)", desc: "Hitting both ramps quickly in sequence awards Ricochet bonus — a significant points multiplier." },
+      ],
+      scoring: [
+        { key: "Ramp shot",         val: "Millions range per ramp" },
+        { key: "Ricochet combo",    val: "Bonus for quick ramp-to-ramp" },
+        { key: "Multiball jackpot", val: "Super Jackpot at ramps" },
+        { key: "Mode awards",       val: "Varies by mode" },
+      ],
+      rules: [
+        "Ramp combo (Ricochet) shots reward fast sequential ramp hits with a <strong>multiplied bonus</strong>.",
+        "<strong>Lock balls</strong> via the center to trigger 3-ball multiball — jackpots are your biggest scoring opportunities.",
+        "Mode stacking can multiply scoring significantly — try to time mode starts with multiball.",
+      ],
+      benchmarks: [
+        { score: "1B+",    label: "Excellent — strong multiball and combos" },
+        { score: "300M+",  label: "Solid play" },
+        { score: "100M+",  label: "Getting the flow" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=1451",            icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/lethal-weapon-3", icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      skillShot: null,
+      multiball: [
+        { name: "LW3 Multiball", balls: 3,
+          locks: "Shoot the ball lock shot (center or dedicated lock area) to lock balls one at a time.",
+          start: "Lock 3 balls to start 3-ball multiball.",
+          jackpots: "Jackpots are collected at the ramps during multiball. Super Jackpot resets after collection.",
+          tip: "Keep both ramps in play during multiball — alternate sides to collect jackpots efficiently." },
+      ],
+      goal: "<strong>Run the left and right ramps for Ricochet combos, lock balls for multiball, and collect ramp jackpots during 3-ball play.</strong> The ramps are your best friends — flow between them all game.",
+      phases: [
+        { num: "Phase 1 · Early Game", title: "Establish Ramp Flow", body: "<strong>Build ramp muscle memory early.</strong> The left and right ramps are your primary targets. Each ramp completion scores well, and hitting them back-to-back awards a Ricochet combo bonus. Find a comfortable shooting angle and stick with it." },
+        { num: "Phase 2 · Mid Game", title: "Lock Balls for Multiball", body: "<strong>Work in lock shots alongside ramp play.</strong> Getting multiball started is the biggest priority once ramp flow is established. Don't sacrifice good ball position trying to force a lock shot — wait for natural opportunities." },
+        { num: "Phase 3 · Multiball", title: "Ramp Jackpots", body: "<strong>During 3-ball multiball, focus on ramp shots for jackpots.</strong> Keep as many balls in play as possible. Protect the left flipper and use it to feed ramps repeatedly." },
+      ],
+      safeShots: [
+        { name: "Left Ramp", desc: "Feeds back smoothly. One of the safest high-value shots on the machine. Make it your primary route." },
+        { name: "Right Ramp", desc: "Slightly trickier angle but very rewarding. Completing both ramps unlocks Ricochet combos." },
+      ],
+      avoidShots: [
+        { name: "Center drop/standup area", desc: "Can feed dangerous exits. Only shoot when you have full control of the ball." },
+      ],
+      tips: [
+        { head: "Ricochet timing", body: "After a ramp shot returns the ball to the flipper, immediately shoot the opposite ramp. The window for a Ricochet combo is generous — you don't need to rush, but don't wait too long." },
+        { head: "Protect your multiball", body: "During 3-ball play, resist chasing both outlane balls. Trap one ball and keep shooting the ramp with it — one ball under control is worth more than two wild balls." },
+      ],
+      mistakes: [
+        "Losing ball lock shots to outlane drains — be patient waiting for clean lock shot opportunities.",
+        "Ignoring the Ricochet combo and treating ramps as single shots instead of pairs.",
+        "Panicking during multiball and losing all three balls within seconds without collecting jackpots.",
+      ],
+    },
+
+    hotspots: [],
+  },
+
+  /* ─── MEDIEVAL MADNESS ─────────────────────────────────────── */
+  mm: {
+    name: "Medieval Madness",  sub: "1997 · Williams · WPC-95",
+    tagline: "Castle siege · multiball chaos & merlin's magic",
+    image: "images/medieval-madness.webp",
+    difficulty: "Medium", diffClass: "diff-medium", era: "WPC",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1997" },
+        { label: "Designer",     value: "Brian Eddy" },
+        { label: "Platform",     value: "WPC-95" },
+        { label: "Multiball",    value: "2-ball & 6-ball" },
+        { label: "Theme",        value: "Medieval / comedy" },
+      ],
+      theme: "Comedic medieval theme with a fully functional drawbridge and castle that can be destroyed. Players attack a royal castle, battle trolls, and interact with Merlin. Considered one of the greatest pinball machines ever made.",
+      features: [
+        { name: "Castle (Center)", desc: "The central feature — shoot the castle gate to lower the drawbridge, then shoot through to score. Destroying the castle (multiple hits) awards major points and starts modes." },
+        { name: "Left & Right Ramps (Jousting)", desc: "Ramp shots award Joust awards and help build toward multiball. Clean, flowing shots that feed back to the flippers." },
+        { name: "Siege Multiball", desc: "Lock balls via the castle locks. 2-ball siege multiball leads to full 6-ball Castle Siege Multiball — the biggest scoring event on the machine." },
+        { name: "Trolls (Pop Bumpers)", desc: "Four pop bumpers in the upper playfield. Troll bumper hits advance toward troll-related awards." },
+        { name: "Damsel / Merlin Lanes", desc: "Top lanes spell D-A-M-S-E-L. Completing awards bonus multiplier increases and Merlin awards." },
+        { name: "King of the Realm", desc: "Accumulate enough castle hits across the game to become King. Huge scoring award — the grand achievement of the game." },
+      ],
+      scoring: [
+        { key: "Castle hit value",       val: "Increases with each hit" },
+        { key: "Siege Multiball jackpot", val: "Millions per jackpot" },
+        { key: "Castle destruction",     val: "Major bonus + mode start" },
+        { key: "King of Realm",          val: "Grand scoring milestone" },
+      ],
+      rules: [
+        "The <strong>castle gate</strong> must be opened (drawbridge down) before you can shoot through it. Lower it with a direct gate hit.",
+        "<strong>Castle Siege Multiball</strong> (6-ball) is the biggest scoring event — save your best play for when it starts.",
+        "Completing <strong>DAMSEL</strong> top lanes advances the bonus multiplier.",
+        "Each <strong>castle destruction</strong> resets the castle but awards progressive mode bonuses.",
+      ],
+      benchmarks: [
+        { score: "2B+",    label: "Excellent — Castle Siege Multiball mastered" },
+        { score: "500M+",  label: "Solid play — consistent castle hits" },
+        { score: "150M+",  label: "Getting the castle flow" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=1603",              icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/medieval-madness-b", icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      skillShot: null,
+      multiball: [
+        { name: "Siege Multiball", balls: 6,
+          locks: "Shoot the ball through the open castle gate to lock balls. The drawbridge must be lowered first — hit the gate to open it.",
+          start: "Lock enough balls to trigger Siege Multiball. Starts as 2-ball, escalates to full 6-ball Castle Siege Multiball.",
+          jackpots: "Shoot the castle during multiball for jackpots. The super jackpot requires a castle shot after regular jackpots are collected.",
+          tip: "During 6-ball multiball, don't panic — control one ball at a time and keep feeding the castle." },
+      ],
+      goal: "<strong>Open the castle gate repeatedly, lock balls for Siege Multiball, and collect massive jackpots during Castle Siege Multiball.</strong> Every good game on Medieval Madness flows through the castle.",
+      phases: [
+        { num: "Phase 1 · Early Game", title: "Lower the Drawbridge", body: "<strong>Shoot the castle gate to lower the drawbridge.</strong> This is your entry point to everything. Once the drawbridge is down, shoot through the castle to begin accumulating hits and working toward ball locks." },
+        { num: "Phase 2 · Mid Game", title: "Lock Balls for Siege", body: "<strong>With the drawbridge open, funnel balls into the castle lock.</strong> The ramps also contribute to Joust progress and multiball setup. Shoot ramps when the castle isn't open — they feed back cleanly and keep the scoring going." },
+        { num: "Phase 3 · Siege Multiball", title: "Castle Jackpot Frenzy", body: "<strong>During Siege Multiball, keep targeting the castle.</strong> Regular jackpots build to a super jackpot. In 6-ball chaos, pick your best lane and stay disciplined. One controlled ball collecting castle jackpots beats six wild balls draining instantly." },
+      ],
+      safeShots: [
+        { name: "Left Ramp (Jousting)", desc: "Flows back cleanly to the left flipper. Safe, consistent scoring — always a good choice when the castle is closed." },
+        { name: "Right Ramp (Jousting)", desc: "Feeds back to the right flipper reliably. Comfortable repeating shot." },
+        { name: "Castle Gate (open)", desc: "When the drawbridge is down, the castle shot is a high-value, moderately safe target. Your primary objective." },
+      ],
+      avoidShots: [
+        { name: "Castle Gate (closed)", desc: "Hitting the closed gate knocks the ball back unpredictably. Always check whether the drawbridge is down before shooting the center." },
+        { name: "Troll Bumper area (uncontrolled)", desc: "Bumper returns are fast and unpredictable. Don't aim for the bumpers — they're passive scoring." },
+      ],
+      tips: [
+        { head: "Drawbridge first", body: "Before every castle shot attempt, verify the drawbridge status. A shot at a closed gate often results in a dangerous return. Open it first with a gate hit, then go through." },
+        { head: "Ramp when in doubt", body: "If the castle is closed and you don't have a clean approach, shoot a ramp. They score well, feed back cleanly, and advance Joust progress." },
+        { head: "6-ball multiball discipline", body: "When 6-ball multiball starts, the natural reaction is to flail. Resist this. Hold one ball, let the others drain if needed, and focus on castle jackpots with the ball you control. Quality beats quantity." },
+      ],
+      mistakes: [
+        "Shooting the closed castle gate and taking a dangerous return without the drawbridge open.",
+        "Panicking during 6-ball Siege Multiball and losing everything instantly.",
+        "Ignoring the DAMSEL top lanes — bonus multiplier is meaningful on longer balls.",
+        "Treating the ramps as secondary — they are excellent safe scoring all game.",
+      ],
+    },
+
+    hotspots: [],
+  },
+
+  /* ─── RACK EM UP ───────────────────────────────────────────── */
+  rackemup: {
+    name: "Rack Em Up",  sub: "1983 · Bally · Solid-State",
+    tagline: "Pool hall theme · sequential targets & bonus build",
+    image: "images/rack-em-up.jpg",
+    difficulty: "Medium", diffClass: "diff-medium", era: "SS",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Bally Mfg. Co." },
+        { label: "Year",         value: "1983" },
+        { label: "Type",         value: "Solid-State" },
+        { label: "Body",         value: "Standard" },
+        { label: "Theme",        value: "Pool / billiards" },
+      ],
+      theme: "Pool hall theme with billiard ball motif. Players pot numbered balls in sequence just like 8-ball pool. A late Bally solid-state title with sequential target play at its core.",
+      features: [
+        { name: "Numbered Drop Targets (1–8)", desc: "The central feature. Hit drop targets numbered 1 through 8 in sequence — like potting pool balls in order. Sequential completion awards major points." },
+        { name: "8-Ball Target", desc: "The final and most valuable target. Hitting 8 last (after 1–7) completes the rack and awards the largest single bonus." },
+        { name: "Bonus Multiplier Lanes", desc: "Top and side lanes advance the bonus multiplier. Higher multiplier makes each rack completion significantly more valuable." },
+        { name: "Saucer / Kickout", desc: "Awards points and can advance multiplier or light features." },
+      ],
+      scoring: [
+        { key: "Sequential 1–8 completion", val: "Major rack bonus" },
+        { key: "Bonus multiplier",           val: "Up to 5×" },
+        { key: "End-of-ball bonus",          val: "Primary scoring event" },
+      ],
+      rules: [
+        "Drop targets must be hit in <strong>sequential order</strong> (1 → 2 → 3 ... → 8). Out-of-order hits do not advance the sequence.",
+        "End-of-ball <strong>bonus is the primary payout</strong> — build it each ball and protect it.",
+        "Higher bonus multiplier dramatically increases the end-of-ball bonus collect.",
+      ],
+      benchmarks: [
+        { score: "300,000+", label: "Excellent — completing multiple racks with high multiplier" },
+        { score: "100,000+", label: "Solid play" },
+        { score: "40,000+",  label: "Getting comfortable with the sequence" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=1913",        icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/rack-em-up",  icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      skillShot: null,
+      multiball: null,
+      goal: "<strong>Hit drop targets 1 through 8 in sequential order to rack up bonus, advance the multiplier via lane rollovers, and collect a large end-of-ball bonus every ball.</strong> Patience and sequence discipline win on this machine.",
+      phases: [
+        { num: "Phase 1 · Early Game", title: "Advance the Multiplier", body: "<strong>Complete the top and side lanes to build the bonus multiplier before working the numbered targets.</strong> Higher multiplier means every subsequent rack completion pays more. Aim for at least 3× before committing to the drop target sequence." },
+        { num: "Phase 2 · Mid Game", title: "Run the Sequence (1–8)", body: "<strong>Hit targets 1 through 8 in strict order.</strong> Wait for the ball to settle on the flipper before each shot. If you're forced out of sequence, wait for the next opportunity rather than scrambling and hitting the wrong target." },
+        { num: "Phase 3 · Late Game", title: "Survive for the Bonus Collect", body: "<strong>Once the rack is complete or near-complete, focus on keeping the ball alive.</strong> The end-of-ball bonus is your biggest payout — every second of survival is more bonus accruing." },
+      ],
+      safeShots: [
+        { name: "Next sequential target (1–8)", desc: "Always your primary target. Hit the next number in sequence from a controlled flipper position. Methodical, not rushed." },
+        { name: "Top lanes (multiplier)", desc: "Reliable shots that advance the multiplier. Safe approach from either flipper." },
+      ],
+      avoidShots: [
+        { name: "Out-of-sequence targets", desc: "Hitting the wrong numbered target resets your position in the sequence — a waste of a shot. If the ball won't land on the right target, hold and wait." },
+      ],
+      tips: [
+        { head: "Trap before every target shot", body: "Rack Em Up rewards deliberate play. Trap the ball, identify the next sequential target, then shoot. Don't react — plan each shot." },
+        { head: "Multiplier is king", body: "At 5× multiplier, a full rack completion pays five times what it does at 1×. Invest your early game in multiplier lanes — it pays dividends all game." },
+      ],
+      mistakes: [
+        "Hitting out-of-sequence drop targets and resetting your progress.",
+        "Neglecting the multiplier lanes early and completing racks at 1× or 2× value.",
+        "Playing aggressively and draining before the end-of-ball bonus payout.",
+        "Rushing shots instead of trapping and aiming — this machine punishes impatience.",
+      ],
+    },
+
+    hotspots: [],
+  },
+
+  /* ─── WHITE WATER ──────────────────────────────────────────── */
+  whitewater: {
+    name: "White Water",  sub: "1993 · Williams · WPC",
+    tagline: "Whitewater rafting · big foot & ricochet ramps",
+    image: "images/white-water.jpg",
+    difficulty: "Medium", diffClass: "diff-medium", era: "WPC",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1993" },
+        { label: "Designer",     value: "Pat Lawlor" },
+        { label: "Platform",     value: "WPC" },
+        { label: "Multiball",    value: "3-ball" },
+        { label: "Theme",        value: "Whitewater rafting / Big Foot" },
+      ],
+      theme: "Whitewater river rafting adventure featuring Big Foot the yeti as the villain. Pat Lawlor design with a fast, flowing playfield emphasizing ramp combos and the unique 'Wet Willie's Waterfall' feature. Famous for its ramp shot satisfaction.",
+      features: [
+        { name: "Wet Willie's Waterfall (Left Ramp)", desc: "The signature shot. Ball travels up the ramp and falls down a waterfall back to the playfield. Counts toward Wet Willie awards and building toward multiball. Extremely satisfying and the primary loop shot." },
+        { name: "Disaster Drop (Center Ramp)", desc: "Center ramp leads to a free-fall drop. One of the more dramatic ramp shots in pinball. Advances modes and scoring." },
+        { name: "Right Ramp (Riverboat)", desc: "Standard ramp on the right side. Completes ramp combo sequences with the other ramps." },
+        { name: "Big Foot Multiball", desc: "Lock balls to trigger 3-ball multiball. Jackpots are collected at the ramps during multiball." },
+        { name: "Whirlpool (Spinning Disk)", desc: "Spinning disk on the playfield that redirects the ball unpredictably. Both a hazard and a source of passive scoring." },
+        { name: "Boulders (Drop Targets)", desc: "Drop targets that block shots. Clear them to open up routes to key shots." },
+      ],
+      scoring: [
+        { key: "Wet Willie's ramp",       val: "Builds Wet Willie award" },
+        { key: "Multiball jackpots",      val: "Millions range" },
+        { key: "Ramp combo awards",       val: "Bonus for sequential ramps" },
+        { key: "Wet Willie Grand Prix",   val: "Accumulated ramp scoring" },
+      ],
+      rules: [
+        "The <strong>Wet Willie's Waterfall</strong> ramp is the primary shot — all roads lead back to it.",
+        "Lock balls via the designated lock area to start 3-ball multiball. <strong>Jackpots are at the ramps</strong>.",
+        "The <strong>Whirlpool disk</strong> deflects ball direction — always be ready for an unusual bounce off it.",
+        "Clearing <strong>Boulder drop targets</strong> opens shot lanes — complete them when they're blocking key routes.",
+      ],
+      benchmarks: [
+        { score: "1B+",    label: "Excellent — strong multiball and ramp combos" },
+        { score: "300M+",  label: "Solid play" },
+        { score: "100M+",  label: "Getting the ramp flow" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=2768",         icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/white-water",  icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      skillShot: null,
+      multiball: [
+        { name: "Big Foot Multiball", balls: 3,
+          locks: "Lock balls via the designated lock shot. The lock is typically accessible from a ramp or saucer shot.",
+          start: "Lock 3 balls to start Big Foot Multiball.",
+          jackpots: "Jackpots collected at the main ramps during multiball. Super jackpot requires hitting all ramps in sequence.",
+          tip: "Pre-build ramp combos before multiball so you know the routes. Muscle memory during multiball chaos is everything." },
+      ],
+      goal: "<strong>Loop the Wet Willie's Waterfall ramp as your primary scoring engine, lock balls for Big Foot Multiball, and collect jackpots at the ramps.</strong> White Water rewards ramp flow — find your groove and stay in it.",
+      phases: [
+        { num: "Phase 1 · Early Game", title: "Find the Waterfall Rhythm", body: "<strong>Establish your Wet Willie's Waterfall ramp shot early.</strong> This left ramp is the heart of the game. Work out the angle from your left flipper, hit it repeatedly, and build Wet Willie awards while advancing toward multiball locks." },
+        { num: "Phase 2 · Mid Game", title: "Integrate All Three Ramps", body: "<strong>Once comfortable with the Waterfall, start incorporating the Disaster Drop and Riverboat ramps.</strong> Ramp combos award bonuses. Clear Boulder drop targets when they block key shots. Lock balls when the opportunity arises without sacrificing good ball position." },
+        { num: "Phase 3 · Multiball", title: "Ramp Jackpot Flow", body: "<strong>During 3-ball multiball, target the ramps for jackpots.</strong> The Waterfall is your safest and most reliable jackpot route. Let balls feed naturally and keep the Waterfall ramp looping. Don't chase outlane balls." },
+      ],
+      safeShots: [
+        { name: "Wet Willie's Waterfall (Left Ramp)", desc: "Your primary destination every ball. Safe approach from the left flipper, satisfying return, high value. Default to this shot all game." },
+        { name: "Right Ramp (Riverboat)", desc: "Reliable ramp shot, feeds back cleanly. Good secondary option when the Waterfall is blocked." },
+      ],
+      avoidShots: [
+        { name: "Whirlpool Disk (direct)", desc: "Don't aim for the spinning disk — deflections are unpredictable and can feed outlanes. Let it score passively when the ball passes through." },
+        { name: "Disaster Drop (under pressure)", desc: "The center ramp has a dramatic ball drop that can be hard to recover. Only shoot it when you have good ball control." },
+      ],
+      tips: [
+        { head: "Waterfall timing", body: "The Wet Willie's Waterfall ramp return drops the ball in a predictable zone. Learn exactly where it lands and pre-position your flipper for a clean catch — this enables you to loop the ramp repeatedly." },
+        { head: "Boulder management", body: "Clear Boulder drop targets when they block the Waterfall route. An open Waterfall path is worth the few shots needed to clear the Boulders." },
+        { head: "Whirlpool awareness", body: "When the ball enters the Whirlpool disk area, watch closely — the redirection can be surprising. Stay on both flippers and be ready for either side." },
+      ],
+      mistakes: [
+        "Neglecting the Wet Willie's Waterfall and trying to score from other shots — it's the primary engine.",
+        "Chasing balls into the Whirlpool without being prepared for random deflections.",
+        "Locking balls before establishing comfortable ramp flow — know your shots before multiball starts.",
+        "Letting Boulder drop targets block the Waterfall route without clearing them.",
+      ],
+    },
+
+    hotspots: [],
+  },
+
 };
+let currentTab = 'info';
 
 /* ═══════════════════════════════════════════════════════════
-   STATE
+   FILTER / SORT STATE
 ═══════════════════════════════════════════════════════════ */
-let currentMachine = null;
-let currentTab = 'info';
+let filterEra  = 'all';
+let sortMode   = 'az';
+let searchQ    = '';
+
+const DIFF_ORDER = { 'diff-easy': 0, 'diff-medium': 1, 'diff-hard': 2 };
+
+/* Era order for chip display — extend as new eras are added */
+const ERA_ORDER = ['EM', 'SS', 'WPC', 'Whitestar', 'SAM', 'Spike'];
+
+function buildEraChips() {
+  const eras = [...new Set(
+    Object.values(MACHINES)
+      .map(m => m.era)
+      .filter(Boolean)
+  )].sort((a, b) => {
+    const ai = ERA_ORDER.indexOf(a), bi = ERA_ORDER.indexOf(b);
+    return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+  });
+
+  const container = document.getElementById('chip-era');
+  const allBtn = `<button class="chip active" data-era="all" onclick="setEra('all',this)">All</button>`;
+  const eraBtns = eras.map(e =>
+    `<button class="chip" data-era="${e}" onclick="setEra('${e}',this)">${e}</button>`
+  ).join('');
+  container.innerHTML = allBtn + eraBtns;
+}
+
+function setEra(val, el) {
+  filterEra = val;
+  document.querySelectorAll('#chip-era .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  applyFilters();
+}
+
+function setSort(val, el) {
+  sortMode = val;
+  document.querySelectorAll('#chip-sort .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  applyFilters();
+}
+
+function clearSearch() {
+  document.getElementById('search-input').value = '';
+  searchQ = '';
+  document.getElementById('search-clear').classList.add('hidden');
+  applyFilters();
+}
+
+function applyFilters() {
+  searchQ = document.getElementById('search-input').value.toLowerCase().trim();
+  document.getElementById('search-clear').classList.toggle('hidden', !searchQ);
+  renderHome();
+}
 
 /* ═══════════════════════════════════════════════════════════
    HOME — Render machine cards dynamically
 ═══════════════════════════════════════════════════════════ */
 function renderHome() {
+  // 1. Filter
+  let entries = Object.entries(MACHINES);
+
+  if (searchQ) {
+    entries = entries.filter(([, m]) =>
+      m.name.toLowerCase().includes(searchQ) ||
+      m.tagline.toLowerCase().includes(searchQ) ||
+      m.sub.toLowerCase().includes(searchQ));
+  }
+  if (filterEra !== 'all') {
+    entries = entries.filter(([, m]) => m.era === filterEra);
+  }
+
+  // 2. Sort
+  entries.sort(([, a], [, b]) => {
+    if (sortMode === 'az')
+      return a.name.localeCompare(b.name);
+    if (sortMode === 'year-asc')
+      return parseInt(a.sub) - parseInt(b.sub);
+    if (sortMode === 'year-desc')
+      return parseInt(b.sub) - parseInt(a.sub);
+    if (sortMode === 'difficulty')
+      return (DIFF_ORDER[a.diffClass] ?? 1) - (DIFF_ORDER[b.diffClass] ?? 1);
+    return 0;
+  });
+
+  // 3. Update result count
+  const total = Object.keys(MACHINES).length;
+  const countEl = document.getElementById('filter-results');
+  countEl.textContent = entries.length < total ? `${entries.length} of ${total}` : `${total} machines`;
+
+  // 4. Render cards (or empty state)
   const container = document.getElementById('home-cards');
-  container.innerHTML = Object.entries(MACHINES).map(([id, m]) => {
+  if (entries.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">🎱</div>
+        <div class="empty-state-title">No machines found</div>
+        <div class="empty-state-sub">Try a different search or clear the filters.</div>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = entries.map(([id, m]) => {
     const imgHtml = m.image
       ? `<img class="machine-card-img" src="${m.image}" alt="${m.name} playfield" />`
       : `<div class="card-placeholder">
@@ -1506,6 +2188,7 @@ function sec(t) {
 /* ═══════════════════════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════════════════════ */
+buildEraChips();
 renderHome();
 initZoom();
 </script>
