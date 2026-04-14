@@ -113,7 +113,7 @@
     /* ══════════════════════════════════════════════════════
        MACHINE VIEW
     ══════════════════════════════════════════════════════ */
-    #machine-view { display: flex; flex-direction: column; min-height: 100dvh; }
+    #machine-view { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; }
 
     .mv-header {
       position: sticky; top: 0; z-index: 50;
@@ -227,7 +227,7 @@
     /* Zoom wrapper */
     .pf-zoom-wrapper {
       position: relative; overflow: hidden;
-      touch-action: none; /* let JS handle all touch */
+      touch-action: pan-y; /* default: allow vertical scroll; JS switches to none during pinch/zoom */
       background: #000;
     }
 
@@ -339,6 +339,20 @@
     .sheet-title { font-size: 20px; font-weight: 800; letter-spacing: -.3px; margin-bottom: 10px; }
     .sheet-body  { font-size: 14px; color: var(--text-dim); line-height: 1.65; }
     .sheet-body strong { color: var(--text); }
+
+    /* ── SKILL SHOT ─────────────────────────────────────── */
+    .skill-shot-card { background: linear-gradient(135deg, rgba(34,197,94,.07) 0%, var(--surface) 70%); border: 1px solid rgba(34,197,94,.28); border-radius: var(--radius); padding: 16px 15px; margin-bottom: 8px; }
+    .skill-shot-title { font-size: 14px; font-weight: 700; color: var(--safe); margin-bottom: 6px; }
+    .skill-shot-body  { font-size: 13px; color: var(--text-dim); line-height: 1.55; }
+    .skill-shot-body strong { color: var(--text); }
+
+    /* ── MULTIBALL ──────────────────────────────────────── */
+    .mb-card { background: var(--surface); border: 1px solid rgba(99,102,241,.32); border-radius: var(--radius); padding: 16px 16px 16px 20px; margin-bottom: 10px; position: relative; overflow: hidden; }
+    .mb-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--indigo); }
+    .mb-name { font-size: 15px; font-weight: 800; margin-bottom: 8px; color: var(--indigo); }
+    .mb-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; color: var(--text-dim); margin: 10px 0 3px; }
+    .mb-body { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+    .mb-body strong { color: var(--text); }
   </style>
 </head>
 <body>
@@ -381,7 +395,7 @@
       <div class="strat-wrap" id="strat-content"></div>
     </div>
     <div class="tab-pane" id="pane-playfield">
-      <div class="pf-hint"><span class="pf-hint-icon">👆</span> Tap markers · Pinch to zoom · Double-tap to reset</div>
+      <div class="pf-hint"><span class="pf-hint-icon">👆</span> Scroll to explore · Tap markers · Pinch to zoom</div>
       <div class="legend">
         <div class="legend-item"><div class="leg-dot key"></div>Key Feature</div>
         <div class="legend-item"><div class="leg-dot safe"></div>Safe Shot</div>
@@ -471,6 +485,8 @@ const MACHINES = {
     },
 
     strategy: {
+      skillShot: null,
+      multiball: null,
       goal: "<strong>Reach 5× bonus multiplier via the Valley of Demons, lock in the 20K super bonus threshold as early as ball one, then survive long enough to collect a massive end-of-ball bonus.</strong> Repeat every ball. Paragon rewards patience and ball control — not aggression.",
       phases: [
         {
@@ -590,6 +606,8 @@ const MACHINES = {
     },
 
     strategy: {
+      skillShot: null,
+      multiball: null,
       goal: "<strong>Build bonus to 20,000+, lock it with the super bonus threshold, hit the inline drops for 5× multiplier, then collect that bonus as many times as possible via the top-left saucer.</strong> The spinner is your engine — keep ripping it all game.",
       phases: [
         {
@@ -710,6 +728,21 @@ const MACHINES = {
     },
 
     strategy: {
+      skillShot: {
+        name: "Skill Shot Lane",
+        value: "25M × skill shots made + 5 GB",
+        desc: "Plunge with precise timing to land the ball in the dedicated skill shot lane at the top of the playfield. Each successful skill shot scores <strong>25 million × the total number of skill shots made</strong> this game, plus <strong>5 GB</strong> of data. Ball 1 = 25M, Ball 2 (if ball 1 was collected) = 50M, Ball 3 = 75M — it scales massively. <strong>Aim for the skill shot every single ball.</strong> The consistent GB income also advances the Throwing Spikes sequence.",
+      },
+      multiball: [
+        {
+          name: "Quick Multiball",
+          balls: 2,
+          locks: "Work through the <strong>Throwing Spikes sequence</strong> by alternating left ramp and right orbit shots (use right orbit, not right ramp — it collects the award without advancing Yakuza Strike). Award #4 is <strong>Light Quick Multiball</strong>. Collect it and the lower cup will be ready for locking.",
+          start: "After Light Quick Multiball is collected, shoot the <strong>lower center cup</strong> to lock one ball. The second ball is immediately released — 2-ball Quick Multiball is now active.",
+          jackpots: "Every <strong>ramp shot</strong> during Quick Multiball scores <strong>50 million points</strong>. Shoot both ramps alternately as fast as possible for maximum payout. The multiball runs until one ball drains.",
+          tip: "Quick Multiball is your only multiball source with the Hand deactivated. Time it carefully — if Yakuza Strike is active simultaneously, every ramp shot earns both the 50M Quick Multiball jackpot AND the hurry-up value. Stack them for your biggest scoring moments.",
+        },
+      ],
       goal: "<strong>Build bonus × to 4×, secure Hold Bonus, then accumulate Spinner Millions across multiple balls.</strong> With the Hand deactivated, Cyberspace Multiball is not available — pivot entirely to Throwing Spikes, Yakuza Strike, and Quick Multiball for big scoring.",
       phases: [
         {
@@ -770,6 +803,284 @@ const MACHINES = {
       { x:10, y:83, type:"info",  label:"MR", name:"Mnemonic Recovery (Left Outlane)", body:"Ball save zone on the left outlane. <strong>Lit automatically at ball 1 start.</strong> Can be re-lit by hitting a specific right-side target enough times. When lit, balls draining here are saved and returned. Learn which shot re-lights it — it can rescue the ball several times per game." },
     ],
   },
+
+  /* ─── WHIRLWIND ────────────────────────────────────── */
+  whirlwind: {
+    name: "Whirlwind",  sub: "1990 · Williams · WPC",
+    tagline: "Tornado thriller · lock balls, collect Million Plus jackpots",
+    image: 'images/whirlwind.jpg',
+    difficulty: "Medium–Hard", diffClass: "diff-hard",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1990" },
+        { label: "Designer",     value: "Pat Lawlor" },
+        { label: "Platform",     value: "WPC" },
+        { label: "Multiball",    value: "3 types (3-ball max)" },
+        { label: "Top Score",    value: "50–150 million+" },
+      ],
+      theme: "A twister-themed machine set around a Midwestern tornado. Features a large spinning disc (the Whirlwind) mounted center-playfield, a real fan that blows air at the player, a compass rose target system (N/S/E/W arrows), and the iconic 'Feel the Power of the Wind' fanfare. Designed by Pat Lawlor (later of Addams Family fame).",
+      features: [
+        { name: "FEEL THE POWER Drop Targets", desc: "Three drop targets at the top used for the skill shot. Each target lights independently: POWER (100K), THE (200K), FEEL (300K). All three = 600K total. Also progress toward directional target completion." },
+        { name: "Compass / Directional Targets (N/S/E/W)", desc: "Four directional targets scattered around the playfield. Completing all four lights the ball lock lane. Each direction can be relit. This is the primary lock-lighting mechanism for Feel the Power Multiball." },
+        { name: "Ball Lock Lane (Left Side)", desc: "Locks balls for Feel the Power Multiball. Each ball locked also advances the bonus multiplier one step: 2× → 3× → 4× → 5× → 6× (max). Double benefit — starts multiball AND raises multiplier." },
+        { name: "3-Toll Ramp (Center)", desc: "The primary jackpot shot during multiball. Starts the Million Plus jackpot sequence at 1 million, increasing by 1M per collect up to 10M. Also shoots 3 toll collectibles during normal play." },
+        { name: "Super Cellar Door", desc: "Lower-right entry point to a rotating award chamber. Cycles through 7 awards: 500K score, Extra Ball, Quick Multiball, Million lit, jet bumper max, drop target max, and Skyway Toll advances. Collecting all 7 lights the Mega Door Bonus (all 7 + 2M + Special)." },
+        { name: "Tornado Drop Target", desc: "Center standup that lights Quick Multiball when hit. Also advances the bonus and feeds the bumpers." },
+        { name: "Skyway Tolls", desc: "A toll counter (max 99 tolls) that awards 2K × bonus multiplier per toll at end-of-ball. Built by shooting ramps and loops during normal play." },
+        { name: "Spinning Disc (Center)", desc: "The signature toy — a motorized spinning disc that deflects the ball in unpredictable directions. Adds chaos to center-playfield shots but also scores with each deflection." },
+      ],
+      scoring: [
+        { key: "Skill shot max (all 3 targets)", val: "600,000 pts" },
+        { key: "Million Plus (1st collect)",     val: "1,000,000 pts" },
+        { key: "Million Plus (max, 10th)",       val: "10,000,000 pts" },
+        { key: "Bonus multiplier (max)",         val: "6× (via ball locks)" },
+        { key: "Skyway Tolls (max)",             val: "99 × 2K × bonus ×" },
+        { key: "Super Cellar Door award",        val: "500,000 pts (base)" },
+        { key: "Mega Door Bonus",                val: "2,000,000 + Special" },
+      ],
+      rules: [
+        "Each ball locked in the lock lane advances the bonus multiplier by 1 step — <strong>locking balls both starts multiball AND raises your multiplier</strong>. Never skip a lock opportunity.",
+        "The <strong>Million Plus jackpot</strong> starts at 1M, increases by 1M each time you collect it during multiball, and maxes at 10M. It resets if you let multiball end without collecting.",
+        "If no Million Plus is collected during Feel the Power Multiball, <strong>Cellar Multiball</strong> (2-ball) automatically starts as a consolation round.",
+        "The <strong>Super Cellar Door</strong> cycles through 7 awards. Collect all 7 to light the Mega Door Bonus (all 7 awards simultaneously + 2M + Special).",
+        "<strong>No Extra Balls</strong> in competition settings — Extra Ball awards convert to 1M points.",
+      ],
+      benchmarks: [
+        { score: "50M+",   label: "Excellent — multiple Million Plus collects" },
+        { score: "15–25M", label: "Solid — completed at least one multiball" },
+        { score: "5–10M",  label: "Decent — learning the lock system" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=2765",      icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/whirlwind", icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      skillShot: {
+        name: "FEEL THE POWER",
+        value: "Up to 600,000 points",
+        desc: "The plunger sends the ball toward three drop targets labeled <strong>POWER, THE, FEEL</strong>. Each target lit scores independently:<br><br>● <strong>POWER</strong> = 100,000 pts &nbsp;● <strong>THE</strong> = 200,000 pts &nbsp;● <strong>FEEL</strong> = 300,000 pts<br><br>All three = <strong>600,000 total</strong>. The scoring is additive — you get points for every target hit regardless of order. A full clean plunge is a massive early-game boost. Aim for all three every ball.",
+      },
+      multiball: [
+        {
+          name: "Feel the Power Multiball",
+          balls: 3,
+          locks: "Hit the <strong>four directional targets</strong> (N, S, E, W compass arrows scattered around the playfield) to light the lock lane. Completing all four directions lights the <strong>left-side ball lock lane</strong>. Each ball successfully locked advances the bonus multiplier one step: 2× → 3× → 4× → 5× → 6× max. <strong>Lock 2 balls before attempting to start multiball.</strong>",
+          start: "After locking 2 balls, shoot the <strong>3-Toll Ramp</strong> to release all locked balls and start 3-ball Feel the Power Multiball. Alternatively, locking a <strong>3rd ball</strong> in the lock lane also triggers multiball launch.",
+          jackpots: "Shoot the <strong>3-Toll Ramp</strong> repeatedly during multiball to collect <strong>Million Plus</strong>. Starts at 1M, increases by 1M each collect, max 10M. Collect 5+ times in a single multiball for 1M + 2M + 3M + 4M + 5M = <strong>15M total</strong>. If no Million Plus collected when multiball ends, Cellar Multiball starts automatically.",
+          tip: "Locking balls is a double win — each lock raises your bonus multiplier AND builds toward multiball. Never miss a lit lock. During multiball, ignore everything except the 3-Toll Ramp. Keep hammering it until a ball drains.",
+        },
+        {
+          name: "Quick Multiball",
+          balls: 2,
+          locks: "Light Quick Multiball by hitting the <strong>Tornado Drop Target</strong> (center standup) or by collecting it as a <strong>Super Cellar Door award</strong>.",
+          start: "Once Quick Multiball is lit, shoot the ball into the <strong>center cup</strong>. The second ball is released immediately, starting 2-ball Quick Multiball.",
+          jackpots: "Standard 2-ball play with all shots scoring normally. The bonus multiplier (built from Feel the Power locks) amplifies all scoring during Quick Multiball. Focus on lanes and ramps to maintain toll and multiplier progress.",
+          tip: "Use Quick Multiball as a backup or gap-filler between Feel the Power setups. The Super Cellar Door is also worth visiting during Quick Multiball to cycle through its 7 awards.",
+        },
+        {
+          name: "Cellar Multiball",
+          balls: 2,
+          locks: "No lock setup required — this multiball activates automatically.",
+          start: "<strong>Auto-starts</strong> at the end of a Feel the Power Multiball where no Million Plus jackpot was collected. No player action needed.",
+          jackpots: "Standard 2-ball scoring. Less powerful than Feel the Power jackpots. Treat it as a second chance to score — shoot ramps and maintain composure.",
+          tip: "Cellar Multiball is a consolation prize, not a goal. If you get it, play steadily and shoot the 3-Toll Ramp to prime the Million Plus counter for the next Feel the Power Multiball.",
+        },
+      ],
+      goal: "<strong>Lock balls via compass targets to start Feel the Power Multiball and collect escalating Million Plus jackpots on the 3-Toll Ramp.</strong> Each ball locked also raises your bonus multiplier (up to 6×), making the lock lane doubly valuable. Build Skyway Tolls for end-of-ball bonuses.",
+      phases: [
+        {
+          num: "Phase 1 · Early Game",
+          title: "Skill Shot → Compass Targets → Light the Lock",
+          body: "<strong>Start every ball with the FEEL THE POWER skill shot</strong> — aim for all 3 drop targets for 600K.<br><br>Then immediately begin hunting the <strong>four directional compass targets</strong> (N, S, E, W). These are visible arrows/standups around the playfield. Hit all four to light the lock lane. The compass targets are wide and can be approached from both flippers — they are your Phase 1 safe shots.<br><br>Avoid the spinning disc area until the lock is lit — the disc deflections are unpredictable.",
+        },
+        {
+          num: "Phase 2 · Mid Game",
+          title: "Lock 2 Balls, Build Multiplier",
+          body: "<strong>Shoot the lit lock lane on the left side</strong> to lock balls. Each successful lock advances your bonus multiplier (2× → 3× → ... → 6×).<br><br>After each lock, the compass targets reset — hit all four again to light the next lock. Lock a second ball to set up multiball launch.<br><br>While resetting compass targets, also shoot the <strong>Super Cellar Door</strong> when the ball is on the right side. Cycling its 7 awards is a great secondary task between lock setups.",
+        },
+        {
+          num: "Phase 3 · Multiball",
+          title: "Hammer the 3-Toll Ramp for Million Plus",
+          body: "<strong>Once Feel the Power Multiball starts, ignore everything except the 3-Toll Ramp.</strong><br><br>Each successful ramp shot collects a Million Plus jackpot: 1M, 2M, 3M, 4M, 5M... up to 10M per hit. With your bonus multiplier at 5–6×, even end-of-ball tolls compound significantly.<br><br>Keep both balls in play as long as possible. If you lose a ball, the surviving ball continues single-ball play — steer it back toward the ramp and lock lane to reset for the next multiball.",
+        },
+      ],
+      safeShots: [
+        { name: "Compass / Directional Targets", desc: "Wide standup targets visible around the playfield. Your primary Phase 1 and Phase 2 targets. Approachable from both flippers with moderate force." },
+        { name: "Left Loop", desc: "Consistent return that loops back to the right flipper area. Advance Skyway Tolls and lane progress without engaging the spinning disc." },
+        { name: "Super Cellar Door (Lower Right)", desc: "Lower-right entrance that cycles 7 awards including Extra Ball, Quick Multiball, and 500K. A safe detour between lock setups." },
+      ],
+      avoidShots: [
+        { name: "Spinning Disc (Center)", desc: "The deflections are genuinely unpredictable — a ball hitting the disc can go anywhere. Never aim directly at it. Let the ball pass around the disc, not through it." },
+        { name: "Tornado Drop Target (unplanned)", desc: "Hitting it lights Quick Multiball, which can disrupt your lock setup timing. Only aim for it deliberately when you want Quick Multiball as a backup." },
+      ],
+      tips: [
+        { head: "Lock = multiplier", body: "Every ball you lock is +1 bonus multiplier. Two locks = 4× or 5× bonus, three locks = 5× or 6×. The multiplier raises your Skyway Toll end-of-ball bonus significantly. Never skip a lit lock." },
+        { head: "Million Plus compounds fast", body: "1M + 2M + 3M + 4M + 5M across 5 ramp shots = 15M in one multiball. If you manage 6–7 shots before losing a ball, you can score 21–28M in one multiball session. The escalation is worth protecting." },
+        { head: "Compass targets reset, that's OK", body: "After each lock, you need to re-complete compass targets. This is normal. Think of it as a defined two-step loop: compass targets → lock → compass targets → lock → multiball." },
+        { head: "Cellar Door awards rotate", body: "Each visit to the Super Cellar Door cycles to the next award. Plan your visits to time it for the award you want most — Quick Multiball and Extra Ball are the top prizes." },
+        { head: "Skyway Tolls are the long game", body: "With 6× multiplier and 80+ tolls banked, your end-of-ball bonus can be 1M+. Shoot ramps and loops consistently between multiball setups to keep the toll count rising." },
+      ],
+      mistakes: [
+        "Missing the 3-Toll Ramp during multiball and chasing other targets — Million Plus is the entire point of multiball.",
+        "Ignoring the compass targets after a lock and wondering why the lock lane isn't lit again.",
+        "Shooting the spinning disc deliberately — its deflections are uncontrolled and dangerous.",
+        "Failing to lock 2 balls before attempting multiball start — wasting early-game energy.",
+        "Neglecting the Super Cellar Door and missing the Quick Multiball / Mega Door Bonus cycles.",
+      ],
+    },
+
+    hotspots: [
+      { x:35, y:10, type:"key",   label:"FP", name:"FEEL THE POWER (Skill Shot)", body:"Three drop targets at the top of the playfield: <strong>POWER (100K) · THE (200K) · FEEL (300K)</strong>. Hit all three on the plunge for 600K total. Additive — each hit scores individually. <strong>Your most reliable early-game points.</strong>" },
+      { x:28, y:22, type:"key",   label:"N",  name:"North Compass Target",         body:"One of four directional targets (N/S/E/W) that must all be completed to <strong>light the ball lock lane</strong>. Wide standup — approachable from either flipper. Complete all four to set up Feel the Power Multiball." },
+      { x:70, y:22, type:"key",   label:"E",  name:"East Compass Target",          body:"Part of the compass target system. All four directions (N/S/E/W) must be hit to light the lock lane. <strong>After each ball lock, compass targets reset</strong> — repeat the process to light the next lock." },
+      { x:20, y:40, type:"key",   label:"W",  name:"West Compass Target",          body:"Part of the compass target system. Aim from the right flipper with moderate force. Completing all four compass targets is your primary mid-game task between lock shots." },
+      { x:50, y:32, type:"info",  label:"🌀", name:"Whirlwind Spinning Disc",      body:"The signature feature — a motorized spinning disc that <strong>deflects the ball unpredictably</strong>. Scores with each deflection, but never aim directly at it. Let the ball travel around the disc, not into it." },
+      { x:18, y:50, type:"key",   label:"🔒", name:"Ball Lock Lane (Left)",        body:"<strong>Lock balls here for Feel the Power Multiball.</strong> Each ball locked advances your bonus multiplier by 1 step (up to 6×). Lock 2 balls, then shoot the 3-Toll Ramp (or lock a 3rd ball) to start multiball. Never miss a lit lock." },
+      { x:45, y:47, type:"key",   label:"3T", name:"3-Toll Ramp",                  body:"<strong>The primary multiball jackpot shot.</strong> During Feel the Power Multiball, each ramp shot collects a Million Plus: 1M → 2M → 3M → ... → 10M. Collect 5 hits = 15M total. This is the only shot you should be focused on during multiball." },
+      { x:72, y:58, type:"safe",  label:"CD", name:"Super Cellar Door",            body:"Lower-right entry to the rotating award chamber. Cycles 7 awards: 500K, Extra Ball, Quick Multiball, Million lit, jet max, drop max, Skyway advances. Collect all 7 for <strong>Mega Door Bonus (all 7 + 2M + Special)</strong>. Great secondary target between lock setups." },
+      { x:48, y:62, type:"info",  label:"TO", name:"Tornado Drop Target",          body:"Hitting this lights <strong>Quick Multiball</strong>. Also available as a Super Cellar Door award. Only aim for it deliberately when you want Quick Multiball as a backup mode." },
+      { x:50, y:22, type:"info",  label:"↑",  name:"Pop Bumpers",                  body:"Top bumpers. Feed balls from the plunge area into the playfield. The bumper area also factors into Skyway Toll accumulation during normal play." },
+      { x:12, y:75, type:"avoid", label:"!",  name:"Left Outlane (No Post)",       body:"<strong>No outlane post rubber in competition settings</strong> — the ball drains directly. The left side is particularly exposed when the ball kicks off the disc or bumpers unexpectedly. Stay alert on the left side." },
+      { x:88, y:75, type:"avoid", label:"!",  name:"Right Outlane (No Post)",      body:"<strong>No outlane post rubber in competition settings</strong> — straight drain. Right-side shots that miss their target can feed the outlane. Be conservative with power on right-side shots." },
+    ],
+  },
+
+  /* ─── CENTAUR ──────────────────────────────────────── */
+  centaur: {
+    name: "Centaur",  sub: "1981 · Bally · Standard Body",
+    tagline: "Sci-fi gothic · ORBS multiball & captive ball points",
+    image: 'images/centaur.jpg',
+    difficulty: "Medium", diffClass: "diff-medium",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Bally Mfg. Co." },
+        { label: "Year",         value: "1981" },
+        { label: "Designer",     value: "Jim Patla" },
+        { label: "Type",         value: "Solid-State EMC" },
+        { label: "Body",         value: "Standard" },
+        { label: "Multiball",    value: "2-ball (ORBS + Lane)" },
+      ],
+      theme: "Black-and-white science fiction/horror hybrid. A half-human, half-machine Centaur warrior overlooks a stark monochrome playfield with neon red and yellow accents. One of the most visually distinctive early 1980s machines — minimal ornamentation, maximum atmosphere.",
+      features: [
+        { name: "ORBS Drop Targets", desc: "Four drop targets (O, R, B, S) on the left-center playfield. Must be hit in sequential order (O → R → B → S) for multiball. An out-of-order hit knocks down the target but does not count toward the sequence. Completing in order starts 2-ball multiball immediately and adds a virtual lock (amber light above flipper). Up to 4 virtual locks can be accumulated across multiple completions." },
+        { name: "Queen's Chamber (Left Saucer)", desc: "The primary scoring destination. A saucer on the left side of the playfield. The main jackpot target during multiball. Aim here whenever the ball feeds the left side cleanly." },
+        { name: "Left Arc Star Rollovers", desc: "A series of star rollover buttons arranged in a left-side arc. Passing through them lights a 'double points' state that doubles the value of the next captive ball hit. Always shoot the star rollovers before targeting the captive ball." },
+        { name: "Captive Ball (Right Side)", desc: "A ball held captive behind a post on the right side of the playfield. Striking the captive ball post awards escalating points: 10K → 20K → 30K → 40K → 50K. Doubles to 20K–100K if star rollovers were hit first. Progressive — value resets each ball." },
+        { name: "1-2-3-4 Sequential Drop Targets (Right)", desc: "Four drop targets on the right side that must be hit in order: #1 = 10K, #2 = 20K, #3 = 40K, #4 = 80K. Each hit in order also advances the bonus. Out-of-order hits score a flat value but don't advance the sequence. Completing all four in order releases any locked balls." },
+        { name: "Return/Outlane Lanes (4 total)", desc: "Two return lanes and two outlane lanes (left and right sides). Completing all four starts a 2-ball multiball. This can only happen once per ball — complete them as early as possible. (Note: outlane post rubbers are removed in competition settings.)" },
+        { name: "Pop Bumpers", desc: "Upper bumper cluster. Each hit advances the bonus. High-speed bumper action naturally feeds balls to the top lanes and back to the flippers." },
+      ],
+      scoring: [
+        { key: "Captive ball (max)",            val: "50,000 pts" },
+        { key: "Captive ball × star rollovers", val: "100,000 pts (doubled)" },
+        { key: "1-2-3-4 drops in order",        val: "10K + 20K + 40K + 80K" },
+        { key: "ORBS completion",               val: "2-ball multiball + virtual lock" },
+        { key: "Lane completion (4 lanes)",     val: "2-ball multiball (once/ball)" },
+        { key: "Virtual locks max",             val: "4 (amber indicators)" },
+        { key: "Queen's Chamber jackpot",       val: "Primary multiball target" },
+      ],
+      rules: [
+        "ORBS must be hit <strong>in exact order O → R → B → S</strong>. Any out-of-order hit knocks down the target but breaks the sequence. The targets reset after a sequence failure.",
+        "Completing ORBS in order starts 2-ball multiball <strong>immediately</strong> — no separate lock shot required. A virtual lock (amber light) is also added.",
+        "The <strong>1-2-3-4 right-side drops in order</strong> release any accumulated locked balls when all four are completed sequentially.",
+        "Lane Multiball (all 4 return/outlane lanes) can only start <strong>once per ball</strong>. Complete lanes early.",
+        "<strong>No skill shot and no Extra Balls</strong> in competition settings. No outlane post rubbers — the outlanes are fully open.",
+      ],
+      benchmarks: [
+        { score: "1,000,000+", label: "Excellent — multiple ORBS completions + Queen's Chamber" },
+        { score: "500,000+",   label: "Solid — at least one multiball with good scoring" },
+        { score: "200,000+",   label: "Respectable — good drop target and lane work" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=476",     icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/centaur", icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      skillShot: null,
+      multiball: [
+        {
+          name: "ORBS Multiball",
+          balls: 2,
+          locks: "Hit the <strong>ORBS drop targets in strict sequential order: O → R → B → S</strong>. The targets are on the left-center playfield. An out-of-order hit knocks the target down but breaks the sequence — all targets reset. Focus on one target at a time. Each completion also awards a <strong>virtual lock</strong> (amber indicator light above the flipper), up to 4 virtual locks total.",
+          start: "<strong>Multiball starts immediately</strong> upon completing O→R→B→S in sequence — no additional lock shot required. A second ball is released directly into play. No waiting. The more virtual locks accumulated from previous ORBS completions, the more balls in reserve for future sequences.",
+          jackpots: "The <strong>Queen's Chamber</strong> (left saucer) is the primary jackpot target during multiball — aim there whenever the ball is on the left side. Also use multiball time to work the <strong>1-2-3-4 right-side drops in order</strong>: completing all four releases locked balls and awards 10K + 20K + 40K + 80K in bonus advances.",
+          tip: "ORBS is repeatable every ball — each completion gives another multiball entry. The more you can chain ORBS sequences within a ball, the more multiball time you accumulate. Patience with the sequential targeting is the key skill on Centaur.",
+        },
+        {
+          name: "Lane Multiball",
+          balls: 2,
+          locks: "Complete all <strong>4 return/outlane lanes</strong> (2 return lanes + 2 outlane lanes) by rolling over them. They light individually as you pass through. No directional requirement — hit all four in any order. <strong>WARNING:</strong> In competition settings, outlane post rubbers are removed, making the outlane lanes more dangerous to trigger.",
+          start: "Once all 4 lanes are lit, 2-ball multiball starts automatically. <strong>This can only happen once per ball</strong>, so complete the lanes as early in the ball as possible. Lane completions happen naturally during normal play — don't force them.",
+          jackpots: "Same as ORBS Multiball — <strong>Queen's Chamber</strong> for primary scoring. The captive ball (with star rollover setup) also scores well during multiball since you have more time to set up the star rollover → captive ball combo.",
+          tip: "Let lane completions happen organically as a byproduct of regular play. Don't sacrifice safe shots trying to hit outlane lanes intentionally — especially with no post rubbers in competition. The Lane Multiball is a bonus, not a plan.",
+        },
+      ],
+      goal: "<strong>Complete ORBS drop targets in sequential order to trigger 2-ball multiball repeatedly, then collect Queen's Chamber jackpots during multiball.</strong> Between multiballs, hit left arc star rollovers before the captive ball for doubled points (up to 100K per hit). The 1-2-3-4 sequential drops build bonus for end-of-ball collection.",
+      phases: [
+        {
+          num: "Phase 1 · Early Game",
+          title: "Star Rollovers → Captive Ball + Start ORBS",
+          body: "<strong>First priority: left arc star rollovers.</strong> Pass through the left-side arc to light the double-points state, then immediately shoot the <strong>captive ball</strong> on the right side. With star rollovers active, the captive ball pays double: 20K → 40K → 60K → 80K → 100K. This is excellent early-game value with controlled risk.<br><br>While working the captive ball and rollovers, begin identifying the ORBS targets and start working O → R → B → S whenever the ball feeds the left-center area.",
+        },
+        {
+          num: "Phase 2 · ORBS Sequence",
+          title: "Work Through O → R → B → S",
+          body: "<strong>Focus on the ORBS drop targets in order.</strong> Do not rush — wait for the ball to feed a clean shot at each target in turn. O is typically the easiest to reach from the right flipper. Work through R → B → S methodically.<br><br>If you break the sequence with an out-of-order hit, let the targets reset and start again. Multiball starts <strong>immediately</strong> on completing S — no lock shot needed. Each completion also banks a virtual lock (amber light above flipper).",
+        },
+        {
+          num: "Phase 3 · Multiball",
+          title: "Queen's Chamber All Day",
+          body: "<strong>During multiball, aim exclusively for the Queen's Chamber</strong> (left saucer). Every successful hit during multiball is your jackpot. Keep both balls in play and feed the left saucer repeatedly.<br><br>When ball time allows, use multiball to also complete the <strong>1-2-3-4 right-side drops in order</strong> — completing all four releases locked balls and earns 150K in bonus advances (10K + 20K + 40K + 80K).<br><br>After multiball ends, immediately start working ORBS again for the next entry.",
+        },
+      ],
+      safeShots: [
+        { name: "Left Arc Star Rollovers", desc: "Safe, repeatable pass through the left arc. Always shoot these before targeting the captive ball to double the payout. Low risk, high reward when combined correctly." },
+        { name: "Captive Ball (Right)", desc: "A controlled shot from the left flipper. The ball stays captive — no risk of drain. Progressive value 10K→50K (or doubled to 100K with star rollovers). One of the safest high-value shots on the machine." },
+        { name: "Queen's Chamber (Left Saucer)", desc: "Left side saucer — your primary jackpot location. Safe ball exit, consistent return to the flippers. The main focus during multiball." },
+      ],
+      avoidShots: [
+        { name: "Outlane Areas (No Post Rubbers)", desc: "In competition settings, outlane post rubbers are absent — balls heading toward the outlanes drain directly. Play conservatively on the sides, especially with a fast-moving ball." },
+        { name: "ORBS Out of Order", desc: "Don't rush ORBS. An out-of-order hit resets the entire sequence. Wait for a clean shot at each target in sequence rather than risking a reset that wastes your progress." },
+      ],
+      tips: [
+        { head: "Star rollovers before captive ball — always", body: "The star rollover double is only active for the next captive ball hit. Establish this as a habit: arc first, then captive ball. The difference is 10K→50K vs 20K→100K — effectively doubling your captive ball income every time." },
+        { head: "ORBS patience is the skill", body: "The sequential order requirement is strict. Wait for the ball to feed near the correct target before shooting. A rushed out-of-order hit costs you the entire sequence. Take your time with each letter." },
+        { head: "Virtual locks are progress banked", body: "Each ORBS completion banks a virtual lock (amber light). More completions across a ball = more multiball entries reserved. Even if a multiball ends quickly, the next ORBS completion immediately triggers another." },
+        { head: "1-2-3-4 drops in order = big bonus", body: "Completing all four right-side drops in sequence earns 150K in bonus advances (10K + 20K + 40K + 80K). With no extra balls available, maximizing bonus advance is how you build long-game scores across balls." },
+        { head: "Let lanes complete naturally", body: "The 4 return/outlane lanes for Lane Multiball complete themselves during normal play. Don't adjust your shot selection to force lane completions — especially dangerous with no post rubbers on the outlanes." },
+      ],
+      mistakes: [
+        "Hitting ORBS out of order and resetting the sequence — patience is everything.",
+        "Forgetting to hit star rollovers before the captive ball and leaving the double-points state unused.",
+        "Not shooting the Queen's Chamber during multiball — it's the entire point of multiball on Centaur.",
+        "Deliberately aiming for outlane lanes with no post rubbers — the risk is not worth it.",
+        "Ignoring virtual lock accumulation — each ORBS completion is a future multiball entry banked.",
+      ],
+    },
+
+    hotspots: [
+      { x:32, y:35, type:"key",   label:"O",  name:"ORBS — 'O' Target",           body:"<strong>First target in the ORBS sequence.</strong> Hit O first, then R → B → S in order. Reachable from the right flipper with a mid-strength left-center shot. If you hit any other ORBS target before O, the sequence resets." },
+      { x:28, y:43, type:"key",   label:"R",  name:"ORBS — 'R' Target",           body:"Second in the ORBS sequence (O → <strong>R</strong> → B → S). Only attempt this after lighting O. Same approach angle as O — right flipper, mid-strength. Stay methodical." },
+      { x:32, y:51, type:"key",   label:"B",  name:"ORBS — 'B' Target",           body:"Third in the ORBS sequence (O → R → <strong>B</strong> → S). Be patient — wait for a clean ball position before shooting. Don't rush and risk an out-of-order hit." },
+      { x:38, y:46, type:"key",   label:"S",  name:"ORBS — 'S' Target (Start!)",  body:"Fourth and final target (O → R → B → <strong>S</strong>). <strong>Completing S immediately starts 2-ball multiball</strong> and banks a virtual lock (amber light). No additional lock shot needed — multiball starts on contact." },
+      { x:18, y:30, type:"key",   label:"QC", name:"Queen's Chamber (Left Saucer)", body:"<strong>Your primary jackpot target.</strong> During multiball, aim here exclusively. Safe saucer exit that feeds the ball back to the flippers. Also scores well in single-ball play. The entire multiball strategy is: get here as often as possible." },
+      { x:22, y:55, type:"safe",  label:"★",  name:"Left Arc Star Rollovers",      body:"Roll through this left-side arc to activate <strong>double-points mode</strong> for the next captive ball hit. Always do this before shooting the captive ball. Progressive value: 20K → 40K → 60K → 80K → 100K (vs 10K→50K without star rollovers)." },
+      { x:75, y:45, type:"safe",  label:"CB", name:"Captive Ball (Right Side)",    body:"A ball held captive behind a post. <strong>Hit it after star rollovers for doubled points</strong> (up to 100K). Progressive value that resets each ball. Shoot from the left flipper — the captive ball can't drain. One of the safest high-value shots on the machine." },
+      { x:68, y:53, type:"info",  label:"1",  name:"1-2-3-4 Sequential Drops (#1)", body:"Right-side drop targets that must be hit in order. <strong>#1 scores 10K</strong> and begins the sequence. All four in order (10K + 20K + 40K + 80K = 150K) releases any locked balls. Only hit in order — out-of-sequence hits don't advance the sequence." },
+      { x:72, y:59, type:"info",  label:"4",  name:"1-2-3-4 Sequential Drops (#4)", body:"Completing <strong>#4 (80K)</strong> finishes the 1-2-3-4 sequence, releasing all locked balls and awarding the full bonus advances. During multiball this is your secondary jackpot source after the Queen's Chamber." },
+      { x:50, y:18, type:"info",  label:"↑",  name:"Pop Bumpers",                  body:"Upper bumper cluster. Each hit advances the bonus. The bumpers also feed balls to the top lanes and back down — expect fast, unpredictable ball returns. Always be ready at the flippers after bumper action." },
+      { x:12, y:78, type:"avoid", label:"!",  name:"Left Outlane (No Post)",       body:"<strong>No outlane post rubber in competition settings</strong> — straight drain. Play conservatively when the ball is on the left side. Even though the left outlane lane completes toward Lane Multiball, it's rarely worth the drain risk to target it intentionally." },
+      { x:88, y:78, type:"avoid", label:"!",  name:"Right Outlane (No Post)",      body:"<strong>No outlane post rubber in competition settings</strong> — straight drain. Right-side shots that miss can feed here. Keep right-side shots controlled and moderate-strength." },
+    ],
+  },
+
 };
 
 /* ═══════════════════════════════════════════════════════════
@@ -898,6 +1209,36 @@ function renderStrategy(m) {
 
   html += `<div class="goal-card"><div class="goal-label">🎯 Goal</div><div class="goal-text">${s.goal}</div></div>`;
 
+  // ── SKILL SHOT ──
+  html += sec('Skill Shot');
+  if (s.skillShot) {
+    html += `<div class="skill-shot-card">
+      <div class="skill-shot-title">${s.skillShot.name}${s.skillShot.value ? ' — ' + s.skillShot.value : ''}</div>
+      <div class="skill-shot-body">${s.skillShot.desc}</div>
+    </div>`;
+  } else {
+    html += `<div class="feature-card"><div class="feature-desc" style="font-style:italic">No formal skill shot on this machine.</div></div>`;
+  }
+
+  // ── MULTIBALL ──
+  html += sec('Multiball');
+  if (s.multiball && s.multiball.length) {
+    s.multiball.forEach(mb => {
+      html += `<div class="mb-card">
+        <div class="mb-name">🎱 ${mb.name}${mb.balls ? ` (${mb.balls}-ball)` : ''}</div>
+        <div class="mb-label">Activate Locks</div>
+        <div class="mb-body">${mb.locks}</div>
+        <div class="mb-label">Start Multiball</div>
+        <div class="mb-body">${mb.start}</div>
+        <div class="mb-label">Jackpots</div>
+        <div class="mb-body">${mb.jackpots}</div>
+        ${mb.tip ? `<div class="mb-label">Strategy Tip</div><div class="mb-body">${mb.tip}</div>` : ''}
+      </div>`;
+    });
+  } else {
+    html += `<div class="feature-card"><div class="feature-desc" style="font-style:italic">No multiball on this machine.</div></div>`;
+  }
+
   html += sec('Game Plan');
   s.phases.forEach(p => {
     html += `<div class="phase-card">
@@ -978,7 +1319,7 @@ function renderPlayfield(m) {
   // Zoom hint
   const hint = document.createElement('div');
   hint.className = 'zoom-hint';
-  hint.textContent = 'Pinch to zoom  ·  Double-tap to reset';
+  hint.textContent = 'Scroll to explore  ·  Pinch to zoom  ·  Double-tap to reset';
   document.getElementById('pf-zoom-wrapper').appendChild(hint);
   setTimeout(() => { if (hint.parentNode) hint.parentNode.removeChild(hint); }, 4200);
 }
@@ -987,6 +1328,13 @@ function renderPlayfield(m) {
    PINCH-TO-ZOOM
 ═══════════════════════════════════════════════════════════ */
 let zoomState = { scale: 1, tx: 0, ty: 0 };
+
+/* Switch touch-action so at scale=1 the view scrolls normally,
+   at scale>1 JS handles all touch for panning. */
+function updateTouchAction(scale) {
+  const wrapper = document.getElementById('pf-zoom-wrapper');
+  if (wrapper) wrapper.style.touchAction = scale > 1.05 ? 'none' : 'pan-y';
+}
 
 function resetZoom(animate) {
   zoomState = { scale: 1, tx: 0, ty: 0 };
@@ -999,6 +1347,7 @@ function resetZoom(animate) {
   }
   c.style.transform = '';
   updateZoomBadge(1);
+  updateTouchAction(1);
 }
 
 function updateZoomBadge(scale) {
@@ -1024,6 +1373,7 @@ function applyZoom(animate) {
   c.style.transformOrigin = '0 0';
   c.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
   updateZoomBadge(scale);
+  updateTouchAction(scale);
 }
 
 function clampZoom(scale, tx, ty) {
@@ -1072,6 +1422,7 @@ function initZoom() {
       gesture = null;
 
     } else if (e.touches.length === 2) {
+      wrapper.style.touchAction = 'none'; // disable scroll immediately on pinch start
       const rect = wrapper.getBoundingClientRect();
       gesture = {
         startDist:  dist(e.touches[0], e.touches[1]),
