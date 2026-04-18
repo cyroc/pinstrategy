@@ -18,7 +18,7 @@ const MACHINES = {
       ],
       theme: "Fantasy / sword-and-sorcery. Named zones: Valley of Demons, Golden Cliffs, Beast's Lair, and the Waterfall. Bally's first widebody machine.",
       features: [
-        { name: "Valley of Demons", desc: "Left-side inline drop targets — the single most important feature. Each hit advances bonus; completing the bank steps the multiplier 2× → 3×. Back saucer = 5× + Extra Ball." },
+        { name: "Valley of Demons", desc: "Left-side inline drop targets — the single most important feature. Each hit advances bonus; completing the bank steps the multiplier 2× → 3×. Back saucer: <strong>first hit = 5× multiplier</strong>; <strong>second hit = Extra Ball</strong> (or 25K). Two separate rewards, two separate shots." },
         { name: "Golden Cliffs Saucer", desc: "Left saucer. Starts at 2,000 pts, +2,000 per visit up to 20,000. Value carries across balls. Only awards a bonus advance at its 20K maximum." },
         { name: "Paragon Saucer", desc: "Right saucer. Each visit awards one P-A-R-A-G-O-N letter + 1 bonus advance. Complete all 7 = 25,000 + Special." },
         { name: "Center Spinner", desc: "Each pass awards 3–4 bonus advances. Fastest way to build the base. Ball exits into unpredictable bumper cluster." },
@@ -56,14 +56,14 @@ const MACHINES = {
     },
 
     strategy: {
-      skillShot: null,
+      skillShot: "<strong>Depends on machine settings.</strong> If PARAGON letters are awarded <em>sequentially</em>, plunge for the <strong>Paragon saucer</strong> (right) — you'll get a predictable letter each time. If letters are <em>random</em> (scan mode), plunge for the <strong>Golden Cliffs saucer</strong> (left) — its value starts at 2K and builds toward 20K, carrying across all balls.",
       multiball: null,
       goal: "<strong>Reach 5× bonus multiplier via the Valley of Demons, lock in the 20K super bonus threshold as early as ball one, then survive long enough to collect a massive end-of-ball bonus.</strong> Repeat every ball. Paragon rewards patience and ball control — not aggression.",
       phases: [
         {
           num: "Phase 1 · Early Game",
           title: "Secure 5× and the Extra Ball",
-          body: "<strong>Valley of Demons first.</strong> Shoot the left-side inline drops from the right lower flipper at mid-strength. Each hit advances bonus; completing the bank progresses toward 5×:<br><br>① 3 inline drops → 2× &nbsp; ② 4th drop → 3× &nbsp; ③ Back saucer → 5× (+ Extra Ball or 25K).<br><br>Do not leave this area until 5× is locked. It is the safest shot on the table and the foundation of all your scoring.",
+          body: "<strong>Valley of Demons first.</strong> Shoot the left-side inline drops from the right lower flipper at mid-strength. Each hit advances bonus; completing the bank progresses toward 5×:<br><br>① 3 inline drops → 2× &nbsp; ② 4th drop → 3× &nbsp; ③ Back saucer (1st hit) → 5× &nbsp; ④ Back saucer (2nd hit) → Extra Ball (or 25K).<br><br><em>5× and the Extra Ball are two separate saucer shots.</em> Do not leave this area until 5× is locked. It is the safest shot on the table and the foundation of all your scoring.",
         },
         {
           num: "Phase 2 · Mid Game",
@@ -107,7 +107,7 @@ const MACHINES = {
        x, y = % of total image dimensions. Image has ~15% cabinet apron at bottom. */
     hotspots: [
       { x:19, y:46, type:"key",   label:"V", name:"Valley of Demons",             body:"<strong>Most important shot on the table.</strong> Hit inline drop targets from the right lower flipper, mid-strength. 3 drops → 2×, 4th drop → 3×, back saucer → 5× + Extra Ball. Wide and forgiving — your primary destination every ball." },
-      { x:19, y:36, type:"key",   label:"S", name:"Valley Back Saucer",           body:"Behind the Valley of Demons drops. <strong>First hit = 5× multiplier + Extra Ball (or 25K).</strong> Do not leave the Valley area until you've hit this." },
+      { x:19, y:36, type:"key",   label:"S", name:"Valley Back Saucer",           body:"Behind the Valley of Demons drops. <strong>First hit = 5× multiplier only.</strong> <strong>Second hit = Extra Ball</strong> (or 25K). Two separate rewards — don't expect both on one shot. Do not leave the Valley area until you've hit this at least once." },
       { x:22, y:25, type:"safe",  label:"G", name:"Golden Cliffs Saucer",         body:"Left saucer. Starts at 2,000 pts, +2,000 per visit up to <strong>20,000</strong>. Value carries across balls. Only awards a bonus advance at maximum value. Hit every time the ball feeds cleanly." },
       { x:76, y:22, type:"safe",  label:"P", name:"Paragon Saucer",               body:"Right saucer. Each visit awards one <strong>P-A-R-A-G-O-N letter + 1 bonus advance</strong>. Complete all 7 = 25,000 + Special. Lob or gentle shot — power shots miss. Opportunistic only." },
       { x:50, y:44, type:"safe",  label:"~", name:"Center Spinner",               body:"Each pass awards <strong>3–4 bonus advances</strong>. Fastest bonus builder. Shoot from the right flipper with a controlled stroke. Ball exits into the bumper cluster — expect unpredictable returns." },
@@ -124,7 +124,7 @@ const MACHINES = {
 
   /* ─── VIKING ───────────────────────────────────────────── */
   viking: {
-    name: "Viking",  sub: "1980 · Bally · Standard Body",
+    name: "Viking",  sub: "1979 · Bally · Standard Body",
     tagline: "Norse classic · spinner engine & mid-ball collects",
     image: "images/viking.jpg",
     difficulty: "Easy–Medium", diffClass: "diff-medium", era: "SS",
@@ -132,38 +132,39 @@ const MACHINES = {
     info: {
       stats: [
         { label: "Manufacturer", value: "Bally Mfg. Co." },
-        { label: "Year",         value: "1980" },
+        { label: "Year",         value: "1979" },
         { label: "Type",         value: "Solid-State EMC" },
         { label: "Body",         value: "Standard" },
         { label: "Production",   value: "~2,500 units" },
-        { label: "Max Bonus",    value: "245,000 pts" },
+        { label: "Max Bonus",    value: "295,000 pts" },
       ],
       theme: "Norse mythology. Longship, runes, and warrior art. One of Bally's late solid-state classics.",
       features: [
-        { name: "Center Spinner", desc: "Starts at 10 pts/spin, self-advances to 1,000 pts/spin. Each pass also advances the bonus. Value resets if not re-hit before the warning signal." },
-        { name: "Inline Drop Targets (Left)", desc: "Each target advances the bonus multiplier: 2× → 3× → 4× → 5×. Back standup scores a Special, then 50,000 on repeat hits." },
+        { name: "Center Spinner", desc: "Starts at 10 pts/spin, self-advances to 1,000 pts/spin. Every tenth spin also adds a bonus advance. Value resets if not re-hit before the warning signal." },
+        { name: "Inline Drop Targets (Left)", desc: "Each target advances the bonus multiplier: 2× → 3× → 4× → 5×. Back standup scores a Special, then 50,000 on repeat hits — stays active the rest of the ball. Completing all drops also <strong>lights the Extra Ball rollover</strong> and <strong>lights both outlanes for 25K</strong>." },
         { name: "1-2-3 Memory Drops (Right)", desc: "Hit targets 1, 2, and 3 in sequential order for 10× the current lit value — up to 100,000 pts. Out-of-order hits count toward the bank but forfeit the jackpot." },
-        { name: "A-B Top Rollover Lanes", desc: "Completing A-B 1st time lights the bonus collect saucer. 2nd time lights specials. 3rd+ scores a special each completion." },
-        { name: "Bonus Collect Saucer (Top-Left)", desc: "When lit, collects your full bonus (base × multiplier) mid-ball. Reached via the right S-curve loop. Ball kicks to the top arch afterward." },
-        { name: "Right S-Curve Loop", desc: "The route to the bonus collect saucer. Shoot with medium strength. Repeatable mid-ball scoring loop — the heart of the game." },
+        { name: "Bonus Collect Saucer (Top-Left)", desc: "When lit, collects your full bonus (base × multiplier) mid-ball. Lit by shooting the <strong>right orbit</strong>. A strong orbit shot crosses the top of the playfield and drops straight into the saucer. Ball kicks to the top arch afterward. Shoot orbit again to re-light." },
+        { name: "Right Orbit", desc: "The route to the bonus collect saucer. Shoot from the left flipper with solid strength. The ball arcs right, crosses the top, and either lights or collects the saucer. The heart of the game — repeatable mid-ball scoring loop." },
         { name: "Outlane Bounce-Back Gates", desc: "Gates on both outlanes can redirect a draining ball back to the inlane. A gentle nudge toward the gate can save the ball." },
       ],
       scoring: [
         { key: "Spinner start",          val: "10 pts/spin" },
         { key: "Spinner max",            val: "1,000 pts/spin" },
         { key: "Max multiplier",         val: "5×" },
-        { key: "Max base bonus",         val: "49,000 pts" },
-        { key: "Max bonus payout",       val: "245,000 pts" },
+        { key: "Max base bonus",         val: "59,000 pts" },
+        { key: "Max bonus payout",       val: "295,000 pts" },
         { key: "Super bonus (20K lock)", val: "Persists all balls" },
         { key: "Super bonus (40K lock)", val: "Persists all balls" },
         { key: "1-2-3 sequential jackpot", val: "Up to 100,000 pts" },
         { key: "Back standup (Special)", val: "50,000 pts" },
       ],
       rules: [
-        "The <strong>spinner value resets</strong> to 10 if not re-triggered before the warning signal. Keep hitting it.",
+        "The <strong>spinner value resets</strong> to 10 if not re-triggered before the warning signal. Keep hitting it. Every tenth spin adds a bonus advance.",
         "Bonus is collected at ball end <strong>OR</strong> by shooting the lit saucer — the saucer is the primary mid-ball scoring event.",
+        "The collect saucer is lit by <strong>shooting the right orbit</strong>. Shoot orbit to light it, shoot orbit again strongly to enter the saucer and collect.",
         "Reaching <strong>20K or 40K bonus</strong> before draining locks that amount for subsequent balls.",
         "The 1-2-3 drops must be hit <strong>in sequential order</strong> (1 → 2 → 3) for the 10× jackpot.",
+        "Completing all left inline drops <strong>lights the Extra Ball rollover</strong> and <strong>lights both outlanes for 25K</strong>.",
       ],
       benchmarks: [
         { score: "400,000+", label: "Excellent — multiple big saucer collects" },
@@ -189,18 +190,18 @@ const MACHINES = {
         {
           num: "Phase 2 · Mid Game",
           title: "Secure the 20K Super Bonus",
-          body: "<strong>Reach 20,000 base bonus before ever shooting the collect saucer.</strong><br><br>Once at 5× multiplier, shift to building the base to at least 20K. This locks the value for future balls. Work the <strong>A-B top lanes</strong> (they light naturally via bumper action after saucer kicks). Completing them once lights the collect saucer. <em>Do NOT shoot the saucer until you have crossed 20K base.</em><br><br>If you can push to <strong>40K base</strong> before collecting, do it — every future ball becomes a guaranteed massive payout.",
+          body: "<strong>Reach 20,000 base bonus before ever shooting the collect saucer.</strong><br><br>Once at 5× multiplier, shift to building the base to at least 20K. This locks the value for future balls. The spinner is your fastest tool — every tenth spin also adds a bonus advance. <em>Do NOT shoot the saucer until you have crossed 20K base.</em><br><br>If you can push to <strong>40K base</strong> before collecting, do it — every future ball becomes a guaranteed massive payout.",
         },
         {
           num: "Phase 3 · Big Scoring",
           title: "Loop the S-Curve — Collect Repeatedly",
-          body: "<strong>Shoot the right S-curve repeatedly to loop the bonus collect saucer.</strong><br><br>With 5× and 20K+ locked, shoot the S-curve to send the ball into the top-left saucer. Each collect pays base × multiplier and kicks the ball back for more bumper scoring and another shot at the loop.<br><br>At 5× × 49K = <strong>245,000 pts per collect</strong>. Multiple collects per ball stack to enormous totals.",
+          body: "<strong>Shoot the right orbit repeatedly to loop the bonus collect saucer.</strong><br><br>With 5× and 20K+ locked, shoot the right orbit from the left flipper. A strong shot arcs to the top of the playfield and drops into the lit top-left saucer. Each collect pays base × multiplier and kicks the ball back for more bumper scoring. Shoot the orbit again to re-light the saucer and repeat.<br><br>At 5× × 59K = <strong>295,000 pts per collect</strong>. Multiple collects per ball stack to enormous totals.",
         },
       ],
       safeShots: [
         { name: "Center Spinner", desc: "Safest high-value shot on the table. A direct controlled hit from either flipper is reliable. Rip this as often as possible." },
         { name: "Left Inline Drops", desc: "Direct mid-strength shot from the right flipper. Wide and forgiving. Your multiplier builders." },
-        { name: "Right S-Curve / Saucer Loop", desc: "Medium strength. Once you know the angle, this is a repeatable, high-value shot. The heart of the scoring engine." },
+        { name: "Right Orbit (Saucer Collect)", desc: "Shoot from the left flipper with solid strength. The ball arcs right, crosses the top of the playfield, and drops into the lit saucer. Shoot to light, shoot again to collect. Once you know the angle this is a repeatable, high-value shot — the heart of the scoring engine." },
       ],
       avoidShots: [
         { name: "1-2-3 Memory Drops (aggressive pursuit)", desc: "The 100K jackpot is real but only pursue it with a well-controlled ball and high lit value. Otherwise treat it as a bonus if it happens." },
@@ -211,12 +212,13 @@ const MACHINES = {
         { head: "Super bonus is your long game", body: "Locking in 20K or 40K bonus means every future ball starts strong. Treat the threshold as a priority equal to collecting." },
         { head: "Ball control after the saucer", body: "The saucer kicks the ball into the top arch area. Be ready — the ball can return fast via the pops. Don't let a frantic return erase a great collect." },
         { head: "Nudge the outlanes", body: "The bounce-back gates are genuinely useful. A timely nudge toward the gate can save a ball already in the gutter. Practice reading which direction to nudge." },
-        { head: "Multiplier math", body: "At 5×: 20K = 100K, 30K = 150K, 40K = 200K, 49K = 245K. Each bonus increment is worth 5× as much — always worth one more spinner rip before collecting." },
+        { head: "Multiplier math", body: "At 5×: 20K = 100K, 30K = 150K, 40K = 200K, 59K = 295K. Each bonus increment is worth 5× as much — always worth one more spinner rip before collecting." },
+        { head: "Completing inline drops unlocks extras", body: "Once all left inline drops are cleared, the Extra Ball rollover lights and both outlanes light for 25K each. Free rewards for something you are already doing every ball." },
       ],
       mistakes: [
         "Collecting the saucer before 5× multiplier and 20K base — leaving most of the value on the table.",
         "Letting the spinner value reset by ignoring the warning signal.",
-        "Ignoring the A-B lanes and never lighting the saucer.",
+        "Forgetting that the saucer is lit by the right orbit — shoot orbit to light it, shoot orbit again to collect.",
         "Going for the 1-2-3 sequential jackpot too aggressively and draining.",
         "Not nudging on outlane close calls — the bounce-back gate is a free save.",
       ],
@@ -227,9 +229,9 @@ const MACHINES = {
       { x:48, y:40, type:"key",   label:"~", name:"Center Spinner",                body:"<strong>Your scoring engine.</strong> Starts at 10 pts/spin, self-advances to 1,000 pts/spin. Each pass advances the bonus base. Rip this as often as possible. Critical: if you hear the reset warning, immediately hit the spinner again or lose your accumulated value." },
       { x:24, y:47, type:"key",   label:"V", name:"Left Inline Drops",             body:"Hit all four targets to advance multiplier: <strong>2× → 3× → 4× → 5×</strong>. Direct mid-strength shot from the right flipper. Wide and forgiving. Hit these every ball before thinking about collecting." },
       { x:24, y:36, type:"key",   label:"S", name:"Back Standup (Behind Drops)",   body:"Behind the inline targets. <strong>Scores a Special (50,000) and then 50,000 on every subsequent hit.</strong> Very rewarding once the drops are cleared." },
-      { x:18, y:17, type:"key",   label:"C", name:"Bonus Collect Saucer",          body:"<strong>The jackpot machine.</strong> When lit, collects your full bonus (base × multiplier) mid-ball. 5× × 49K = 245,000 pts per collect. Reached via the right S-curve loop. Ball kicks back to the top arch — be ready." },
-      { x:47, y:11, type:"info",  label:"A", name:"A-B Top Rollover Lanes",        body:"Completing A and B rollover lanes <strong>lights the bonus collect saucer</strong>. Complete naturally via bumper action after saucer kicks. 2nd completion lights return lane specials; 3rd+ scores a special each time." },
-      { x:78, y:30, type:"safe",  label:"→", name:"Right S-Curve Loop",            body:"<strong>The route to the collect saucer.</strong> Shoot with medium strength from the left flipper. The ball follows the S-curve to the top-left saucer. A repeatable, high-value shot once you know the angle." },
+      { x:18, y:17, type:"key",   label:"C", name:"Bonus Collect Saucer",          body:"<strong>The jackpot machine.</strong> When lit, collects your full bonus (base × multiplier) mid-ball. 5× × 59K = <strong>295,000 pts per collect</strong>. Lit by shooting the right orbit — shoot orbit to light, shoot orbit again strongly to enter the saucer. Ball kicks back to the top arch — be ready." },
+      { x:47, y:11, type:"info",  label:"A", name:"A-B Top Rollover Lanes",        body:"Passed through naturally via bumper action. Contribute to end-of-ball bonus and specials. <em>Note: the collect saucer is lit by the right orbit, not by A-B lanes.</em> 2nd A-B completion lights return lane specials; 3rd+ scores a special each time." },
+      { x:78, y:30, type:"key",   label:"→", name:"Right Orbit",                   body:"<strong>How you light and collect the saucer.</strong> Shoot from the left flipper with solid strength. The ball arcs right, crosses the top of the playfield, and drops into the lit top-left saucer. One orbit shot lights it; the next strong orbit shot collects. Repeatable high-value loop — the heart of the game." },
       { x:75, y:45, type:"info",  label:"3", name:"1-2-3 Memory Drops (Right)",    body:"Hit targets 1 → 2 → 3 <strong>in exact sequential order</strong> for 10× the current lit value — up to 100,000 pts. Out-of-order hits count toward the bank but forfeit the jackpot. Pursue only with a well-controlled ball." },
       { x:48, y:22, type:"info",  label:"↑", name:"Pop Bumpers",                   body:"Top-center bumpers. The saucer kicks the ball into these after each collect — expect fast, unpredictable returns. <strong>Be ready at the flippers immediately after every saucer collect.</strong>" },
       { x:13, y:73, type:"safe",  label:"←", name:"Left Outlane Bounce-Back Gate", body:"<strong>Free save mechanism.</strong> A gentle nudge toward the gate when the ball enters the left outlane can redirect it back to the inlane. Act immediately and confidently. Don't tilt — but don't give up early either." },
@@ -391,31 +393,34 @@ const MACHINES = {
         { label: "Multiball",    value: "3 types (3-ball max)" },
         { label: "Top Score",    value: "50–150 million+" },
       ],
-      theme: "A twister-themed machine set around a Midwestern tornado. Features a large spinning disc (the Whirlwind) mounted center-playfield, a real fan that blows air at the player, a compass rose target system (N/S/E/W arrows), and the iconic 'Feel the Power of the Wind' fanfare. Designed by Pat Lawlor (later of Addams Family fame).",
+      theme: "A twister-themed machine set around a Midwestern tornado. Features a large spinning disc (the Whirlwind) mounted center-playfield, a real fan that blows air at the player, four directional targets (NE/NW/SE/SW, color-coded), and the iconic 'Feel the Power of the Wind' fanfare. Designed by Pat Lawlor (later of Addams Family fame).",
       features: [
-        { name: "FEEL THE POWER Drop Targets", desc: "Three drop targets at the top used for the skill shot. Each target lights independently: POWER (100K), THE (200K), FEEL (300K). All three = 600K total. Also progress toward directional target completion." },
-        { name: "Compass / Directional Targets (N/S/E/W)", desc: "Four directional targets scattered around the playfield. Completing all four lights the ball lock lane. Each direction can be relit. This is the primary lock-lighting mechanism for Feel the Power Multiball." },
-        { name: "Ball Lock Lane (Left Side)", desc: "Locks balls for Feel the Power Multiball. Each ball locked also advances the bonus multiplier one step: 2× → 3× → 4× → 5× → 6× (max). Double benefit — starts multiball AND raises multiplier." },
-        { name: "3-Toll Ramp (Center)", desc: "The primary jackpot shot during multiball. Starts the Million Plus jackpot sequence at 1 million, increasing by 1M per collect up to 10M. Also shoots 3 toll collectibles during normal play." },
-        { name: "Super Cellar Door", desc: "Lower-right entry point to a rotating award chamber. Cycles through 7 awards: 500K score, Extra Ball, Quick Multiball, Million lit, jet bumper max, drop target max, and Skyway Toll advances. Collecting all 7 lights the Mega Door Bonus (all 7 + 2M + Special)." },
-        { name: "Tornado Drop Target", desc: "Center standup that lights Quick Multiball when hit. Also advances the bonus and feeds the bumpers." },
+        { name: "FEEL THE POWER Drop Targets", desc: "Three drop targets at the top used for the skill shot. Each target lights independently: POWER (100K), THE (200K), FEEL (300K). All three = 600K total." },
+        { name: "Compass / Directional Targets (NE/NW/SE/SW)", desc: "Four directional targets scattered around the playfield, color-coded: NE=Red, NW=Yellow, SE=Orange, SW=Green. Completing all four lights the ball lock lane. <strong>First multiball:</strong> targets can be hit in any order. <strong>Subsequent multiballs:</strong> only one direction at a time (sequential). This is the primary lock-lighting mechanism for Feel the Power Multiball." },
+        { name: "Ball Lock Lane (Left Side)", desc: "Locks balls for Feel the Power Multiball. Each ball locked advances the bonus multiplier one step: 2× → 3× → 4× → 5× → 6× (max). The <strong>5th lock also lights Extra Ball</strong>; the <strong>6th lock also lights Special</strong> (both at the 6× cap). Double benefit — starts multiball AND raises multiplier." },
+        { name: "Skyway Ramp (Right)", desc: "The right ramp. Awards 1 or 2 Skyway Tolls per trip (briefly shows 2 Tolls after traversing the left inlane). Also used to lock balls in the cup when the ramp is raised (closed). Ramp value starts at 50K, increases by 10K per trip, max 100K." },
+        { name: "3-Toll Ramp (Left)", desc: "The left ramp. Awards 3 Skyway Tolls per trip, spots a compass target, lights the Super Cellar Door, and starts Feel the Power Multiball. The primary jackpot ramp — <strong>starts the Million Plus sequence at 2M</strong>, increasing by 1M each collect up to 10M. Also starts at 50K ramp value, max 100K." },
+        { name: "Spinner", desc: "Located to the right of the Skyway Ramp. Each spin moves the Super Cellar Door award selection one position. Use the spinner to position the highlighted award to what you want <em>before</em> entering the door. Spinner value briefly increases after traversing the left inlane." },
+        { name: "Super Cellar Door (Lower Right)", desc: "Cycling award target with 7 awards: (1) Lo Pressure Jets at Maximum (5K/hit), (2) Super Door Score 500K, (3) Extra Ball lit, (4) Drop Target at Maximum, (5) Quick Multiball lit, (6) Million lit, (7) Hi Pressure Jets at Maximum (5K/hit). Use the Spinner to select the award you want. Collect all 7 for the <strong>Mega Door Bonus</strong> (all 7 + 2M + Special lit)." },
+        { name: "Tornado Drop Target", desc: "A drop target with progressive values advancing with each Skyway Ramp trip: 50K → 75K → 100K → 150K → <strong>Lite Quick Multiball</strong> → Extra Ball. If no value is lit, scores zero. Tone sound indicates current value tier — higher tone = higher value." },
         { name: "Skyway Tolls", desc: "A toll counter (max 99 tolls) that awards 2K × bonus multiplier per toll at end-of-ball. Built by shooting ramps and loops during normal play." },
         { name: "Spinning Disc (Center)", desc: "The signature toy — a motorized spinning disc that deflects the ball in unpredictable directions. Adds chaos to center-playfield shots but also scores with each deflection." },
       ],
       scoring: [
         { key: "Skill shot max (all 3 targets)", val: "600,000 pts" },
-        { key: "Million Plus (1st collect)",     val: "1,000,000 pts" },
-        { key: "Million Plus (max, 10th)",       val: "10,000,000 pts" },
+        { key: "Million Plus (1st collect)",     val: "2,000,000 pts" },
+        { key: "Million Plus (max, at 9th)",     val: "10,000,000 pts" },
         { key: "Bonus multiplier (max)",         val: "6× (via ball locks)" },
         { key: "Skyway Tolls (max)",             val: "99 × 2K × bonus ×" },
         { key: "Super Cellar Door award",        val: "500,000 pts (base)" },
         { key: "Mega Door Bonus",                val: "2,000,000 + Special" },
       ],
       rules: [
-        "Each ball locked in the lock lane advances the bonus multiplier by 1 step — <strong>locking balls both starts multiball AND raises your multiplier</strong>. Never skip a lock opportunity.",
-        "The <strong>Million Plus jackpot</strong> starts at 1M, increases by 1M each time you collect it during multiball, and maxes at 10M. It resets if you let multiball end without collecting.",
+        "Each ball locked in the lock lane advances the bonus multiplier by 1 step — <strong>locking balls both starts multiball AND raises your multiplier</strong>. The 5th lock also lights Extra Ball; the 6th lock lights Special (both at the 6× cap). Never skip a lock opportunity.",
+        "The <strong>Million Plus jackpot starts at 2M</strong>, increases by 1M each time you collect it during multiball, and maxes at 10M. It resets if you let multiball end without collecting.",
         "If no Million Plus is collected during Feel the Power Multiball, <strong>Cellar Multiball</strong> (2-ball) automatically starts as a consolation round.",
-        "The <strong>Super Cellar Door</strong> cycles through 7 awards. Collect all 7 to light the Mega Door Bonus (all 7 awards simultaneously + 2M + Special).",
+        "The <strong>Super Cellar Door</strong> cycles through 7 awards. Use the <strong>Spinner</strong> (right of Skyway Ramp) to position to the award you want before entering. Collect all 7 to light the Mega Door Bonus (all 7 awards + 2M + Special).",
+        "For the <strong>first multiball</strong>, direction targets can be hit in any order. From the <strong>second multiball onward</strong>, only one direction at a time can be completed (one direction lights, then the next).",
         "<strong>No Extra Balls</strong> in competition settings — Extra Ball awards convert to 1M points.",
       ],
       benchmarks: [
@@ -439,15 +444,15 @@ const MACHINES = {
         {
           name: "Feel the Power Multiball",
           balls: 3,
-          locks: "Hit the <strong>four directional targets</strong> (N, S, E, W compass arrows scattered around the playfield) to light the lock lane. Completing all four directions lights the <strong>left-side ball lock lane</strong>. Each ball successfully locked advances the bonus multiplier one step: 2× → 3× → 4× → 5× → 6× max. <strong>Lock 2 balls before attempting to start multiball.</strong>",
-          start: "After locking 2 balls, shoot the <strong>3-Toll Ramp</strong> to release all locked balls and start 3-ball Feel the Power Multiball. Alternatively, locking a <strong>3rd ball</strong> in the lock lane also triggers multiball launch.",
-          jackpots: "Shoot the <strong>3-Toll Ramp</strong> repeatedly during multiball to collect <strong>Million Plus</strong>. Starts at 1M, increases by 1M each collect, max 10M. Collect 5+ times in a single multiball for 1M + 2M + 3M + 4M + 5M = <strong>15M total</strong>. If no Million Plus collected when multiball ends, Cellar Multiball starts automatically.",
+          locks: "Hit the <strong>four directional targets</strong> (NE=Red, NW=Yellow, SE=Orange, SW=Green) to light the lock lane. <strong>First multiball:</strong> any order. <strong>Subsequent multiballs:</strong> one direction at a time (sequential). Each ball successfully locked advances the bonus multiplier one step: 2× → 3× → 4× → 5× → 6× max. The 5th and 6th locks also light Extra Ball and Special respectively. <strong>Lock 2 balls before attempting to start multiball.</strong>",
+          start: "After locking 2 balls, shoot the <strong>3-Toll Ramp (Left)</strong> to release all locked balls and start 3-ball Feel the Power Multiball. Alternatively, locking a 3rd ball in the cup also triggers launch (note: this cup-start only works up to a certain point in the game — later the 3-Toll Ramp becomes required).",
+          jackpots: "Shoot the <strong>3-Toll Ramp (Left)</strong> repeatedly during multiball to collect <strong>Million Plus</strong>. Starts at 2M, increases by 1M each collect, max 10M. Collect 5+ times in a single multiball for 2M + 3M + 4M + 5M + 6M = <strong>20M total</strong>. If no Million Plus collected when multiball ends, Cellar Multiball starts automatically.",
           tip: "Locking balls is a double win — each lock raises your bonus multiplier AND builds toward multiball. Never miss a lit lock. During multiball, ignore everything except the 3-Toll Ramp. Keep hammering it until a ball drains.",
         },
         {
           name: "Quick Multiball",
           balls: 2,
-          locks: "Light Quick Multiball by hitting the <strong>Tornado Drop Target</strong> (center standup) or by collecting it as a <strong>Super Cellar Door award</strong>.",
+          locks: "Light Quick Multiball by hitting the <strong>Tornado Drop Target</strong> once it has advanced to the 'Lite Quick Multiball' tier (via Skyway Ramp trips), or by collecting it as a <strong>Super Cellar Door award</strong>.",
           start: "Once Quick Multiball is lit, shoot the ball into the <strong>center cup</strong>. The second ball is released immediately, starting 2-ball Quick Multiball.",
           jackpots: "Standard 2-ball play with all shots scoring normally. The bonus multiplier (built from Feel the Power locks) amplifies all scoring during Quick Multiball. Focus on lanes and ramps to maintain toll and multiplier progress.",
           tip: "Use Quick Multiball as a backup or gap-filler between Feel the Power setups. The Super Cellar Door is also worth visiting during Quick Multiball to cycle through its 7 awards.",
@@ -466,7 +471,7 @@ const MACHINES = {
         {
           num: "Phase 1 · Early Game",
           title: "Skill Shot → Compass Targets → Light the Lock",
-          body: "<strong>Start every ball with the FEEL THE POWER skill shot</strong> — aim for all 3 drop targets for 600K.<br><br>Then immediately begin hunting the <strong>four directional compass targets</strong> (N, S, E, W). These are visible arrows/standups around the playfield. Hit all four to light the lock lane. The compass targets are wide and can be approached from both flippers — they are your Phase 1 safe shots.<br><br>Avoid the spinning disc area until the lock is lit — the disc deflections are unpredictable.",
+          body: "<strong>Start every ball with the FEEL THE POWER skill shot</strong> — aim for all 3 drop targets for 600K.<br><br>Then immediately begin hunting the <strong>four directional targets</strong> (NE=Red, NW=Yellow, SE=Orange, SW=Green). For the first multiball, targets can be hit in any order. Hit all four to light the lock lane. The targets are wide standups approachable from both flippers — they are your Phase 1 safe shots.<br><br>Avoid the spinning disc area until the lock is lit — the disc deflections are unpredictable.",
         },
         {
           num: "Phase 2 · Mid Game",
@@ -476,23 +481,24 @@ const MACHINES = {
         {
           num: "Phase 3 · Multiball",
           title: "Hammer the 3-Toll Ramp for Million Plus",
-          body: "<strong>Once Feel the Power Multiball starts, ignore everything except the 3-Toll Ramp.</strong><br><br>Each successful ramp shot collects a Million Plus jackpot: 1M, 2M, 3M, 4M, 5M... up to 10M per hit. With your bonus multiplier at 5–6×, even end-of-ball tolls compound significantly.<br><br>Keep both balls in play as long as possible. If you lose a ball, the surviving ball continues single-ball play — steer it back toward the ramp and lock lane to reset for the next multiball.",
+          body: "<strong>Once Feel the Power Multiball starts, ignore everything except the 3-Toll Ramp (Left).</strong><br><br>Each successful ramp shot collects a Million Plus jackpot: 2M, 3M, 4M, 5M, 6M... up to 10M per hit. Collect 5 times = 20M total. With your bonus multiplier at 5–6×, even end-of-ball tolls compound significantly.<br><br>Keep both balls in play as long as possible. If you lose a ball, the surviving ball continues single-ball play — steer it back toward the ramp and lock lane to reset for the next multiball.",
         },
       ],
       safeShots: [
-        { name: "Compass / Directional Targets", desc: "Wide standup targets visible around the playfield. Your primary Phase 1 and Phase 2 targets. Approachable from both flippers with moderate force." },
+        { name: "Compass / Directional Targets (NE/NW/SE/SW)", desc: "Four directional standup targets visible around the playfield, color-coded: NE=Red, NW=Yellow, SE=Orange, SW=Green. Your primary Phase 1 and Phase 2 targets. Approachable from both flippers with moderate force." },
         { name: "Left Loop", desc: "Consistent return that loops back to the right flipper area. Advance Skyway Tolls and lane progress without engaging the spinning disc." },
         { name: "Super Cellar Door (Lower Right)", desc: "Lower-right entrance that cycles 7 awards including Extra Ball, Quick Multiball, and 500K. A safe detour between lock setups." },
       ],
       avoidShots: [
         { name: "Spinning Disc (Center)", desc: "The deflections are genuinely unpredictable — a ball hitting the disc can go anywhere. Never aim directly at it. Let the ball pass around the disc, not through it." },
-        { name: "Tornado Drop Target (unplanned)", desc: "Hitting it lights Quick Multiball, which can disrupt your lock setup timing. Only aim for it deliberately when you want Quick Multiball as a backup." },
+        { name: "Tornado Drop Target (when unlit or low value)", desc: "If no value is lit, the target scores zero — avoid it. Once Quick Multiball is lit on it, hitting it can disrupt your lock setup timing. Only aim for it deliberately when you want Quick Multiball as a backup." },
       ],
       tips: [
         { head: "Lock = multiplier", body: "Every ball you lock is +1 bonus multiplier. Two locks = 4× or 5× bonus, three locks = 5× or 6×. The multiplier raises your Skyway Toll end-of-ball bonus significantly. Never skip a lit lock." },
-        { head: "Million Plus compounds fast", body: "1M + 2M + 3M + 4M + 5M across 5 ramp shots = 15M in one multiball. If you manage 6–7 shots before losing a ball, you can score 21–28M in one multiball session. The escalation is worth protecting." },
-        { head: "Compass targets reset, that's OK", body: "After each lock, you need to re-complete compass targets. This is normal. Think of it as a defined two-step loop: compass targets → lock → compass targets → lock → multiball." },
-        { head: "Cellar Door awards rotate", body: "Each visit to the Super Cellar Door cycles to the next award. Plan your visits to time it for the award you want most — Quick Multiball and Extra Ball are the top prizes." },
+        { head: "Million Plus compounds fast", body: "2M + 3M + 4M + 5M + 6M across 5 ramp shots = 20M in one multiball. If you manage 6–7 shots before losing a ball, you can score 27–35M in one multiball session. The escalation is worth protecting." },
+        { head: "Compass targets reset, that's OK", body: "After each lock, you need to re-complete compass targets. This is normal. Think of it as a defined two-step loop: compass targets → lock → compass targets → lock → multiball. Remember: from the second multiball onward, only one direction at a time completes." },
+        { head: "Use the Spinner to aim the Cellar Door", body: "Each spin of the Spinner (right of Skyway Ramp) moves the Super Cellar Door award one position. Before entering the door, spin to line up the award you want — Quick Multiball and Extra Ball (→1M) are the top prizes." },
+        { head: "Tornado Drop Target value ladder", body: "The Tornado Drop Target advances with each Skyway Ramp trip: 50K → 75K → 100K → 150K → Quick Multiball → Extra Ball. At 150K+ it's worth deliberately targeting — don't treat it as just a Quick Multiball button." },
         { head: "Skyway Tolls are the long game", body: "With 6× multiplier and 80+ tolls banked, your end-of-ball bonus can be 1M+. Shoot ramps and loops consistently between multiball setups to keep the toll count rising." },
       ],
       mistakes: [
@@ -506,14 +512,14 @@ const MACHINES = {
 
     hotspots: [
       { x:35, y:10, type:"key",   label:"FP", name:"FEEL THE POWER (Skill Shot)", body:"Three drop targets at the top of the playfield: <strong>POWER (100K) · THE (200K) · FEEL (300K)</strong>. Hit all three on the plunge for 600K total. Additive — each hit scores individually. <strong>Your most reliable early-game points.</strong>" },
-      { x:28, y:22, type:"key",   label:"N",  name:"North Compass Target",         body:"One of four directional targets (N/S/E/W) that must all be completed to <strong>light the ball lock lane</strong>. Wide standup — approachable from either flipper. Complete all four to set up Feel the Power Multiball." },
-      { x:70, y:22, type:"key",   label:"E",  name:"East Compass Target",          body:"Part of the compass target system. All four directions (N/S/E/W) must be hit to light the lock lane. <strong>After each ball lock, compass targets reset</strong> — repeat the process to light the next lock." },
-      { x:20, y:40, type:"key",   label:"W",  name:"West Compass Target",          body:"Part of the compass target system. Aim from the right flipper with moderate force. Completing all four compass targets is your primary mid-game task between lock shots." },
+      { x:28, y:22, type:"key",   label:"NE", name:"NE Compass Target (Red)",      body:"One of four directional targets (NE/NW/SE/SW) that must all be completed to <strong>light the ball lock lane</strong>. Wide standup — approachable from either flipper. <strong>First multiball:</strong> any order. <strong>Subsequent multiballs:</strong> one direction at a time. Complete all four to set up Feel the Power Multiball." },
+      { x:70, y:22, type:"key",   label:"SE", name:"SE Compass Target (Orange)",   body:"One of four directional targets (NE/NW/SE/SW). All four must be hit to light the lock lane. <strong>After each ball lock, compass targets reset</strong> — repeat the process to light the next lock." },
+      { x:20, y:40, type:"key",   label:"NW", name:"NW Compass Target (Yellow)",   body:"Part of the compass target system. Aim from the right flipper with moderate force. Completing the directional target set is your primary mid-game task between lock shots." },
       { x:50, y:32, type:"info",  label:"🌀", name:"Whirlwind Spinning Disc",      body:"The signature feature — a motorized spinning disc that <strong>deflects the ball unpredictably</strong>. Scores with each deflection, but never aim directly at it. Let the ball travel around the disc, not into it." },
       { x:18, y:50, type:"key",   label:"🔒", name:"Ball Lock Lane (Left)",        body:"<strong>Lock balls here for Feel the Power Multiball.</strong> Each ball locked advances your bonus multiplier by 1 step (up to 6×). Lock 2 balls, then shoot the 3-Toll Ramp (or lock a 3rd ball) to start multiball. Never miss a lit lock." },
-      { x:45, y:47, type:"key",   label:"3T", name:"3-Toll Ramp",                  body:"<strong>The primary multiball jackpot shot.</strong> During Feel the Power Multiball, each ramp shot collects a Million Plus: 1M → 2M → 3M → ... → 10M. Collect 5 hits = 15M total. This is the only shot you should be focused on during multiball." },
+      { x:45, y:47, type:"key",   label:"3T", name:"3-Toll Ramp (Left)",            body:"<strong>The primary multiball jackpot shot.</strong> During Feel the Power Multiball, each ramp shot collects a Million Plus: 2M → 3M → 4M → ... → 10M. Collect 5 hits = 20M total. Also awards 3 Skyway Tolls and spots a direction target during normal play. This is the only shot you should be focused on during multiball." },
       { x:72, y:58, type:"safe",  label:"CD", name:"Super Cellar Door",            body:"Lower-right entry to the rotating award chamber. Cycles 7 awards: 500K, Extra Ball, Quick Multiball, Million lit, jet max, drop max, Skyway advances. Collect all 7 for <strong>Mega Door Bonus (all 7 + 2M + Special)</strong>. Great secondary target between lock setups." },
-      { x:48, y:62, type:"info",  label:"TO", name:"Tornado Drop Target",          body:"Hitting this lights <strong>Quick Multiball</strong>. Also available as a Super Cellar Door award. Only aim for it deliberately when you want Quick Multiball as a backup mode." },
+      { x:48, y:62, type:"info",  label:"TO", name:"Tornado Drop Target",          body:"Progressive value drop target. Advances with each Skyway Ramp trip: <strong>50K → 75K → 100K → 150K → Lite Quick Multiball → Extra Ball</strong>. If no value is lit, scores zero. A tone signals the current value — higher tone = higher value. Worth targeting once it reaches 100K+." },
       { x:50, y:22, type:"info",  label:"↑",  name:"Pop Bumpers",                  body:"Top bumpers. Feed balls from the plunge area into the playfield. The bumper area also factors into Skyway Toll accumulation during normal play." },
       { x:12, y:75, type:"avoid", label:"!",  name:"Left Outlane (No Post)",       body:"<strong>No outlane post rubber in competition settings</strong> — the ball drains directly. The left side is particularly exposed when the ball kicks off the disc or bumpers unexpectedly. Stay alert on the left side." },
       { x:88, y:75, type:"avoid", label:"!",  name:"Right Outlane (No Post)",      body:"<strong>No outlane post rubber in competition settings</strong> — straight drain. Right-side shots that miss their target can feed the outlane. Be conservative with power on right-side shots." },
@@ -538,27 +544,33 @@ const MACHINES = {
       ],
       theme: "Black-and-white science fiction/horror hybrid. A half-human, half-machine Centaur warrior overlooks a stark monochrome playfield with neon red and yellow accents. One of the most visually distinctive early 1980s machines — minimal ornamentation, maximum atmosphere.",
       features: [
-        { name: "ORBS Drop Targets", desc: "Four drop targets (O, R, B, S) on the left-center playfield. Must be hit in sequential order (O → R → B → S) for multiball. An out-of-order hit knocks down the target but does not count toward the sequence. Completing in order starts 2-ball multiball immediately and adds a virtual lock (amber light above flipper). Up to 4 virtual locks can be accumulated across multiple completions." },
+        { name: "ORBS Drop Targets", desc: "Four drop targets (O, R, B, S) on the left-center playfield. Completing in <strong>exact order</strong> (O → R → B → S) starts 2-ball multiball immediately and adds a virtual lock. An out-of-order hit breaks the sequence, but completing the full bank out-of-order <strong>still earns a virtual lock</strong> (just no instant multiball). Up to 4 virtual locks accumulated. Release targets (upper-right standup; standup behind captive ball) can cash in all banked locks to start multiball on demand." },
         { name: "Queen's Chamber (Left Saucer)", desc: "The primary scoring destination. A saucer on the left side of the playfield. The main jackpot target during multiball. Aim here whenever the ball feeds the left side cleanly." },
         { name: "Left Arc Star Rollovers", desc: "A series of star rollover buttons arranged in a left-side arc. Passing through them lights a 'double points' state that doubles the value of the next captive ball hit. Always shoot the star rollovers before targeting the captive ball." },
-        { name: "Captive Ball (Right Side)", desc: "A ball held captive behind a post on the right side of the playfield. Striking the captive ball post awards escalating points: 10K → 20K → 30K → 40K → 50K. Doubles to 20K–100K if star rollovers were hit first. Progressive — value resets each ball." },
-        { name: "1-2-3-4 Sequential Drop Targets (Right)", desc: "Four drop targets on the right side that must be hit in order: #1 = 10K, #2 = 20K, #3 = 40K, #4 = 80K. Each hit in order also advances the bonus. Out-of-order hits score a flat value but don't advance the sequence. Completing all four in order releases any locked balls." },
+        { name: "Captive Ball (Right Side)", desc: "A ball held captive behind a post on the right side of the playfield. Striking the captive ball post awards escalating points: 10K → 20K → 30K → 40K → 50K. Doubles to 20K–100K if star rollovers were hit first. <strong>Value is preserved from ball to ball</strong> — progression carries over, so investing early pays off in later balls." },
+        { name: "1-2-3-4 Drop Targets (Right)", desc: "Completing the bank <strong>in any order</strong> lights the upper-right target for a timed collect bonus shot (aim for the 5× window). Completing <strong>in order</strong> additionally scores 10K + 20K + 40K + 80K = 150K in bonus advances and releases any locked balls." },
         { name: "Return/Outlane Lanes (4 total)", desc: "Two return lanes and two outlane lanes (left and right sides). Completing all four starts a 2-ball multiball. This can only happen once per ball — complete them as early as possible. (Note: outlane post rubbers are removed in competition settings.)" },
         { name: "Pop Bumpers", desc: "Upper bumper cluster. Each hit advances the bonus. High-speed bumper action naturally feeds balls to the top lanes and back to the flippers." },
       ],
       scoring: [
-        { key: "Captive ball (max)",            val: "50,000 pts" },
+        { key: "Captive ball (max)",            val: "50,000 pts (preserved ball-to-ball)" },
         { key: "Captive ball × star rollovers", val: "100,000 pts (doubled)" },
-        { key: "1-2-3-4 drops in order",        val: "10K + 20K + 40K + 80K" },
-        { key: "ORBS completion",               val: "2-ball multiball + virtual lock" },
+        { key: "1-2-3-4 drops (any order)",     val: "Lights timed collect bonus shot" },
+        { key: "1-2-3-4 drops (in order)",      val: "10K + 20K + 40K + 80K + releases locks" },
+        { key: "Bonus base max",                val: "79,000 pts" },
+        { key: "Bonus multiplier (top lanes)",  val: "Up to 5× (holds at 20K/40K/60K)" },
+        { key: "Max bonus payout",              val: "395,000 pts" },
+        { key: "ORBS completion (in order)",    val: "2-ball multiball + virtual lock" },
+        { key: "ORBS completion (out of order)", val: "Virtual lock only (no instant multiball)" },
         { key: "Lane completion (4 lanes)",     val: "2-ball multiball (once/ball)" },
         { key: "Virtual locks max",             val: "4 (amber indicators)" },
         { key: "Queen's Chamber jackpot",       val: "Primary multiball target" },
       ],
       rules: [
-        "ORBS must be hit <strong>in exact order O → R → B → S</strong>. Any out-of-order hit knocks down the target but breaks the sequence. The targets reset after a sequence failure.",
-        "Completing ORBS in order starts 2-ball multiball <strong>immediately</strong> — no separate lock shot required. A virtual lock (amber light) is also added.",
-        "The <strong>1-2-3-4 right-side drops in order</strong> release any accumulated locked balls when all four are completed sequentially.",
+        "ORBS in <strong>exact order O → R → B → S</strong> starts 2-ball multiball immediately + earns a virtual lock. Out-of-order breaks the sequence, but finishing the full bank still earns a virtual lock.",
+        "<strong>Release targets</strong> (upper-right standup; standup behind captive ball inline drops) release all banked virtual locks as a multiball start — an alternative to in-order ORBS.",
+        "The <strong>1-2-3-4 right-side drops in any order</strong> light the upper-right target for a timed collect bonus shot. Completing <em>in order</em> additionally scores escalating points and releases locked balls.",
+        "<strong>Top three lanes</strong> (both flipper buttons shift the lit lane) advance bonus multiplier up to 5×. Base holds at 20K, 40K, and 60K. Max payout: 5× × 79K = 395K.",
         "Lane Multiball (all 4 return/outlane lanes) can only start <strong>once per ball</strong>. Complete lanes early.",
         "<strong>No skill shot and no Extra Balls</strong> in competition settings. No outlane post rubbers — the outlanes are fully open.",
       ],
@@ -579,9 +591,9 @@ const MACHINES = {
         {
           name: "ORBS Multiball",
           balls: 2,
-          locks: "Hit the <strong>ORBS drop targets in strict sequential order: O → R → B → S</strong>. The targets are on the left-center playfield. An out-of-order hit knocks the target down but breaks the sequence — all targets reset. Focus on one target at a time. Each completion also awards a <strong>virtual lock</strong> (amber indicator light above the flipper), up to 4 virtual locks total.",
-          start: "<strong>Multiball starts immediately</strong> upon completing O→R→B→S in sequence — no additional lock shot required. A second ball is released directly into play. No waiting. The more virtual locks accumulated from previous ORBS completions, the more balls in reserve for future sequences.",
-          jackpots: "The <strong>Queen's Chamber</strong> (left saucer) is the primary jackpot target during multiball — aim there whenever the ball is on the left side. Also use multiball time to work the <strong>1-2-3-4 right-side drops in order</strong>: completing all four releases locked balls and awards 10K + 20K + 40K + 80K in bonus advances.",
+          locks: "Hit the <strong>ORBS drop targets in strict sequential order: O → R → B → S</strong>. The targets are on the left-center playfield. Focus on one target at a time. Each <em>in-order</em> completion immediately starts multiball + awards a virtual lock. An out-of-order hit breaks the sequence, but finishing the full bank out-of-order <strong>still earns a virtual lock</strong> — never worthless. Up to 4 virtual locks total.",
+          start: "<strong>In-order completion starts multiball immediately</strong> — no additional lock shot required. Alternatively, hit either <strong>release target</strong> (upper-right standup, or standup behind captive ball inline drops) to release all banked virtual locks and start multiball on demand.",
+          jackpots: "The <strong>Queen's Chamber</strong> (left saucer) is the primary jackpot target during multiball. Also work the <strong>1-2-3-4 right-side drops</strong>: completing the bank in <em>any order</em> lights a timed collect bonus shot at the upper-right (aim for the 5× window); completing <em>in order</em> additionally awards 10K + 20K + 40K + 80K and releases locked balls.",
           tip: "ORBS is repeatable every ball — each completion gives another multiball entry. The more you can chain ORBS sequences within a ball, the more multiball time you accumulate. Patience with the sequential targeting is the key skill on Centaur.",
         },
         {
@@ -603,17 +615,17 @@ const MACHINES = {
         {
           num: "Phase 2 · ORBS Sequence",
           title: "Work Through O → R → B → S",
-          body: "<strong>Focus on the ORBS drop targets in order.</strong> Do not rush — wait for the ball to feed a clean shot at each target in turn. O is typically the easiest to reach from the right flipper. Work through R → B → S methodically.<br><br>If you break the sequence with an out-of-order hit, let the targets reset and start again. Multiball starts <strong>immediately</strong> on completing S — no lock shot needed. Each completion also banks a virtual lock (amber light above flipper).",
+          body: "<strong>Focus on the ORBS drop targets in order.</strong> Do not rush — wait for the ball to feed a clean shot at each target in turn. O is typically the easiest to reach from the right flipper. Work through R → B → S methodically.<br><br>If you hit a target out of order, stay calm — finish the remaining drops anyway. You still earn a virtual lock when the bank is cleared. Then start a fresh O → R → B → S attempt. Multiball starts <strong>immediately</strong> on completing S in order — no lock shot needed. Alternatively, once locks are banked, use a release target to cash them all in at once.",
         },
         {
           num: "Phase 3 · Multiball",
           title: "Queen's Chamber All Day",
-          body: "<strong>During multiball, aim exclusively for the Queen's Chamber</strong> (left saucer). Every successful hit during multiball is your jackpot. Keep both balls in play and feed the left saucer repeatedly.<br><br>When ball time allows, use multiball to also complete the <strong>1-2-3-4 right-side drops in order</strong> — completing all four releases locked balls and earns 150K in bonus advances (10K + 20K + 40K + 80K).<br><br>After multiball ends, immediately start working ORBS again for the next entry.",
+          body: "<strong>During multiball, aim exclusively for the Queen's Chamber</strong> (left saucer). Every successful hit during multiball is your jackpot. Keep both balls in play and feed the left saucer repeatedly.<br><br>When ball time allows, also work the <strong>1-2-3-4 right-side drops</strong>. Completing the bank in any order lights the upper-right timed collect bonus shot — aim for the 5× window. Completing in order also earns 150K in bonus advances and releases locked balls.<br><br>After multiball ends, immediately start working ORBS again for the next entry.",
         },
       ],
       safeShots: [
         { name: "Left Arc Star Rollovers", desc: "Safe, repeatable pass through the left arc. Always shoot these before targeting the captive ball to double the payout. Low risk, high reward when combined correctly." },
-        { name: "Captive Ball (Right)", desc: "A controlled shot from the left flipper. The ball stays captive — no risk of drain. Progressive value 10K→50K (or doubled to 100K with star rollovers). One of the safest high-value shots on the machine." },
+        { name: "Captive Ball (Right)", desc: "A controlled shot from the left flipper. The ball stays captive — no risk of drain. Progressive value 10K→50K (or doubled to 100K with star rollovers). <strong>Value is preserved from ball to ball</strong> — invest early for compounding returns. One of the safest high-value shots on the machine." },
         { name: "Queen's Chamber (Left Saucer)", desc: "Left side saucer — your primary jackpot location. Safe ball exit, consistent return to the flippers. The main focus during multiball." },
       ],
       avoidShots: [
@@ -623,16 +635,21 @@ const MACHINES = {
       tips: [
         { head: "Star rollovers before captive ball — always", body: "The star rollover double is only active for the next captive ball hit. Establish this as a habit: arc first, then captive ball. The difference is 10K→50K vs 20K→100K — effectively doubling your captive ball income every time." },
         { head: "ORBS patience is the skill", body: "The sequential order requirement is strict. Wait for the ball to feed near the correct target before shooting. A rushed out-of-order hit costs you the entire sequence. Take your time with each letter." },
-        { head: "Virtual locks are progress banked", body: "Each ORBS completion banks a virtual lock (amber light). More completions across a ball = more multiball entries reserved. Even if a multiball ends quickly, the next ORBS completion immediately triggers another." },
-        { head: "1-2-3-4 drops in order = big bonus", body: "Completing all four right-side drops in sequence earns 150K in bonus advances (10K + 20K + 40K + 80K). With no extra balls available, maximizing bonus advance is how you build long-game scores across balls." },
+        { head: "Out-of-order ORBS still banks a lock", body: "A mis-hit breaks the sequence for instant multiball, but finishing the remaining drops earns a virtual lock anyway. Never abandon the bank after a mis-hit — finish it for the lock credit, then start a fresh in-order attempt." },
+        { head: "Virtual locks: use release targets to cash in", body: "Banked virtual locks can be released all at once by hitting either release target (upper-right standup, or standup behind the captive ball inline drops). No need to grind through ORBS again if you have multiple locks saved." },
+        { head: "Captive ball value carries over", body: "The progressive captive ball value (10K–50K) is preserved from ball to ball. Investing in early balls means later balls start at higher base values — at 50K × star rollover double = 100K per hit." },
+        { head: "Top lanes build bonus multiplier", body: "Completing the top three lanes (both flipper buttons shift the lit lane in opposite directions) advances the bonus multiplier up to 5×. Base holds at 20K, 40K, and 60K. Max payout: 5× × 79K = 395,000 pts." },
+        { head: "1-2-3-4 drops: any order lights collect bonus", body: "Completing all four drops in any order lights the upper-right timed collect bonus shot — watch the lane lights and aim for the 5× window. Completing in order also earns 150K in bonus advances and releases locked balls." },
         { head: "Let lanes complete naturally", body: "The 4 return/outlane lanes for Lane Multiball complete themselves during normal play. Don't adjust your shot selection to force lane completions — especially dangerous with no post rubbers on the outlanes." },
       ],
       mistakes: [
-        "Hitting ORBS out of order and resetting the sequence — patience is everything.",
+        "Abandoning the ORBS bank after a mis-hit — finish the remaining drops to still earn the virtual lock.",
         "Forgetting to hit star rollovers before the captive ball and leaving the double-points state unused.",
+        "Not knowing captive ball value carries over — hitting it ball one builds value for balls two and three.",
         "Not shooting the Queen's Chamber during multiball — it's the entire point of multiball on Centaur.",
         "Deliberately aiming for outlane lanes with no post rubbers — the risk is not worth it.",
-        "Ignoring virtual lock accumulation — each ORBS completion is a future multiball entry banked.",
+        "Never using the release targets to cash in banked virtual locks — they are a shortcut to multiball.",
+        "Ignoring the top lanes bonus multiplier — with a 79K base, 5× = 395K max payout.",
       ],
     },
 
@@ -643,9 +660,9 @@ const MACHINES = {
       { x:38, y:46, type:"key",   label:"S",  name:"ORBS — 'S' Target (Start!)",  body:"Fourth and final target (O → R → B → <strong>S</strong>). <strong>Completing S immediately starts 2-ball multiball</strong> and banks a virtual lock (amber light). No additional lock shot needed — multiball starts on contact." },
       { x:18, y:30, type:"key",   label:"QC", name:"Queen's Chamber (Left Saucer)", body:"<strong>Your primary jackpot target.</strong> During multiball, aim here exclusively. Safe saucer exit that feeds the ball back to the flippers. Also scores well in single-ball play. The entire multiball strategy is: get here as often as possible." },
       { x:22, y:55, type:"safe",  label:"★",  name:"Left Arc Star Rollovers",      body:"Roll through this left-side arc to activate <strong>double-points mode</strong> for the next captive ball hit. Always do this before shooting the captive ball. Progressive value: 20K → 40K → 60K → 80K → 100K (vs 10K→50K without star rollovers)." },
-      { x:75, y:45, type:"safe",  label:"CB", name:"Captive Ball (Right Side)",    body:"A ball held captive behind a post. <strong>Hit it after star rollovers for doubled points</strong> (up to 100K). Progressive value that resets each ball. Shoot from the left flipper — the captive ball can't drain. One of the safest high-value shots on the machine." },
-      { x:68, y:53, type:"info",  label:"1",  name:"1-2-3-4 Sequential Drops (#1)", body:"Right-side drop targets that must be hit in order. <strong>#1 scores 10K</strong> and begins the sequence. All four in order (10K + 20K + 40K + 80K = 150K) releases any locked balls. Only hit in order — out-of-sequence hits don't advance the sequence." },
-      { x:72, y:59, type:"info",  label:"4",  name:"1-2-3-4 Sequential Drops (#4)", body:"Completing <strong>#4 (80K)</strong> finishes the 1-2-3-4 sequence, releasing all locked balls and awarding the full bonus advances. During multiball this is your secondary jackpot source after the Queen's Chamber." },
+      { x:75, y:45, type:"safe",  label:"CB", name:"Captive Ball (Right Side)",    body:"A ball held captive behind a post. <strong>Hit it after star rollovers for doubled points</strong> (up to 100K). <strong>Progressive value is preserved from ball to ball</strong> — early investment pays off later. Shoot from the left flipper — the captive ball can't drain. One of the safest high-value shots on the machine." },
+      { x:68, y:53, type:"info",  label:"1",  name:"1-2-3-4 Drop Targets",          body:"Completing the bank <strong>in any order</strong> lights the upper-right timed collect bonus shot — aim for the 5× window. Completing <strong>in order</strong> also scores 10K + 20K + 40K + 80K = 150K bonus advances and releases locked balls. Worth doing either way." },
+      { x:72, y:59, type:"info",  label:"4",  name:"Timed Collect Bonus (Upper-Right)", body:"Lit after completing the 1-2-3-4 bank. Watch the lane lights leading to the upper-right target — <strong>time your shot for the 5× window</strong>. Scoring multiplied on the collect. Also lit for releasing locked balls when drops were completed in order." },
       { x:50, y:18, type:"info",  label:"↑",  name:"Pop Bumpers",                  body:"Upper bumper cluster. Each hit advances the bonus. The bumpers also feed balls to the top lanes and back down — expect fast, unpredictable ball returns. Always be ready at the flippers after bumper action." },
       { x:12, y:78, type:"avoid", label:"!",  name:"Left Outlane (No Post)",       body:"<strong>No outlane post rubber in competition settings</strong> — straight drain. Play conservatively when the ball is on the left side. Even though the left outlane lane completes toward Lane Multiball, it's rarely worth the drain risk to target it intentionally." },
       { x:88, y:78, type:"avoid", label:"!",  name:"Right Outlane (No Post)",      body:"<strong>No outlane post rubber in competition settings</strong> — straight drain. Right-side shots that miss can feed here. Keep right-side shots controlled and moderate-strength." },
@@ -2250,5 +2267,1296 @@ const MACHINES = {
       { x:88, y:80, type:"avoid", label:"!",  name:"Right Outlane",            body:"Fast drain after right orbit returns. Always recover position after right orbit shots. Outlane ball save alternates sides with sling hits." },
     ],
   },
+
+
+
+  /* ─── THE ADDAMS FAMILY ─────────────────────────────────── */
+  addamsfamily: {
+    name: "The Addams Family", sub: "1992 · Bally · Standard",
+    tagline: "Best-selling machine ever · T-H-I-N-G + Mansion Awards",
+    image: "images/addams-family.webp",
+    difficulty: "Hard", diffClass: "diff-hard", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Midway (Bally label)" },
+        { label: "Year",         value: "1992" },
+        { label: "Designers",    value: "Pat Lawlor & Larry DeMar" },
+        { label: "Programmers",  value: "Larry DeMar & Mike Boon" },
+        { label: "Production",   value: "20,270 units (all-time record)" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "Based on the 1991 movie. The Addams clan — Gomez, Morticia, Thing (a disembodied hand toy), Fester, Lurch and Cousin It — inhabit a haunted mansion. Collect 12 Mansion Awards to unlock Tour the Mansion wizard mode.",
+      features: [
+        { name: "Left Ramp (6)", desc: "Primary scoring shot. <strong>Million Plus</strong>: 1M → +1M per shot per ball, max 10M. Collects T-H-I-N-G letters N and G (2 shots to complete). Super Jackpot during Multiball. Relights Electric Chair." },
+        { name: "Centre Ramp (10)", desc: "<strong>Bear Kicks</strong>: 250K per hit, cumulative game-wide (max 99). Inner Left Inlane → 2 Bear Kicks in 3-sec window. G-R-A-V-E 'V' letter. Thing Flip trigger via Outer Left Inlane. Jackpot builder during Multiball." },
+        { name: "Thing Ramp (8)", desc: "Feeds ball to Thing Eject Saucer (11). Collects T-H-I-N-G Bonus (5M/10M/15M+) when complete. Extra Ball collection. Multiball lock. 'Thing Multiball' relight." },
+        { name: "Electric Chair Saucer (4)", desc: "Mansion Award collector. Lit by Right Inlane (3 sec) or Left/Centre Ramp (no timer). Swamp Kickout (16) also works when lit. Cycle flashing award via Jet Bumper hits before collecting." },
+        { name: "Bookcase / Vault (12)", desc: "Hit Bookcase Target 5× for G-R-E-E-D → bookcase opens → Vault accessible. During Multiball: each Bookcase hit = +1M Jackpot. <strong>Dirty Pool</strong>: ball into Vault while Bookcase closed = all letters + lock (or Super Jackpot during Multiball)." },
+        { name: "Swamp (14)", desc: "Scores Graveyard Value (1M–4M, grows via Jet Bumpers) + 100K. '5× Graveyard' lit after upper-left flipper path = 5× Graveyard Value at Swamp." },
+        { name: "12 Mansion Awards", desc: "Cousin It (20s mode, Cousin It Targets rack up bonus), Mamushka (20s, all targets +250K), 3/6/9 Mil (instant), Graveyard at Max, Quick Multiball, Fester's Tunnel Hunt (30M total), Séance (3 ramps, 30M), Thing Multiball, Raise the Dead (Jet Bumpers), Lite Extra Ball, Tour the Mansion (?)." },
+        { name: "G-R-A-V-E Targets", desc: "G/R/A Spot Targets + Centre Ramp (V) + Swamp Kickout (E). Completing all = Grave Bonus (2M first, max 10M). Advances Jet Bumpers for higher Graveyard Value." },
+      ],
+      scoring: [
+        { key: "Skill Shot",                 val: "2M → 5M (grows each ball)" },
+        { key: "Million Plus (Left Ramp)",   val: "1M → 10M per ball (resets)" },
+        { key: "T-H-I-N-G Bonus",           val: "5M / 10M / 15M+ (grows)" },
+        { key: "T-H-I-N-G Bonus + 2 Stars", val: "+5M per Star (max +10M)" },
+        { key: "Bear Kick (Centre Ramp)",    val: "250K each, cumulative" },
+        { key: "Multiball Jackpot (max)",    val: "25M" },
+        { key: "Multiball Super Jackpot",    val: "2× or 3× Jackpot" },
+        { key: "Fester's Tunnel Hunt",       val: "30M (5+10+15M)" },
+        { key: "Séance (3 ramps)",           val: "30M (5+10+15M)" },
+        { key: "Tour the Mansion start",     val: "50M immediate" },
+        { key: "Bonus Multiplier (max)",     val: "5× (Right Inlane → Left Orbit)" },
+      ],
+      rules: [
+        "<strong>T-H-I-N-G:</strong> T, H, I pre-collected at game start. N and G from Left Ramp (2 shots). Once complete: Thing Ramp → Saucer = T-H-I-N-G Bonus. Stars (Left Orbit → Lite Star → Left Ramp within 3 sec) add +5M per Star (max 2).",
+        "<strong>Bonus Multiplier:</strong> Right Inlane → Left Orbit (3) within 3 sec = +1× (max 5×). Resets each ball. Only applies to Bear Kicks + Mansion Award portions of bonus.",
+        "<strong>Bear Kicks</strong> are cumulative game-wide. At 15, 25, 35... Bear Kicks: auto-collect flashing Mansion Award. Use Jet Bumpers (Right Orbit) to cycle the flashing award before hitting these milestones.",
+        "<strong>No Kickback or Ball Save.</strong> Both outlanes are exposed — conservative play is essential.",
+        "<strong>Mansion Awards</strong> cycle via Jet Bumper hits. Always pre-position the flashing award to a desirable target before collecting via Electric Chair.",
+        "<strong>Dirty Pool:</strong> Ball entering Vault (12) while Bookcase is closed = all G-R-E-E-D letters + lock / Super Jackpot during Multiball.",
+      ],
+      benchmarks: [
+        { score: "200M+", label: "Excellent — Tour the Mansion achieved" },
+        { score: "80M+",  label: "Good — Multiball + several Mansion Awards" },
+        { score: "< 30M", label: "Early drain or missed Multiball" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=20",                      icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/addams-family",            icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zensite.wpenginepowered.com/wp-content/uploads/2023/07/WP-The-Addams-Family-Pinball-Guide-by-ShoryukenToTheChin.pdf", icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Plunge so the ball lands in the <strong>Thing Eject Saucer (11)</strong> — 2M first ball, up to 5M by ball 3. Also collects T-H-I-N-G Bonus if already complete, and Extra Ball if lit. Returns ball to flippers safely.",
+      multiball: "<strong>G-R-E-E-D Multiball (3-ball):</strong> Hit Bookcase Target (12) five times → lock 2 balls → send 3rd to Electric Chair (4) or Vault (12). Jackpot at Train Wreck Target (7): starts 10M, grows +1M per Centre Ramp or Bookcase hit (max 25M). <strong>Super Jackpot at Left Ramp (6) = 2× Jackpot.</strong> Relight via Vault (12). Dirty Pool (ball into Vault while Bookcase closed) = Super Jackpot stays lit. Failed Multiball → 'Multiball' lights 20 sec at Thing Ramp for 2-ball restart.",
+      goal: "Build Bonus Multiplier to 5× each ball via Right Inlane → Left Orbit. Chain Left Ramp shots for escalating Million Plus (1M→10M) and complete T-H-I-N-G in 2 shots for T-H-I-N-G Bonus. Accumulate Bear Kicks via Centre Ramp for auto Mansion Award collection. Target Fester's Tunnel Hunt (30M) and Séance (30M) as priority Mansion Awards. Activate Multiball, build Jackpot to 25M, collect 2× Super Jackpot via Left Ramp. Collect all 12 Mansion Awards for 50M Tour the Mansion wizard start.",
+      phases: [
+        { num: "Phase 1 · Early Ball", title: "Multiplier + T-H-I-N-G", body: "Skill Shot into Thing Eject Saucer (11). Then: Right Inlane → Left Orbit × 5 for 5× Bonus Multiplier. Left Ramp × 2 to collect N and G letters (scoring Million Plus 1M + 2M). Thing Ramp → Saucer for T-H-I-N-G Bonus (5M first ball). Centre Ramp for Bear Kicks." },
+        { num: "Phase 2 · Mid Ball", title: "Mansion Awards + G-R-E-E-D", body: "Right Inlane → Electric Chair for Mansion Awards. Pre-cycle awards via Right Orbit to reach Fester's Tunnel Hunt or Séance. Left Ramp chain: 3M, 4M... Left Orbit → Star → Left Ramp for starred T-H-I-N-G Bonuses (up to 25M). Hit Bookcase Target to build G-R-E-E-D. Lock 2 balls → Multiball." },
+        { num: "Phase 3 · Multiball + Wizard Mode", title: "Jackpot → Tour the Mansion", body: "During Multiball: Centre Ramp + Bookcase hits to build Jackpot to 25M → Train Wreck Target → Left Ramp Super Jackpot. Continue Mansion collection. All 12 → Tour the Mansion: 50M instantly, then Mamushka, Cousin It, Séance, Fester's Tunnel Hunt, Raise the Dead, Thing Multiball in sequence." },
+      ],
+      safeShots: [
+        { name: "Left Ramp (6)", desc: "Most important shot. Million Plus, T-H-I-N-G letters, Super Jackpot, Electric Chair relight. Reliable from right flipper throughout the game." },
+        { name: "Centre Ramp (10)", desc: "Bear Kicks, G-R-A-V-E V letter, Multiball Jackpot builder. Reliable from left flipper." },
+        { name: "Right Inlane → Electric Chair (4)", desc: "Deliberate action with a 3-second window. Shoot Electric Chair immediately after Right Inlane pass." },
+      ],
+      avoidShots: [
+        { name: "Left Orbit (3) without purpose", desc: "Full orbit circles through bumpers — unpredictable return. Only shoot for ADV.X (Bonus Multiplier) or Stars." },
+        { name: "Swamp (14) without 5× active", desc: "100K + Graveyard Value is modest for the risk. Only shoot when 5× Graveyard is lit (5M–20M)." },
+      ],
+      tips: [
+        { head: "Cousin It mode trick", body: "During Cousin It mode, shoot Thing Ramp (8) and hold the Right Flipper up. The ejected ball bounces off and hits Cousin It Targets repeatedly — each hit adds +2M to the Cousin It Total and boosts all target values by 50K. This is the highest-efficiency Mansion mode." },
+        { head: "Bear Kick pre-positioning", body: "Every 10 Bear Kicks at odd multiples of 5 (15, 25, 35...) auto-collects the flashing Mansion Award. Before hitting these milestones, hit the Right Orbit to cycle Jet Bumpers and position the flashing award on Fester's Tunnel Hunt, Séance, or 9 Mil." },
+        { head: "Star stacking for T-H-I-N-G Bonus", body: "Left Orbit → Lite Star at Left Ramp (3 sec) → shoot Left Ramp = collect Star. Max 2 Stars per T-H-I-N-G Bonus = +10M extra. A fully starred 15M T-H-I-N-G Bonus = 25M." },
+        { head: "Dirty Pool hunting", body: "During G-R-E-E-D collection or Multiball, a ball sneaking into the Vault (12) while Bookcase is closed = Super Jackpot that stays lit. Watch the Vault angle during play." },
+      ],
+      mistakes: [
+        "Missing the Bonus Multiplier: not shooting Left Orbit within 3 seconds of Right Inlane pass.",
+        "Not cycling Mansion Awards via Jet Bumpers before collecting — collecting low-value awards (3 Mil) when Fester's Tunnel Hunt would auto-trigger at the next Bear Kick milestone.",
+        "During Multiball, collecting Train Wreck Jackpot before building it — max it to 25M first via Centre Ramp + Bookcase hits.",
+        "Tilting during Cousin It, Mamushka, or Raise the Dead — these modes pay out only on drain. A tilt forfeits the entire accumulated value.",
+        "Not using the Cousin It trick (Thing Ramp + held Right Flipper) — missing the most efficient mode-scoring method.",
+      ],
+    },
+
+    hotspots: [
+      { x:15, y:28, type:"key",   label:"LR", name:"Left Ramp (6)",             body:"<strong>Primary scoring shot.</strong> Million Plus (1M→10M), collects T-H-I-N-G letters N and G. Super Jackpot during Multiball. Shoot early and often." },
+      { x:48, y:14, type:"key",   label:"TE", name:"Thing Eject Saucer (11)",   body:"<strong>Skill Shot target.</strong> 2M–5M on plunge. Collects T-H-I-N-G Bonus (5M/10M/15M+) once complete. Stars via Left Orbit → Left Ramp boost bonus to 25M." },
+      { x:10, y:38, type:"safe",  label:"LO", name:"Left Orbit (3)",            body:"Shoot after Right Inlane for +1× Bonus Multiplier (ADV.X, 3-sec window). Also lights Lite Star at Left Ramp — shoot quickly for +5M Star bonus." },
+      { x:50, y:22, type:"safe",  label:"CR", name:"Centre Ramp (10)",          body:"Bear Kicks (250K each, cumulative max 99). Inner Left Inlane → Centre Ramp = 2 Bear Kicks. Also builds Multiball Jackpot +1M per hit." },
+      { x:62, y:30, type:"safe",  label:"TR", name:"Thing Ramp (8)",            body:"Feeds Thing Eject Saucer. Shoot to collect T-H-I-N-G Bonus. Also Multiball lock. Relights 20 sec after failed Multiball." },
+      { x:72, y:44, type:"key",   label:"EC", name:"Electric Chair Saucer (4)", body:"<strong>Mansion Award collection.</strong> Lit 3 sec by Right Inlane — react immediately. Also lit (no timer) by Left or Centre Ramp. Cycle award with Jet Bumpers first." },
+      { x:76, y:32, type:"info",  label:"BV", name:"Bookcase / Vault (12)",     body:"Hit 5× to complete G-R-E-E-D → Vault for Multiball locks. Dirty Pool: ball in Vault while closed = all G-R-E-E-D + lock. During Multiball = Super Jackpot." },
+      { x:48, y:55, type:"info",  label:"SW", name:"Swamp (14)",                body:"Graveyard Value + 100K. Thing Flip (Outer Left Inlane → Centre Ramp, 6 sec) = table auto-flips here for 5× Graveyard Value up to 20M." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"No kickback, no rubber. Left Orbit is the primary risk — only shoot for ADV.X or Star combo." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"No rubber. Trap carefully on right flipper before firing toward Electric Chair." },
+    ],
+  },
+
+  /* ─── TWILIGHT ZONE ─────────────────────────────────────── */
+  twilightzone: {
+    name: "Twilight Zone", sub: "1993 · Bally · Standard",
+    tagline: "Pat Lawlor masterpiece · Door Panels + Piano Multiball",
+    image: "images/twilight-zone.png",
+    difficulty: "Hard", diffClass: "diff-hard", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Bally (Williams Electronics)" },
+        { label: "Year",         value: "1993" },
+        { label: "Designer",     value: "Pat Lawlor" },
+        { label: "Programmers",  value: "Larry DeMar & Ted Estes" },
+        { label: "Production",   value: "15,235 units" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "Based on the classic TV series. Surreal, spooky, dimension-bending theme. Features a talking gumball machine, a miniature town square, a camera, and an animate piano. Collecting Door Panels (14 total) progresses through the zones.",
+      features: [
+        { name: "Piano (13)", desc: "Main Jackpot target. Shoot after hitting 7 Greed Targets for Jackpot (15M base). Relit by Camera Lane. Each Greed Target hit during Jackpot window = +5M (max 15+35M escalation over relights). Also starts Multiball sequences." },
+        { name: "Greed Targets (1,3,4,12,15,16,17)", desc: "Seven standup targets spread across the playfield. Hit all 7 → Piano lit for Jackpot. Each target = 1M. During Piano Jackpot window: each hit = +5M to Jackpot value." },
+        { name: "Left Ramp (8)", desc: "Bonus X target (Right Inlane → 5-sec window → Left Ramp = +1× Bonus Multiplier, max 5×). Also Miles accumulation and mode scoring." },
+        { name: "Camera Lane (6)", desc: "Re-lights the Piano Jackpot. Each 10 Robots collected = Camera Award (collect here). Camera Awards: extra ball, hold bonus, 10M, Collect Bonus (mid-ball bonus payout), Spiral, others." },
+        { name: "Lock Lane (11)", desc: "Ball lock for Multiball. Also accumulates Robots (+1 per pass, along with Left Ramp)." },
+        { name: "Town Square Lane (5)", desc: "Town Square Award (up to 25M). Dead End feature doubles the current Town Square Award when lit." },
+        { name: "14 Door Panels", desc: "Collected via Skill Shot (Yellow = 10M Door Panel free), Piano hits, and other modes. Door Panels include: 10M, Super Speed, Battle the Power, The Camera (best for scoring), Hitch-Hiker, Gumball Machine, Spiral, Super Jets, The Power, Extra Ball, Hold Bonus, and more." },
+      ],
+      scoring: [
+        { key: "Yellow Skill Shot",       val: "10M + free Door Panel" },
+        { key: "Greed Target each",       val: "1M" },
+        { key: "Piano Jackpot (base)",    val: "15M" },
+        { key: "Piano Jackpot (max w/ relights)", val: "90M+ (after 5 relights)" },
+        { key: "Bonus Multiplier (max)",  val: "5× (Right Inlane → Left Ramp)" },
+        { key: "Town Square Award (max)", val: "25M" },
+        { key: "Dead End × Town Square",  val: "Up to 50M" },
+        { key: "Camera Award — Collect Bonus", val: "Full bonus mid-ball" },
+        { key: "Lost in the Zone (wizard)", val: "6 balls, all modes, 45 sec" },
+      ],
+      rules: [
+        "<strong>Bonus Multiplier:</strong> Right Inlane lights Left Ramp for 'Bonus X' for 5 seconds. Shoot Left Ramp immediately = +1× (max 5×). Resets each ball — build it first.",
+        "<strong>Piano Jackpot:</strong> Hit all 7 Greed Targets → Piano lit. Shoot Piano for Jackpot. During Piano window: more Greed Target hits = +5M each to Jackpot. Relight Piano via Camera Lane. Jackpot increases with each relight.",
+        "<strong>Robots</strong> accumulate from Left Ramp and Lock Lane passes. Every 10 Robots = Camera Award at Camera Lane (6).",
+        "<strong>Yellow Skill Shot</strong> earns a Door Panel instantly and 10M — the best consistent per-ball reward. Adjust plunger carefully.",
+        "<strong>Dead End</strong> (left side feature) doubles current Town Square Award. Shoot Town Square Lane (5) immediately after Dead End activates for up to 50M.",
+      ],
+      benchmarks: [
+        { score: "500M+", label: "Excellent — multiple Multiball completions + wizard mode" },
+        { score: "150M+", label: "Good — consistent Multiball and Camera Awards" },
+        { score: "< 50M", label: "Early drain or missed Jackpot windows" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=2684",                    icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/twilight-zone",            icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zensite.wpenginepowered.com/wp-content/uploads/2024/01/WP-Twilight-Zone-Pinball-Guide-by-ShoryukenToTheChin.pdf", icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Adjust plunger power so ball hits the <strong>Yellow Skill Shot lane</strong> — 10M immediately plus a free Door Panel. Yellow Skill Shot is the best per-ball free reward available.",
+      multiball: "Hit all 7 <strong>Greed Targets</strong> → Piano (13) lights for Jackpot (15M base). During Piano window: hit more Greed Targets for +5M each. Relight Piano via Camera Lane (6). Each relight increases base Jackpot. After 5 relights: up to 90M+ per Piano shot. This is the game's primary scoring loop.",
+      goal: "Land the Yellow Skill Shot every ball for 10M + free Door Panel. Build Bonus Multiplier to 5× (Right Inlane → Left Ramp reflex). Complete Greed Targets repeatedly and score escalating Piano Jackpots via Camera Lane relights. Accumulate Robots from Left Ramp and Lock Lane → Camera Awards every 10 (prioritize 'Collect Bonus' for mid-ball bonus payout). Shoot Dead End → Town Square Lane immediately for doubled Town Square Awards (up to 50M). Collect all 14 Door Panels for Lost in the Zone wizard mode.",
+      phases: [
+        { num: "Phase 1 · Early Ball", title: "Skill Shot + Bonus X + Greed", body: "Yellow Skill Shot for 10M + Door Panel. Right Inlane → Left Ramp immediately for +1× Bonus Multiplier (repeat up to 5×). Then: hit Greed Targets (1M each) → Piano for Jackpot → Camera Lane to relight Piano." },
+        { num: "Phase 2 · Mid Ball", title: "Piano Jackpot Loop + Camera Awards", body: "Camera Lane relights Piano and escalates base Jackpot each time. During Piano window: hit Greed Targets for +5M each before shooting Piano. Watch for Robots milestone (every 10 Left Ramp + Lock Lane passes) → Camera Award. 'Collect Bonus' Camera Award = massive mid-ball payout if multiplier is at 5×." },
+        { num: "Phase 3 · Town Square + Door Panels", title: "Dead End combos + Wizard Mode", body: "Dead End doubles Town Square Award. When Dead End activates, immediately shoot Town Square Lane (5) for up to 50M. Collect all 14 Door Panels → Lost in the Zone: 6 balls, 45 seconds, all modes active simultaneously." },
+      ],
+      safeShots: [
+        { name: "Left Ramp (8)", desc: "Bonus X multiplier, Robot accumulation, reliable ramp return. Primary safe shot throughout the game." },
+        { name: "Greed Targets", desc: "Spread around the playfield. 1M each, build toward Piano Jackpot. Lower-risk target shots." },
+        { name: "Camera Lane (6)", desc: "Relights Piano, grants Camera Awards. Safe center shot." },
+      ],
+      avoidShots: [
+        { name: "Piano (13) without Jackpot lit", desc: "Moderate-risk shot that returns unpredictably. Only shoot when Jackpot is lit." },
+        { name: "Lock Lane (11) without purpose", desc: "Ball lock consumes a lock sequence — only shoot when setting up Multiball or collecting Robots." },
+      ],
+      tips: [
+        { head: "Right Inlane → Left Ramp is a reflex", body: "Every time the ball rolls through the Right Inlane, the Left Ramp is lit for Bonus X for 5 seconds. Develop the habit of immediately shooting Left Ramp after every Right Inlane pass — 5× bonus multiplier compounds all end-of-ball scoring significantly." },
+        { head: "Camera Award priority", body: "When a Camera Award is available, 'Collect Bonus' is the best pick if your bonus multiplier is high. At 5× with accumulated bonus, this can be 50M+ mid-ball." },
+        { head: "Dead End timing", body: "Dead End doubles the current Town Square Award. If Town Square Award is at 25M, Dead End + Town Square Lane = 50M. Watch for Dead End activation and immediately shoot Town Square." },
+      ],
+      mistakes: [
+        "Missing the Yellow Skill Shot — forfeiting 10M + Door Panel every ball.",
+        "Not shooting Left Ramp within 5 seconds of Right Inlane (missing Bonus X window).",
+        "Shooting Piano without having all 7 Greed Targets hit — Jackpot starts at minimum.",
+        "Not relighting Piano via Camera Lane — the Jackpot escalation over multiple relights is the main scoring engine.",
+        "Ignoring Robots accumulation — 10 Robots from Left Ramp + Lock Lane = Camera Award, potentially a Collect Bonus worth 50M+.",
+      ],
+    },
+
+    hotspots: [
+      { x:18, y:22, type:"key",   label:"LR", name:"Left Ramp (Camera)",        body:"<strong>Primary shot.</strong> Bonus Multiplier via Right Inlane → Left Ramp (5-sec window). Feeds Slot Machine. Essential for Piano Jackpot setup." },
+      { x:48, y:16, type:"key",   label:"PI", name:"Piano (Jackpot)",            body:"<strong>Collect Piano Jackpot here.</strong> Built by 7 Greed Targets: 15M–90M+. Cycle the flashing Greed target via pop bumpers then shoot standup." },
+      { x:72, y:28, type:"key",   label:"GD", name:"Greed Targets",             body:"Seven standups spelling G-R-E-E-D-!-?. Complete all → light Piano Jackpot. Each hit adds to value. Cycle flashing target via Right Orbit (Jet Bumpers)." },
+      { x:10, y:42, type:"safe",  label:"LO", name:"Left Orbit",                body:"Soft shot → Camera Lanes for Bonus Multiplier. Full-power → Jet Bumpers / Slot Machine. Reliable from right flipper." },
+      { x:62, y:38, type:"safe",  label:"PS", name:"Power Saucer (Right)",      body:"Collects active award. Hit Right Inlane first (5-sec window) then shoot. Also collects Spiral jackpots." },
+      { x:50, y:46, type:"info",  label:"SL", name:"Slot Machine",              body:"Triggered by Left Ramp. Awards Extra Ball, Jackpot, Special, or playfield multipliers." },
+      { x:82, y:20, type:"info",  label:"RO", name:"Right Orbit",               body:"Feeds Jet Bumpers. Use to cycle Greed target letter and advance Spiral." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"No rubber on strict settings. Left orbit shots can feed left outlane." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"Fast drain risk after Right Orbit. Trap carefully before right-side shots." },
+    ],
+  },
+
+
+  /* ─── RED AND TED'S ROAD SHOW ───────────────────────────── */
+  roadshow: {
+    name: "Red and Ted's Road Show", sub: "1994 · Williams · Standard",
+    tagline: "Cross-country road trip · Bridge Out multiplier + City Events",
+    image: "images/road-show.png",
+    difficulty: "Medium–Hard", diffClass: "diff-hard", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1994" },
+        { label: "Designer",     value: "Pat Lawlor" },
+        { label: "Programmers",  value: "Dwight Sullivan & Ted Estes" },
+        { label: "Production",   value: "6,259 units" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "Red (a talking skull) and Ted (a giant animatronic bulldozer) travel from New York to Los Angeles destroying everything in their path. 18 City Events unlock as you travel. Reach the West Coast for Super Payday wizard mode.",
+      features: [
+        { name: "Bridge Out (Left/Right Ramps)", desc: "<strong>Most important ongoing mechanic.</strong> Left Inlane → Right Ramp lit for 5 sec, or Inner Right Inlane → Left Ramp lit for 5 sec. Each Bridge Out = +1× End-of-Ball Bonus Multiplier (max 6×). After 6×: each Bridge Out = 10M." },
+        { name: "Bob's Bunker Spinner (5)", desc: "Center shot. Collects Blast Wheel Awards and Souvenirs. <strong>Big Millions</strong> (5M→25M escalating) lights at Red (11) for a few seconds every time ball exits here." },
+        { name: "Bulldozer / Ted (8)", desc: "Hit Bulldozer Targets Bank to advance day of week (Mon→Fri). Each hit = 1.5M. At Friday: Lock lights at Bob's Bunker → Multiball. Day resets after each Multiball." },
+        { name: "Red Skull (11)", desc: "Normal hit = 4M. Open mouth = 20M. 6 hits = 20M Cheeseburger. <strong>Big Millions</strong> (5M→25M) lights here after each Bob's Bunker exit. Alternating Jackpot target with Ted during Multiball." },
+        { name: "Left Orbit (2)", desc: "170 Miles per shot — best Miles source. Lights Blast Zone Targets 2× temporarily." },
+        { name: "City Event Hole (14)", desc: "Activates City Events + 75 Miles. Best events: Salt Lake City (60M if Bulldozer hit in 5 sec), Las Vegas (Blast Wheel cycling), Denver (Left Ramp escalating to 50M)." },
+        { name: "Souvenirs + Albuquerque Trading Post", desc: "Buy cheap Souvenirs (500K–5M), collect free ones via Skill Shot. At Albuquerque City Event: sell all Souvenirs for cost × current Bonus Multiplier. At 6×: a 5M Souvenir sells for 30M." },
+      ],
+      scoring: [
+        { key: "Skill Shot (Blast Hole)",  val: "5M→25M + free Souvenir" },
+        { key: "Bridge Out",               val: "+1× Bonus Multiplier (max 6×)" },
+        { key: "Bridge Out after 6×",      val: "10M each" },
+        { key: "Big Millions (max)",        val: "25M (grows across game)" },
+        { key: "Multiball Jackpot",        val: "40M (1st) / 65M (2nd) / 75M+ base" },
+        { key: "Super Payday",             val: "All targets = 1M for duration" },
+        { key: "Salt Lake City event",     val: "60M (Bulldozer within 5 sec)" },
+        { key: "Albuquerque Souvenir",     val: "Cost × Bonus Multiplier" },
+        { key: "Flying Rocks — Ted head",  val: "25M" },
+        { key: "Radio Riot (10M/target)",  val: "Up to 30–50M from Radio Bank" },
+      ],
+      rules: [
+        "<strong>Bridge Out reflex:</strong> Every Left/Right Inlane pass → immediately shoot the lit Ramp (5-sec window). Building to 6× is the most important ongoing task.",
+        "<strong>Big Millions:</strong> Every time ball exits Bob's Bunker → Red (11) lights for Big Millions for a few seconds (5M→25M escalating game-wide). Shoot Red immediately.",
+        "<strong>Albuquerque Trading Post:</strong> Wait for 6× multiplier BEFORE reaching Albuquerque. Selling Souvenirs at 6× transforms cheap Souvenirs into massive payouts.",
+        "<strong>Multiball:</strong> Hit Bulldozer Targets → advance to Friday → Lock 2 balls at Bob's Bunker → shoot ball into Ted's mouth. Jackpot alternates Red/Ted. During Red window: Bulldozer hits each +5M (up to 125M).",
+        "<strong>Flying Rocks:</strong> 3 Blasts → Flying Rocks activates (Left Ramp → Left Plunger). Middle exit = Radio Riot (10M per Radio Target for rest of ball).",
+      ],
+      benchmarks: [
+        { score: "500M+", label: "Excellent — Super Payday reached" },
+        { score: "150M+", label: "Good — Multiball + 6× multiplier + Trading Post" },
+        { score: "< 50M", label: "Multiplier not built or early drain" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=1993",                    icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/road-show",                icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zensite.wpenginepowered.com/wp-content/uploads/2024/01/WP-Road-Show-Pinball-Guide-by-ShoryukenToTheChin.pdf", icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Adjust plunger to land ball in the <strong>Blast Hole (16)</strong> — 5M first ball, up to 25M by ball 5. Also awards a free Souvenir (pure profit at Albuquerque) and can activate the current City Event.",
+      multiball: "<strong>Hit Bulldozer Targets Bank (8)</strong> to advance Mon→Fri → Lock lights at Bob's Bunker → lock 2 balls → shoot Ted's mouth. Jackpot alternates Red (11) and Ted (8). During Red window (Bulldozer lowered): hit Bulldozer targets aggressively for +5M each → shoot Red for max Jackpot. First Multiball = 40M base, 2nd = 65M, 3rd+ = 75M.",
+      goal: "Build the End-of-Ball Bonus Multiplier to 6× via Bridge Out shots (every inlane → immediate Ramp). Collect cheap Souvenirs early, sell them all at Albuquerque at 6× for multiplied value. Score Big Millions (25M max) after every Bob's Bunker exit. Advance to Multiball via Bulldozer Targets, grow the Jackpot during Red windows. Reach the West Coast for Super Payday (all targets = 1M).",
+      phases: [
+        { num: "Phase 1 · Early Ball", title: "Skill Shot + Bridge Out + Souvenirs", body: "Blast Hole Skill Shot (5M + free Souvenir). Make Bridge Out reflex automatic: every inlane → shoot lit Ramp immediately. Buy cheapest Souvenirs (Coffee Mug 750K, Salt Shakers 500K) at Bob's Bunker. Hit Bulldozer Targets toward Friday." },
+        { num: "Phase 2 · Mid Ball", title: "6× + Trading Post + Multiball", body: "Continue Bridge Out on every inlane — reach 6×. Purchase city-specific Souvenirs before their City Events (10M bonus to End-of-Ball Bonus each). Activate Albuquerque Trading Post at 6× to sell. Lock 2 balls at Bob's Bunker → Multiball. During Multiball: Bulldozer hits during Red window → maximum Jackpot." },
+        { num: "Phase 3 · West Coast", title: "Super Payday Wizard Mode", body: "Progress through City Events eastward to west. Hit Salt Lake City event (60M if Bulldozer in 5 sec). At Seattle/SF/LA: lock ball during City Event → lock second → Super Payday. All targets = 1M. Hit everything continuously." },
+      ],
+      safeShots: [
+        { name: "Left Ramp (7) / Right Ramp (15)", desc: "Both primary safe shots. Bridge Out opportunities, Miles, Flying Rocks activation. Reliable from respective flippers." },
+        { name: "Bob's Bunker Spinner (5)", desc: "Center safe shot. Collects Souvenirs, Blast Wheel Awards, triggers Big Millions at Red." },
+        { name: "Bulldozer Targets Bank (8)", desc: "Wide target bank, easy to hit. Advances day of week toward Multiball." },
+      ],
+      avoidShots: [
+        { name: "Red (11) without Big Millions lit", desc: "Standup target causing erratic bounces. Only shoot when Big Millions or Jackpot is lit." },
+        { name: "Left Orbit (2) without control", desc: "Best Miles shot but sends ball to unpredictable bumper zone. Only when ball control is confident." },
+      ],
+      tips: [
+        { head: "Bridge Out is everything", body: "Every inlane pass gives a 5-second window to shoot the lit Ramp for a Bonus Multiplier increase. Make this a reflex. At 6×, the Albuquerque Souvenir sale and end-of-ball bonus become enormous. After 6×: each Bridge Out = 10M." },
+        { head: "Big Millions grows game-wide", body: "First Bob's Bunker exit = 5M at Red. Each subsequent = +1M, up to 25M. By late game, every Bob's Bunker exit → shoot Red immediately for 25M." },
+        { head: "Flying Rocks middle exit = Radio Riot", body: "After 3 Blasts: Left Ramp → Left Plunger → choose Middle exit for Radio Riot (10M per Radio Target for rest of ball). Easy 30–50M from Radio Target Bank." },
+      ],
+      mistakes: [
+        "Missing Bridge Out windows after inlane passes — 5 seconds is short, make it a reflex.",
+        "Buying expensive Souvenirs before reaching 6× multiplier — wait for max before Albuquerque.",
+        "During Multiball, shooting Ted's mouth when Red is the Jackpot target — let Bulldozer hits build the Jackpot first.",
+        "Not immediately shooting Red (11) for Big Millions after Bob's Bunker exit.",
+      ],
+    },
+
+    hotspots: [
+      { x:20, y:25, type:"key",   label:"LR", name:"Left Ramp (Red's Ramp)",    body:"<strong>Primary ramp.</strong> +1× Bonus Multiplier (max 6×) via Left Inlane → Left Ramp 3-sec window. Builds Mileage. Big Millions target (5M→25M escalating)." },
+      { x:72, y:25, type:"key",   label:"RR", name:"Right Ramp (Ted's Ramp)",   body:"Mirror of Left Ramp — +1× Bonus Multiplier via Right Inlane. Big Millions target. Build both ramps equally for 6× multiplier quickly." },
+      { x:50, y:18, type:"key",   label:"BB", name:"Bob's Bunker",              body:"<strong>Lights Big Millions mode.</strong> 5M→10M→15M→20M→25M per ramp shot for 20 seconds — the game's peak scoring window." },
+      { x:48, y:35, type:"safe",  label:"CS", name:"Centre Scoop",              body:"City progression. Albuquerque Trading Post: Souvenir × 6× when all six categories collected." },
+      { x:14, y:45, type:"safe",  label:"LO", name:"Left Orbit",                body:"Safe shot. Feeds jet bumpers. Bonus Multiplier via Left Inlane." },
+      { x:82, y:45, type:"info",  label:"RO", name:"Right Orbit",               body:"Feeds jet bumpers. Bonus Multiplier via Right Inlane. Use during Souvenir 2× window." },
+      { x:48, y:50, type:"info",  label:"MB", name:"Multiball Locks",           body:"Complete G-R-U-N-G-E → lock in Red's and Ted's craters. Jackpot 40M → Super Jackpot 65M → Mega Jackpot 75M+." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"Open outlane. Left orbit shots can feed left drain." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"Open outlane. Right ramp misses slide right — deliberate aim only." },
+    ],
+  },
+
+  /* ─── FUNHOUSE ──────────────────────────────────────────── */
+  funhouse: {
+    name: "Funhouse", sub: "1990 · Williams · Standard",
+    tagline: "Pat Lawlor classic · Rudy + clock to Midnight multiball",
+    image: "images/funhouse.png",
+    difficulty: "Easy–Medium", diffClass: "diff-medium", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1990" },
+        { label: "Designers",    value: "Pat Lawlor & Larry DeMar" },
+        { label: "Programmers",  value: "Larry DeMar & Brian Eddy" },
+        { label: "Production",   value: "~10,750 units" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "A funhouse carnival theme starring Rudy, a wise-cracking animatronic head who interacts with the player throughout the game. Advance the clock to midnight, then shoot Rudy's open mouth to start 3-Ball Multiball.",
+      features: [
+        { name: "Rudy (1)", desc: "The talking animatronic head. Hit Rudy repeatedly to build the End-of-Ball Bonus (200K per hit). His eyes and mouth animate. When Midnight is reached: Rudy falls asleep, mouth opens → shoot mouth (1M) to start Multiball. During Multiball, hitting Rudy = 1M." },
+        { name: "Clock", desc: "Advance from 3:00 PM to Midnight (12:00 AM) by shooting specific shots. Key milestones: 6:00 → Quick Multiball, 9:00 → Speed Mode, 11:30 → lock 1st ball at Hidden Hallway (7), 11:45 → lock 2nd ball, Midnight → Rudy asleep → shoot mouth for Multiball." },
+        { name: "Trap Door Loop (9)", desc: "Primary Multiball jackpot shot. During Multiball: Million Plus available here — first hit = 2M, each subsequent = +1M, max 10M. Centre Ramp re-opens the Trap Door (250K per ramp hit)." },
+        { name: "Centre Ramp (4)", desc: "Re-opens Trap Door during Multiball (250K each). Also scores during normal play (advancing clock, 2-ball Quick Multiball setup)." },
+        { name: "Left Ramp (6)", desc: "Advances clock. Scores Step-Up value during normal play." },
+        { name: "Skill Shot (Rudy's Mouth)", desc: "Plunge so ball lands directly in Rudy's mouth — 1M first ball, escalating. Most consistent per-ball bonus." },
+        { name: "Mirrors", desc: "Upper playfield area. Mirrors reflect and misdirect the ball. Features Jet Bumpers and access to the Hidden Hallway." },
+      ],
+      scoring: [
+        { key: "Skill Shot (Rudy's mouth)", val: "1M+ escalating" },
+        { key: "Rudy hit (bonus build)",    val: "200K per hit" },
+        { key: "Trap Door Loop first hit",  val: "2M" },
+        { key: "Trap Door Loop (max)",      val: "10M per hit" },
+        { key: "Centre Ramp (Multiball)",   val: "250K per hit (re-opens Trap Door)" },
+        { key: "Rudy hit (Multiball)",      val: "1M" },
+        { key: "Quick Multiball Jackpot",   val: "Varies" },
+        { key: "Bonus Multiplier (max)",    val: "Increases via specific shots" },
+      ],
+      rules: [
+        "<strong>Clock advancement:</strong> Multiple shots advance the clock — Left Ramp, specific targets, and Rudy hits. Each major milestone lights or enables new features.",
+        "<strong>Multiball setup:</strong> Clock to 11:30 → lock at Hidden Hallway (7). Clock to 11:45 → lock second ball. Midnight → Rudy asleep → shoot open mouth to start 3-Ball Multiball.",
+        "<strong>Trap Door Loop:</strong> During Multiball, Million Plus starts at 2M. Each hit = +1M. Shoot Centre Ramp to re-open the Trap Door (250K per ramp). Maximize by keeping Trap Door open.",
+        "<strong>If no Million Plus scored:</strong> 'Lock' lights for 12 seconds → shoot Hidden Hallway to start 2-ball Hidden Hallway Multiball.",
+        "<strong>Rudy hits all game</strong> = 200K added to End-of-Ball Bonus each. Hitting him is always worthwhile.",
+      ],
+      benchmarks: [
+        { score: "100M+", label: "Excellent — Multiball + 10M Trap Door hits" },
+        { score: "40M+",  label: "Good — Multiball achieved" },
+        { score: "< 15M", label: "Clock not advanced to Midnight" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=873",                     icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/funhouse",                 icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zenstudios.com/pinball-table-guides",                  icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Plunge so ball lands in <strong>Rudy's mouth</strong> — 1M first ball, escalating each ball. Most reliable early scoring. Rudy's mouth stays open briefly after launch.",
+      multiball: "<strong>Advance clock to Midnight</strong> via Left Ramp and other clock-advancing shots. At 11:30 PM: lock at Hidden Hallway (7). At 11:45 PM: lock second ball. At Midnight: Rudy's mouth opens → shoot mouth (1M) to start 3-Ball Multiball. During Multiball: shoot Trap Door Loop (9) for Million Plus — starts at 2M, grows to 10M per hit. Shoot Centre Ramp (4) to re-open Trap Door (250K). If Trap Door closes between shots, re-open with a Ramp shot then immediately resume Loop.",
+      goal: "Land Skill Shot every ball (1M+). Advance the clock to Midnight consistently via Left Ramp and clock shots. Hit Rudy frequently to build End-of-Ball Bonus (200K per hit). Once in Multiball: loop the Trap Door for escalating Million Plus (2M → 10M). The Centre Ramp re-opens the Trap Door — alternate Ramp and Loop shots to keep the jackpot flowing.",
+      phases: [
+        { num: "Phase 1 · Early Ball", title: "Skill Shot + Clock + Rudy", body: "Rudy's mouth Skill Shot (1M). Hit Left Ramp to advance clock. Hit Rudy periodically for 200K bonus build. Work clock toward 11:30 for first lock opportunity." },
+        { num: "Phase 2 · Multiball Setup", title: "Clock to Midnight + Locks", body: "Clock at 11:30 → Hidden Hallway lock. Clock at 11:45 → second lock. Continue advancing toward Midnight. Rudy falls asleep at Midnight → shoot open mouth → Multiball." },
+        { num: "Phase 3 · Multiball", title: "Trap Door Loop", body: "Shoot Trap Door Loop (9) for Million Plus (2M, 3M, 4M... to 10M). When Trap Door closes: shoot Centre Ramp (4) immediately (250K re-open). Resume Loop. Rudy hits during Multiball = 1M each." },
+      ],
+      safeShots: [
+        { name: "Left Ramp (6)", desc: "Primary clock-advancing shot. Reliable return. Safe shot throughout the game." },
+        { name: "Rudy (1)", desc: "Wide target. 200K per hit for bonus building. Worth hitting whenever ball is in Rudy's range." },
+        { name: "Trap Door Loop (9)", desc: "During Multiball: primary scoring loop. Feed from left flipper." },
+      ],
+      avoidShots: [
+        { name: "Mirrors (upper playfield)", desc: "Ball returns are unpredictable. Only shoot when specifically required for modes." },
+      ],
+      tips: [
+        { head: "Centre Ramp re-opens Trap Door", body: "During Multiball, the Trap Door closes after each Million Plus collection. A Centre Ramp shot re-opens it (250K) — then immediately resume looping the Trap Door. Alternate Ramp → Loop to keep the 10M jackpot flowing." },
+        { head: "Rudy bonus building is cumulative", body: "Every Rudy hit all game adds 200K to End-of-Ball Bonus. With 5× multiplier, each Rudy hit is effectively 1M. Hit him whenever possible — not just for clock advancement." },
+      ],
+      mistakes: [
+        "Missing the Rudy Skill Shot at plunge — forfeiting 1M+ per ball.",
+        "During Multiball, not re-opening Trap Door via Centre Ramp after each Million Plus — the value resets if Door stays closed.",
+        "Failing to lock at Hidden Hallway at 11:30 PM — missing the first Multiball lock opportunity.",
+      ],
+    },
+
+    hotspots: [
+      { x:25, y:30, type:"key",   label:"TL", name:"Trap Door Loop (Left Ramp)", body:"<strong>Million Plus: 2M→3M→...→10M per shot per ball.</strong> Re-opens the Trap Door each hit. Primary scoring loop — prioritize all game." },
+      { x:50, y:18, type:"key",   label:"CL", name:"Clock (Midnight Target)",    body:"Advance clock toward midnight via ramp shots and standups. <strong>Midnight = 3-Ball Multiball.</strong> Clock advances cumulative across balls." },
+      { x:68, y:28, type:"safe",  label:"CR", name:"Centre Ramp",                body:"Re-opens Trap Door after it closes. Also advances the clock. Ball returns to left flipper via habitrail." },
+      { x:48, y:38, type:"key",   label:"TD", name:"Trap Door",                  body:"Open Trap Door feeds ball to Left Ramp for Million Plus. During Multiball: Rudy's Eye = Jackpot target. Keep Trap Door open." },
+      { x:72, y:45, type:"info",  label:"RU", name:"Rudy's Head",                body:"Hit for Rudy Bonus (100K+). During Multiball, shooting Rudy advances Super Jackpot. Don't let taunts distract — keep shooting ramps." },
+      { x:12, y:42, type:"safe",  label:"LO", name:"Left Orbit",                 body:"Feeds bumpers. Bonus Multiplier building. Safe from right flipper." },
+      { x:48, y:55, type:"info",  label:"ST", name:"Standup Targets (F-U-N)",    body:"Complete F-U-N for clock advance and feature lighting. Natural hits sufficient — don't force." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",               body:"Open outlane on strict settings. Keep ball on right side as much as possible." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",              body:"Open outlane. Rudy deflections can surprise — stay alert." },
+    ],
+  },
+
+
+  /* ─── ATTACK FROM MARS ──────────────────────────────────── */
+  attackfrommars: {
+    name: "Attack from Mars", sub: "1995 · Williams/Bally · Standard",
+    tagline: "Alien invasion · bonus multiplier stacking + Martian Multiball",
+    image: "images/attack-from-mars.jpg",
+    difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams (Bally label)" },
+        { label: "Year",         value: "1995" },
+        { label: "Designer",     value: "Brian Eddy" },
+        { label: "Programmer",   value: "Lyman F. Sheats" },
+        { label: "Production",   value: "3,450 units" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "Martians attack Earth's cities and famous landmarks. Players defend against 5 attack waves, then activate Martian Attack Multiball. Each destroyed Martian adds 250M to the end-of-ball bonus. With a maxed bonus multiplier, the bonus alone can reach hundreds of billions of points.",
+      features: [
+        { name: "Force Field Targets / UFO Saucer", desc: "Centre saucer behind force field targets. 5 Attack Waves must be completed to unlock Martian Attack Multiball. Each Wave = hit Force Field Targets when lit, then shoot UFO." },
+        { name: "Attack Targets Bank (6)", desc: "Primary standup targets. Build Attack Waves by completing them. Lock shots for Multiball come from this bank when Force Field Targets are lit." },
+        { name: "Stroke of Luck Sinkhole", desc: "Centre sinkhole. Random awards. Skill Shot target. Also resets Bonus Multiplier potential. <strong>One of the best shots on the table for random high-value awards.</strong>" },
+        { name: "Martian Targets", desc: "Four Martian standup targets. During Martian Attack Multiball: each Martian destroyed = +250M to End-of-Ball Bonus." },
+        { name: "Bonus Multiplier", desc: "Built via Skill Shots (+5× each!) and rollover completions. Can reach extremely high values — this is the key to astronomical scores." },
+        { name: "Left/Right Ramps", desc: "Primary flow shots. Score multipliers and mode progress. Safe shots for general play." },
+      ],
+      scoring: [
+        { key: "Skill Shot bonus multiplier",  val: "+5× per Skill Shot (stacks!)" },
+        { key: "Martian destroyed (bonus)",    val: "+250M to End-of-Ball Bonus" },
+        { key: "Bonus Multiplier",             val: "Can reach 250×+ with repeated Skill Shots" },
+        { key: "Stroke of Luck",               val: "Random (can be very high)" },
+        { key: "Force Field / UFO shots",      val: "Mode-dependent (escalating)" },
+      ],
+      rules: [
+        "<strong>Skill Shot adds 5× to Bonus Multiplier</strong> each time — this stacks! Repeated Skill Shots over multiple balls can push the multiplier into the hundreds.",
+        "<strong>5 Attack Waves</strong> must be completed sequentially → unlocks Martian Attack Multiball. Each wave = specific target sequence.",
+        "<strong>Martian Attack Multiball:</strong> Each Martian hit = +250M to End-of-Ball Bonus. With a high multiplier, bonus payouts become astronomical.",
+        "<strong>Stroke of Luck</strong> is the Skill Shot target — plunge to land ball there for +5× Bonus Multiplier and a random award.",
+      ],
+      benchmarks: [
+        { score: "2B+",   label: "Excellent — Multiball + maxed Martians + high multiplier" },
+        { score: "500M+", label: "Good — Multiball reached with some Martians" },
+        { score: "< 100M", label: "Attack Waves not completed" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=125",                     icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/attack-from-mars",         icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zenstudios.com/pinball-table-guides",                  icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Plunge to land ball in the <strong>Stroke of Luck sinkhole</strong> — awards +5× Bonus Multiplier immediately plus a random award. This stacks every ball, making the Skill Shot the most important recurring action in the game.",
+      multiball: "<strong>Complete 5 Attack Waves</strong> (hit lit Force Field Targets, then UFO saucer, 5 times) → Martian Attack Multiball. During Multiball: destroy Martians (standup targets) — each = +250M to End-of-Ball Bonus. With multiplier stacked at 250×: each Martian = 62.5 <em>billion</em> bonus points at ball drain.",
+      goal: "Land every Skill Shot into Stroke of Luck for +5× Bonus Multiplier stacking. Complete all 5 Attack Waves to unlock Martian Attack Multiball. During Multiball, destroy as many Martians as possible — each adds 250M to bonus. Combined with a massive multiplier, the End-of-Ball Bonus dwarfs all live scoring.",
+      phases: [
+        { num: "Phase 1 · Every Ball", title: "Skill Shot → Bonus Multiplier Stack", body: "Plunge into Stroke of Luck. The +5× bonus multiplier stacks across all balls. By ball 3, if you've hit all three Skill Shots, you have 15× before any other multiplier sources. This is the single most important recurring action." },
+        { num: "Phase 2 · Attack Waves", title: "Complete 5 Waves for Multiball", body: "Hit lit Attack Targets Bank when Force Field Targets flash, then shoot UFO Saucer. Repeat for all 5 waves. Use ramp shots between waves for safe scoring. Stroke of Luck awards between waves are secondary." },
+        { num: "Phase 3 · Martian Multiball", title: "Destroy Martians for Bonus", body: "During Multiball: prioritize hitting all Martian standup targets. Each = +250M to End-of-Ball Bonus. With high multiplier, this is where the game's astronomical scores come from. Keep all balls in play as long as possible." },
+      ],
+      safeShots: [
+        { name: "Left/Right Ramps", desc: "Reliable safe shots for general scoring and mode advancement between Attack Waves." },
+        { name: "Stroke of Luck (Skill Shot)", desc: "Centre sinkhole — Skill Shot target each ball for +5× Bonus Multiplier. Also playable mid-game for random awards." },
+      ],
+      avoidShots: [
+        { name: "Force Field Targets outside wave windows", desc: "Only hit when lit for the current Attack Wave — random hits don't advance waves." },
+      ],
+      tips: [
+        { head: "Skill Shot multiplier is the whole game", body: "Attack from Mars uniquely stacks the Bonus Multiplier at +5× per Skill Shot. Three balls × 5 = 15× before other sources. The end-of-ball bonus with Martians at 250M each × 250× multiplier is astronomical — this dwarfs all live scoring." },
+      ],
+      mistakes: [
+        "Missing the Stroke of Luck Skill Shot — losing +5× Bonus Multiplier every ball.",
+        "During Multiball, ignoring Martian targets in favor of ramp/mode shots — Martians are the entire bonus strategy.",
+      ],
+    },
+
+    hotspots: [
+      { x:18, y:24, type:"key",   label:"LR", name:"Left Ramp",                 body:"<strong>Primary shot.</strong> Each ramp attacks the current country (5 shots per country × 5 countries). Also lights Bonus Multiplier via Left Inlane sequence. Fastest path to Martian Attack Multiball." },
+      { x:74, y:24, type:"key",   label:"RR", name:"Right Ramp",                body:"Mirror of Left Ramp — attacks current country. During Rule the Universe: each ramp = 1 Billion shot. Alternate left and right for highest output." },
+      { x:50, y:18, type:"key",   label:"SA", name:"Saucer Attack (Centre)",    body:"<strong>Collect country bonus after 5 shots.</strong> Each country worth more: 25M→50M→75M→100M→125M. Don't miss this collection shot after completing attack waves." },
+      { x:50, y:38, type:"key",   label:"MA", name:"Martian Target (Centre)",   body:"Each hit advances +250M to game-wide bonus counter. After all 5 countries attacked, hit to advance Martian Attack Multiball lock sequence." },
+      { x:14, y:42, type:"safe",  label:"LO", name:"Left Orbit",                body:"Safe shot. Jet bumpers. Bonus Multiplier advance via Left Inlane orbit." },
+      { x:82, y:42, type:"safe",  label:"RO", name:"Right Orbit",               body:"Safe from left flipper. Right inlane and ramp area. Bonus Multiplier via Right Inlane." },
+      { x:28, y:48, type:"info",  label:"AT", name:"Attack Wave Targets",       body:"5 Wave targets per country. Complete all 5 to qualify country bonus. Left ramp hits left waves, right ramp hits right waves." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"Open outlane. Left ramp shots too weak can drain left — use full power." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"Open outlane. Always recover position after Right Orbit returns." },
+    ],
+  },
+
+  /* ─── THEATRE OF MAGIC ──────────────────────────────────── */
+  theatreofmagic: {
+    name: "Theatre of Magic", sub: "1995 · Bally · Standard",
+    tagline: "Magic illusions · 8 Illusions → 500M Grand Finale",
+    image: "images/theatre-of-magic.jpg",
+    difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams (Bally label)" },
+        { label: "Year",         value: "1995" },
+        { label: "Designer",     value: "John Popadiuk" },
+        { label: "Programmer",   value: "Jeff Johnson" },
+        { label: "Production",   value: "6,600 units" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "A theatre of magic with a magician theme. Features an animated Trunk toy, Tiger Saw, Hocus Pocus magnets, and 8 magic Illusions to unlock. Complete all 8 Illusions for the Grand Finale wizard mode (500M).",
+      features: [
+        { name: "Trunk (Skill Shot / Right Orbit)", desc: "The skill shot selects from multiple awards via the Trunk. Best choices: '20 Million', 'Bonus 2×', 'Magic Letter'. Right Orbit also goes through the Trunk for Theatre Clock advancement." },
+        { name: "Theatre Clock (Right Orbit)", desc: "Advance clock to Midnight via Right Orbit shots. Midnight activates Magic Multiball. Each Right Orbit also scores the current clock value." },
+        { name: "MAGIC Letters", desc: "Collect M-A-G-I-C letters via specific shots. All 5 = Magic Multiball (3-ball, 100M jackpot at Centre Ramp)." },
+        { name: "Hocus Pocus Magnets", desc: "Playfield magnets that can grab and redirect the ball. Used for ball saves — press the button when ball is near an outlane to fire the magnet. Each Hocus Pocus magnet save reduces remaining saves for the game." },
+        { name: "Tiger Saw", desc: "Activates Tiger Saw Multiball (2-ball). Jackpot at Centre Ramp." },
+        { name: "8 Illusions", desc: "Complete all 8 magic illusions (each activated via specific mode completions) → Grand Finale wizard mode = 500M." },
+        { name: "Captive Ball", desc: "3 hits → Left Orbit → 40M 'Ball Vanished' award + adds 4th ball to next Magic Multiball." },
+      ],
+      scoring: [
+        { key: "Skill Shot ('20 Million')",  val: "20M immediate" },
+        { key: "Magic Multiball Jackpot",    val: "100M" },
+        { key: "Grand Finale",               val: "500M" },
+        { key: "Ball Vanished (Captive ×3)", val: "40M + 4th Multiball ball" },
+        { key: "Bonus Multiplier (max)",     val: "8× (via rollovers)" },
+      ],
+      rules: [
+        "<strong>Skill Shot:</strong> Select best Trunk award — '20 Million' or 'Bonus 2×' are highest priority each ball.",
+        "<strong>Magic Multiball:</strong> Collect M-A-G-I-C letters → 3-ball (or 4-ball with Ball Vanished) Multiball. Centre Ramp = 100M Jackpot.",
+        "<strong>Hocus Pocus magnets</strong> are limited ball saves — use them when ball is heading down outlane. They're finite; use them wisely.",
+        "<strong>8 Illusions</strong> unlocked through specific mode completions. All 8 → Grand Finale (500M).",
+        "<strong>Bonus Multiplier</strong> builds to 8× via top lane rollover completions. Flip to cycle lit lanes.",
+      ],
+      benchmarks: [
+        { score: "1B+",   label: "Excellent — Grand Finale + multiple Multiball Jackpots" },
+        { score: "300M+", label: "Good — Magic Multiball completed" },
+        { score: "< 50M", label: "MAGIC letters not completed" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=2528",                    icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/theatre-of-magic",         icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zenstudios.com/pinball-table-guides",                  icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Use the Trunk to select <strong>'20 Million'</strong> (immediate 20M) or <strong>'Bonus 2×'</strong> (doubles current bonus multiplier) each ball. '20 Million' is the safest consistent choice.",
+      multiball: "<strong>Magic Multiball (3–4 ball):</strong> Collect M-A-G-I-C letters → Centre Ramp = 100M Jackpot. Before activating, hit Captive Ball 3× → Left Orbit for 'Ball Vanished' (40M + adds 4th ball). <strong>Tiger Saw Multiball (2-ball):</strong> Secondary multiball with Centre Ramp jackpot. Stack multiballs when possible.",
+      goal: "Select '20 Million' or 'Bonus 2×' Skill Shot each ball. Build Bonus Multiplier to 8× via top lane rollovers. Advance Theatre Clock to Midnight via Right Orbit. Collect MAGIC letters for Magic Multiball (100M jackpot). Complete Captive Ball ×3 first for Ball Vanished (40M + 4-ball Multiball). Work through all 8 Illusions for Grand Finale (500M). Use Hocus Pocus magnets wisely for outlane saves.",
+      phases: [
+        { num: "Phase 1 · Early Ball", title: "Skill Shot + Multiplier + Letters", body: "'20 Million' or 'Bonus 2×' Skill Shot. Cycle top lanes for Bonus Multiplier (max 8×). Captive Ball ×3 → Left Orbit for Ball Vanished (40M). Collect MAGIC letters via designated shots." },
+        { num: "Phase 2 · Magic Multiball", title: "100M Jackpot", body: "All MAGIC letters → Magic Multiball (3 or 4 balls). Centre Ramp = 100M Jackpot. Keep multiple balls in play. Tiger Saw Multiball for additional jackpot opportunities." },
+        { num: "Phase 3 · Illusions + Grand Finale", title: "500M Wizard Mode", body: "Complete all 8 Illusions through mode play → Grand Finale (500M). Each Illusion unlocked via specific mode completions. The Grand Finale is the ultimate goal." },
+      ],
+      safeShots: [
+        { name: "Right Orbit (Theatre Clock)", desc: "Primary clock-advancing shot. Reliable. Works toward Midnight Multiball and accumulates clock value scores." },
+        { name: "Centre Ramp", desc: "Magic Multiball Jackpot (100M). Tiger Saw jackpot. Most important Multiball shot." },
+      ],
+      avoidShots: [
+        { name: "Tiger Saw without Multiball lit", desc: "Moderate-risk shot. Only target when Tiger Saw Multiball is actively set up." },
+      ],
+      tips: [
+        { head: "Captive Ball first, Multiball second", body: "Before starting Magic Multiball, hit Captive Ball 3× → Left Orbit for 'Ball Vanished' (40M instant + adds 4th ball to Multiball). A 4-ball Multiball gives more chances at the 100M Centre Ramp Jackpot." },
+        { head: "Hocus Pocus magnets are finite", body: "Each magnet save is consumed. Reserve them for balls heading down outlanes on full shots — don't waste them on balls you could flip normally." },
+      ],
+      mistakes: [
+        "Starting Magic Multiball without Ball Vanished — missing the 4th ball and 40M bonus.",
+        "Not completing top lane rollovers for Bonus Multiplier — 8× is achievable and significantly amplifies the end-of-ball bonus.",
+        "Wasting Hocus Pocus magnet saves on recoverable balls.",
+      ],
+    },
+
+    hotspots: [
+      { x:50, y:18, type:"key",   label:"TK", name:"Trunk (Skill Shot / Lock)", body:"<strong>Skill Shot and Multiball lock.</strong> Plunge for '20 Million' or 'Bonus 2×'. Lock here for Magic Multiball. During Grand Finale: Trunk shots score Jackpots." },
+      { x:18, y:25, type:"key",   label:"LR", name:"Left Ramp",                 body:"Primary ramp. Advances MAGIC letters → 8 Illusions toward Grand Finale (500M). During Magic Multiball: 100M Jackpot. Most reliable scoring shot." },
+      { x:74, y:25, type:"key",   label:"RR", name:"Right Ramp",                body:"Mirror of Left Ramp. MAGIC letters and Illusion count. During Multiball: Super Jackpot target. Alternate with Left Ramp during Multiball." },
+      { x:50, y:38, type:"key",   label:"CB", name:"Captive Ball",              body:"<strong>Hit 3× = Ball Vanished (4th ball launch).</strong> Key to extending Multiball. Also Tiger Saw illusion bonus. Hit opportunistically." },
+      { x:72, y:42, type:"safe",  label:"RS", name:"Right Saucer (Hocus Pocus)", body:"Saves ball when Hocus Pocus magnet fires — finite uses per ball. Scores Hocus Pocus bonus. Reliable from left flipper." },
+      { x:14, y:42, type:"safe",  label:"LO", name:"Left Orbit",                body:"Feeds bumpers. Illusion count advance. Bonus Multiplier building." },
+      { x:48, y:55, type:"info",  label:"IL", name:"Illusion Targets",          body:"8 distinct Illusions. Complete all 8 → Grand Finale (500M). MAGIC letters advance Illusions." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"Open outlane. Left orbit and left ramp misses feed here. Trap carefully." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"Open outlane. Full-power controlled shots only on Right Ramp." },
+    ],
+  },
+
+
+  /* ─── JUNK YARD ─────────────────────────────────────────── */
+  junkyard: {
+    name: "Junk Yard", sub: "1996 · Williams · Standard",
+    tagline: "Game-wide multiplier carryover · Bus Ramp + Crane Lane Multiball",
+    image: "images/junk-yard.png",
+    difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1996" },
+        { label: "Designers",    value: "Barry Oursler & Louis Koziarz" },
+        { label: "Programmer",   value: "Dwight Sullivan" },
+        { label: "Production",   value: "3,013 units" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "A junk yard theme with Bud and Buzz (two junkyard scavengers), a working Crane toy, a Bus, and various contraptions assembled from salvaged parts. Complete Adventures and collect all Junk pieces for Outer Space wizard mode.",
+      features: [
+        { name: "Bonus Multiplier (GAME-WIDE!)", desc: "<strong>The Bonus Multiplier carries over the entire game</strong> — not just one ball. Build it to 6× as early as possible via D-O-G completions. Once at 6×, it stays at 6× for the whole game." },
+        { name: "D-O-G (Alley Ramp)", desc: "Shoot the Alley Ramp (12) three times to complete D-O-G = +1× Bonus Multiplier + Video Mode. This is the primary multiplier method. After 6×: each D-O-G = 250K." },
+        { name: "Bus Ramp (3)", desc: "Primary scoring shot. Each hit = 1 Bus Ride. Magic Bus lights at 1st, 4th, 11th rides with special awards. First hit always has 'Collect Junk' lit. Top choices: 'Start Multiball', 'Lite Jackpot', 'Bonus Multiplier'." },
+        { name: "Crane Lane (6)", desc: "Centre shot accessible from either flipper. Each shot = 3 M-U-L-T-I-B-A-L-L letters ('Sneak-In', 100K). Three Crane Lane shots = all 9 letters collected → Multiball ready." },
+        { name: "Left/Right Target Banks (1,14)", desc: "Complete both to light Ball Recycle (kickback) in both outlanes. Critical on open outlane settings. Each bank has 3 targets." },
+        { name: "Upper Car Targets", desc: "During Multiball: each hit = +75K to Jackpot value (max 3.025M). Hit several before collecting Crane Lane Jackpot." },
+        { name: "Wrecking Ball (7)", desc: "Centre ball target. Hits contribute letters to M-U-L-T-I-B-A-L-L. Can also build Crane Multiball progress, but slower than Crane Lane Sneak-Ins." },
+      ],
+      scoring: [
+        { key: "Skill Shot — X Bonus",      val: "+1× Bonus Multiplier immediately" },
+        { key: "D-O-G (Alley Ramp ×3)",    val: "+1× Bonus Multiplier (game-wide)" },
+        { key: "Bus Ramp (Magic Bus)",      val: "Variable: 'Start Multiball', multiplier, Jackpot" },
+        { key: "Crane Lane (Sneak-In)",     val: "100K per shot + 3 MULTIBALL letters" },
+        { key: "Multiball Jackpot",         val: "1M → 3.025M (Upper Car Targets)" },
+        { key: "Multiball Super Jackpot",   val: "3M (after first Jackpot)" },
+        { key: "Bonus Multiplier (max)",    val: "6× — game-wide permanent" },
+      ],
+      rules: [
+        "<strong>Bonus Multiplier carries over ALL balls.</strong> Build to 6× as early as possible via D-O-G Alley Ramp completions. It never resets during the game.",
+        "<strong>Skill Shot</strong> — press Launch and cycle with Left Flipper to select reward. Best: 'X Bonus' (+1× Multiplier immediately) or 'Collect Junk'.",
+        "<strong>Crane Lane Sneak-In</strong> is fastest Multiball path: 3 shots = all 9 MULTIBALL letters. Far faster than grinding Wrecking Ball hits.",
+        "<strong>During Multiball:</strong> Hit Upper Car Targets first to boost Jackpot (+75K each). Then collect Jackpot at Crane Lane. Super Jackpot (3M) available after first Jackpot — stay in Multiball for it.",
+        "<strong>Ball Recycle:</strong> Complete Left and Right Target Banks to light kickback in both outlanes. Critical on strict settings.",
+      ],
+      benchmarks: [
+        { score: "50M+",  label: "Excellent — 6× game multiplier + multiple Multiballs" },
+        { score: "15M+",  label: "Good — Multiball with partial multiplier" },
+        { score: "< 5M",  label: "Multiplier not built, Multiball missed" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=1336",                    icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/junk-yard",                icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "http://zensite.wpenginepowered.com/wp-content/uploads/2021/02/WP-Junkyard-Pinball-Guide-by-ShoryukenToTheChin.pdf", icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Press Launch and use Left Flipper to cycle which reward is highlighted. Select <strong>'X Bonus'</strong> for immediate +1× Bonus Multiplier, or <strong>'Collect Junk'</strong> to advance toward Junk Champion.",
+      multiball: "<strong>Crane Lane Sneak-In (fastest path):</strong> 3 Crane Lane (6) shots = all 9 M-U-L-T-I-B-A-L-L letters → Multiball ready → Crane Lane again to start. During Multiball: hit Upper Car Targets (top of playfield) first — each = +75K to Jackpot (max 3.025M). Then Crane Lane for Jackpot. After Jackpot: Super Jackpot = 3M at Crane Lane. If no Jackpot: 'Last Chance' lights 12 seconds at Crane Lane.",
+      goal: "Build Bonus Multiplier to 6× via D-O-G Alley Ramp completions — this carries the entire game. Complete Left/Right Target Banks for Ball Recycle. Bus Ramp for Magic Bus awards. Crane Lane for fast Multiball setup (3 shots). During Multiball: Upper Car Targets → Crane Lane Jackpot → Super Jackpot (3M).",
+      phases: [
+        { num: "Phase 1 · Early Game", title: "Recycle + Multiplier + Multiball Setup", body: "'X Bonus' Skill Shot. Complete Left/Right Target Banks for Ball Recycle in both outlanes. Alley Ramp ×3 for D-O-G (+1× Multiplier). Bus Ramp first hit (Collect Junk lit at game start). Crane Lane ×3 for Multiball readiness." },
+        { num: "Phase 2 · Mid Game", title: "Magic Bus + Multiball + Junk", body: "Bus Ramp aggressively — Magic Bus at 1st, 4th, 11th ride. Prioritize 'Start Multiball' or 'Lite Jackpot'. Between Magic Bus windows: alternate Alley Ramp (D-O-G) and Crane Lane (Sneak-Ins). Collect Junk via Toilet Ramp 'Choose Junk' (25 sec after Bus Ramp Junk collection)." },
+        { num: "Phase 3 · Late Game", title: "Multiball + Adventures", body: "During Multiball: Upper Car Targets → Crane Lane Jackpot → Super Jackpot (3M). After Multiball: D-O-G continues to add permanent multiplier value. Assemble Contraptions → Adventures at Sewer → Outer Space wizard mode." },
+      ],
+      safeShots: [
+        { name: "Bus Ramp (3)", desc: "Most reliable ramp. Centre-right, from left flipper. Magic Bus awards drive the game." },
+        { name: "Alley Ramp (12)", desc: "Right ramp. D-O-G letters for permanent multiplier. Safe from right flipper." },
+        { name: "Crane Lane (6)", desc: "Centre lane. Sneak-In shots and Jackpots during Multiball. Full-power from right flipper." },
+      ],
+      avoidShots: [
+        { name: "Wrecking Ball (7) for MULTIBALL letters", desc: "Unpredictable return. Use Crane Lane Sneak-Ins instead — 3 shots vs. grinding Wrecking Ball." },
+        { name: "Sewer Sink Hole (13) without purpose", desc: "Don't randomly shoot — save for Adventure activation, Extra Ball, or specific modes." },
+      ],
+      tips: [
+        { head: "Multiplier never resets", body: "Unlike most tables, Junk Yard's Bonus Multiplier is permanent. Every D-O-G completion all game adds +1× permanently. Reach 6× as fast as possible — often achievable on ball 1 with Skill Shot + two D-O-G completions." },
+        { head: "Crane Lane beats Wrecking Ball", body: "3 Crane Lane shots collect all 9 MULTIBALL letters (100K each + Sneak-In). Wrecking Ball hits only give 1 letter each. The math is simple: Crane Lane for Multiball, always." },
+        { head: "Magic Bus is the first Bus Ramp hit", body: "Magic Bus lights at the 1st ride. Your very first Bus Ramp hit triggers Magic Bus — shoot Bus Ramp immediately after launch for the first Magic Bus award." },
+      ],
+      mistakes: [
+        "Not completing Left/Right Target Banks early — no Ball Recycle on open outlanes means constant drain risk.",
+        "Missing Magic Bus window (stays lit ~25 seconds) after Bus Ramp hits.",
+        "Using Wrecking Ball for MULTIBALL letters instead of 3 Crane Lane Sneak-Ins.",
+        "During Multiball, shooting Crane Lane immediately without Upper Car Target hits first — missing Jackpot value.",
+        "Forgetting the Bonus Multiplier carries over — treating each ball as a fresh start.",
+      ],
+    },
+
+    hotspots: [
+      { x:20, y:25, type:"key",   label:"CR", name:"Crane Lane (Left)",         body:"<strong>Primary feature.</strong> Advances Crane toward MULTIBALL letters. 3 shots = all letters → Multiball (Sneak-In). Also fastest path to permanent Bonus Multiplier (max 6×)." },
+      { x:72, y:28, type:"key",   label:"BU", name:"Bus Ramp",                  body:"<strong>Magic Bus — huge bonus at 1st, 4th, and 11th rides.</strong> Game-wide permanent Bonus Multiplier makes milestone awards worth 2×–6× base value." },
+      { x:50, y:20, type:"key",   label:"WR", name:"Wreck (Top Ramp)",          body:"Hits scrap car toy. Each Wreck advances Bonus Multiplier and scores Wreck Bonus. During Multiball: Jackpot. Primary Boss Battle shot." },
+      { x:48, y:40, type:"safe",  label:"DT", name:"Dog Target Bank",           body:"Complete D-O-G for Sparky Multiball qualification and Bonus Multiplier advance. Wide bank, easy from either flipper." },
+      { x:14, y:44, type:"safe",  label:"LO", name:"Left Orbit",                body:"Feeds jet bumpers and left rollover for Bonus Multiplier. Safe from right flipper." },
+      { x:48, y:55, type:"info",  label:"UC", name:"Upper Car Targets",         body:"Hit during Multiball for +75K each (permanent). Stacks with 6× multiplier = 450K per hit sustained." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"Open outlane. Permanent Bonus Multiplier makes each ball extra valuable — extreme caution." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"Open outlane. Bus Ramp misses slide right — full-power deliberate shots only." },
+    ],
+  },
+
+  /* ─── NO GOOD GOFERS ────────────────────────────────────── */
+  nogoodgofers: {
+    name: "No Good Gofers", sub: "1997 · Williams · Standard",
+    tagline: "Golf theme · Hole-in-One loop + cumulative End-of-Ball Bonus",
+    image: "images/no-good-gofers.png",
+    difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1997" },
+        { label: "Designers",    value: "Pat Lawlor & Louis Koziarz" },
+        { label: "Programmer",   value: "Louis Koziarz" },
+        { label: "Production",   value: "2,711 units" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "A golf course overrun by Bud and Buzz — two no-good gofer characters (animatronic figures who pop up from behind ramps). Complete 18 holes of golf by hitting Drive Shots to light 'Putt Out' at the Putting Green, then sinking the ball. Hole-in-Ones and low-stroke completions build a massive cumulative End-of-Ball Bonus.",
+      features: [
+        { name: "Skill Shot (6)", desc: "Partial-power plunge to hit Skill Shot Spot Targets Bank — 75K first, +25K each ball. Instantly completes all Drive Shots and lights Putt Out for the current hole." },
+        { name: "Hole-in-One Sequence", desc: "<strong>Left Ramp (7) → Left Inlane → Slam Ramp (17)</strong> → Hole-in-One Hole (11) = current hole completed in 1 stroke = 250K End-of-Ball Bonus. Best per-hole value." },
+        { name: "Putting Green (8)", desc: "Sink ball here when 'Putt Out' is lit to complete holes. 'Water Hazard' (10–99K, no completion) if shot without Putt Out lit. Extra Ball after 4th hole." },
+        { name: "End-of-Ball Bonus (CUMULATIVE)", desc: "<strong>The End-of-Ball Bonus accumulates across the ENTIRE game</strong> — it does not reset between balls. Each hole completion adds based on stroke count: 1 stroke = 250K, 2 = 125K, ... 7 = 10K." },
+        { name: "Cart Path (Bonus Multiplier)", desc: "Right Inlane → Left Cart Path (4), or Outer Left Inlane → Right Cart Path (14). Each Cart Path shot escalates value. Multiplier advances at 1st, 3rd, 5th shots (+1× each). Max 5×. <strong>Resets each ball.</strong>" },
+        { name: "Whirlwheel", desc: "Spun by hole completions (and Jet Bumpers, Captive Ball, Spinner). Awards: Hole-in-One (instant 1-stroke), Q Jackpot (Left Ramp Jackpot), Big Points (1M+), Player's Choice, Speed Golf, Ripoff, Kickback, etc." },
+        { name: "3-Ball Multiball", desc: "Centre Ramp → hit Bud → lock; Centre Ramp → hit Buzz → lock → Putting Green = Multiball. Jackpot at Left Ramp (3.5M). Left Inlane → Slam Ramp → Hole-in-One = Super Jackpot (2× Jackpot = 7M+)." },
+      ],
+      scoring: [
+        { key: "Skill Shot (1st ball)",      val: "75K (then +25K each)" },
+        { key: "Hole-in-One completion",     val: "250K to cumulative bonus" },
+        { key: "Hole complete (par, 2 str)", val: "125K to cumulative bonus" },
+        { key: "End-of-Ball Bonus",          val: "Cumulative all game (NOT per ball)" },
+        { key: "Bonus Multiplier (max)",     val: "5× via Cart Path shots (resets/ball)" },
+        { key: "Multiball Left Ramp Jackpot", val: "3.5M" },
+        { key: "Multiball Super Jackpot",    val: "2× last Jackpot = 7M+" },
+        { key: "Completing 18th hole",       val: "10M + course restarts" },
+      ],
+      rules: [
+        "<strong>End-of-Ball Bonus is cumulative all game</strong> — does NOT reset between balls. Every 1-stroke hole adds 250K permanently.",
+        "<strong>Bonus Multiplier resets each ball</strong> — build via Cart Path shots (right/left inlane → cart path) every ball. Get to 5× early.",
+        "<strong>Skill Shot instantly completes all Drive Shots</strong> for current hole → Putt Out lights immediately. Use every ball.",
+        "<strong>Hole 1 requires no Drive Shots</strong> — Putt Out lights automatically. Holes 2–9 need 2 Drive Shots. Holes 10–18 need 3.",
+        "<strong>Slam Ramp only opens briefly</strong> after Left Ramp → Left Inlane sequence. Shoot immediately.",
+        "<strong>Kickback active at game start</strong> — relit via K-I-C-K Targets (16) two completions. Up to 2 stacked.",
+        "<strong>Stroke penalties:</strong> Sand Trap Saucer (1) = +1 stroke. Outlane drain = +1 stroke. Hitting Bud/Buzz when they appear = -1 stroke.",
+      ],
+      benchmarks: [
+        { score: "30M+",  label: "Excellent — consistent Hole-in-Ones + Multiball" },
+        { score: "10M+",  label: "Good — several holes completed, Multiball once" },
+        { score: "< 3M",  label: "Skill Shot missed, holes not completed consistently" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=1847",                    icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/no-good-gofers",           icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zensite.wpenginepowered.com/wp-content/uploads/2025/05/No-Good-Gofers-Pinball-Guide-by-ShoryukenToTheChin.pdf", icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Partial-power plunge to hit the <strong>Skill Shot Spot Targets Bank (6)</strong> — 75K + instantly completes all Drive Shots + lights Putt Out. Allows immediate hole completion without additional shots.",
+      multiball: "<strong>Centre Ramp → hit Bud → lock → Centre Ramp → hit Buzz → lock → Putting Green = 3-Ball Multiball.</strong> Left Ramp (7) = 3.5M Jackpot. After Jackpot: Left Inlane → Slam Ramp → Hole-in-One Hole = Super Jackpot (2× last Jackpot = 7M+). 'Free Locks' Whirlwheel award spots 1 lock.",
+      goal: "Use Skill Shot to instantly light Putt Out every ball. Execute Hole-in-One loop (Left Ramp → Left Inlane → Slam Ramp) for 1-stroke completions (250K each to cumulative bonus). Rebuild Bonus Multiplier to 5× via Cart Path shots each ball. Over 18 holes at 1 stroke each: 250K × 18 × 5× = 22.5M bonus alone. Activate 3-Ball Multiball for 3.5M Jackpot + 7M Super Jackpot.",
+      phases: [
+        { num: "Phase 1 · Each Ball", title: "Skill Shot + K-I-C-K + Multiplier", body: "Skill Shot (75K + instant Putt Out). Complete K-I-C-K Targets for Kickback (2 stacked). Cart Path shots via Right/Left Inlane × 5 for 5× Bonus Multiplier. Then Hole-in-One loop." },
+        { num: "Phase 2 · Hole Completion Loop", title: "Hole-in-One for 250K each", body: "Left Ramp → Left Inlane → Slam Ramp within the brief window → Hole-in-One Hole = 1-stroke completion. Sink Putting Green for each completed hole. Hit Bud/Buzz when they appear for -1 stroke (100K+). Avoid Sand Trap." },
+        { num: "Phase 3 · Multiball + Late Holes", title: "7M+ Super Jackpot", body: "Multiball via Centre Ramp Bud/Buzz lock sequence. Left Ramp Jackpot (3.5M) → Hole-in-One Super Jackpot (7M). Holes 10–18 need 3 Drive Shots each — Skill Shot still works to shortcut this. Complete 18th hole = 10M + course restart." },
+      ],
+      safeShots: [
+        { name: "Left Ramp (7)", desc: "Primary safe shot. Feeds Left Inlane every time, enabling Slam Ramp. Also Drive Shot and Multiball Jackpot." },
+        { name: "Putting Green (8)", desc: "Safe when Putt Out is lit. Consistent ball path." },
+        { name: "K-I-C-K Targets Bank (16)", desc: "Wide bank, easy to hit. Kickback protection on open outlanes." },
+      ],
+      avoidShots: [
+        { name: "Sand Trap Saucer (1)", desc: "+1 stroke penalty. Never deliberately shoot it." },
+        { name: "Putting Green without Putt Out lit", desc: "Water Hazard result — wastes a shot without completing hole." },
+      ],
+      tips: [
+        { head: "End-of-Ball Bonus is the whole game", body: "The bonus is cumulative all game. 18 holes at 1 stroke each × 5× multiplier = 22.5M just from bonus. Consistent Hole-in-Ones and high multiplier each ball compound enormously." },
+        { head: "Player's Choice Whirlwheel = pick Big Points or Hole-in-One", body: "When Whirlwheel offers Player's Choice, stop it on 'Hole-in-One' (instant 1-stroke completion, 250K bonus) or 'Big Points' (1M first, +1M each time)." },
+        { head: "Kickback stacks to 2", body: "Restore both Kickback uses via K-I-C-K Target completions each ball. Outlane drains also add stroke penalties — Kickback prevents both ball loss and stroke count increase." },
+      ],
+      mistakes: [
+        "Missing the Skill Shot and grinding Drive Shots instead — wastes ball time on Hole-in-One opportunities.",
+        "Shooting Putting Green before Putt Out is lit — Water Hazard, no hole completion.",
+        "Not rebuilding Bonus Multiplier each ball — it resets, so 5× must be re-earned every ball.",
+        "During Multiball, not immediately following Jackpot with Hole-in-One Super Jackpot sequence.",
+      ],
+    },
+
+    hotspots: [
+      { x:18, y:25, type:"key",   label:"LR", name:"Left Ramp (7)",             body:"<strong>Core shot.</strong> Drive Shot + Hole-in-One setup (feeds Left Inlane → Slam Ramp). Multiball Jackpot (3.5M). Every Left Ramp feeds Left Inlane — watch immediately for Slam Ramp." },
+      { x:50, y:18, type:"key",   label:"SR", name:"Slam Ramp (17)",            body:"<strong>Hole-in-One = 1 stroke = 250K bonus per hole.</strong> Opens briefly after Left Ramp → Left Inlane. Shoot immediately. After Jackpot on Left Ramp: Left Inlane → Slam Ramp = Super Jackpot (7M+)." },
+      { x:72, y:28, type:"safe",  label:"PG", name:"Putting Green (8)",         body:"Complete hole here when 'Putt Out' is lit. Skill Shot lights it instantly. Don't shoot without Putt Out — Water Hazard only." },
+      { x:50, y:38, type:"safe",  label:"CP", name:"Cart Path",                 body:"Right Inlane → Left Cart Path (or Outer Left Inlane → Right Cart Path). +1× Bonus Multiplier at 1st, 3rd, 5th shots = max 5×. Resets each ball — rebuild early." },
+      { x:48, y:50, type:"info",  label:"KI", name:"K-I-C-K Targets (16)",     body:"Complete K-I-C-K twice to relight Kickback × 2. Essential on open outlanes. Restore immediately if used." },
+      { x:65, y:35, type:"info",  label:"WW", name:"Whirlwheel",               body:"Spins on hole completion. Players Choice: stop on Hole-in-One (instant 250K), Q Jackpot, or Big Points (1M+). Avoid 'Bad Shot'." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane (Kickback)",   body:"Kickback active at start. Keep K-I-C-K completed for up to 2 stacked saves." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"No rubber. Right-side shots too weak drain right — full-power shots only." },
+    ],
+  },
+
+
+  /* ─── SAFE CRACKER ──────────────────────────────────────── */
+  safecracker: {
+    name: "Safe Cracker", sub: "1996 · Bally · Standard",
+    tagline: "Unique timer-based format · Board Game → Vault → Stash",
+    image: "images/safe-cracker.png",
+    difficulty: "Hard", diffClass: "diff-hard", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams (Bally label)" },
+        { label: "Year",         value: "1996" },
+        { label: "Designer",     value: "Pat Lawlor" },
+        { label: "Programmer",   value: "Matt Coriale" },
+        { label: "Production",   value: "1,148 units" },
+        { label: "Platform",     value: "WPC-95" },
+      ],
+      theme: "A bank heist theme unlike any other pinball machine. Instead of traditional balls, Safe Cracker uses a <strong>timed play format</strong> — you start with a 45-minute countdown (every 3 real seconds = 5 game minutes lost) and must keep the timer alive. Score in dollar amounts, not points. The goal is to navigate the Board Game, reach the Vault, and collect the Stash.",
+      features: [
+        { name: "A-B-C Rollover Lanes (10)", desc: "Upper rollover lanes. Complete all 3 = <strong>+5 min to timer</strong>. Cycle lit lanes with flipper buttons. Most consistent timer-adder available — do this every pass." },
+        { name: "Centre Ramp (7)", desc: "Primary shot. Locks ball for Board Game setup. Jackpot during Vault/Token Multiball. Collects 1 Doughnut per shot (2 if Right Inlane just triggered). Most important shot on the table." },
+        { name: "Board Game", desc: "Navigate clockwise from Bank Entrance to Vault. Land on 'S' spaces (+$20K Stash, or $40K with ATM Card), '?' spaces (choose Time Award 5–20 min), avoid Alarm spaces (if active). Reach Vault → Vault Multiball." },
+        { name: "Vari-Target (5)", desc: "Cellar Award sequence. Hit repeatedly to open Cellar Entrance. Awards in order: <strong>ATM Card</strong> (doubles 'S' space value to $40K), <strong>Note to Teller</strong> (prevents Money Bomb), Explosives, Safe #, Lite Outlane (+20 min drain)." },
+        { name: "A-L-A-R-M Targets (4,6,13,15,16)", desc: "Complete all 5 twice (each letter lit, then flashing) = de-activate one Alarm Board Game space. 4 Alarm spaces total. De-activating all = $50K per future A-L-A-R-M completion." },
+        { name: "Vault Multiball (3 balls)", desc: "Break into Vault → Jackpot = Stash value at Centre Ramp. Each Jackpot = +10 min timer. Maximize Stash by landing on many 'S' spaces before reaching Vault." },
+        { name: "TNT Multiball (3 balls)", desc: "3 balls — hit everything for target points ($2,500/drop target completion). Every 20 hits = +5 min timer. Excellent timer accumulator." },
+      ],
+      scoring: [
+        { key: "A-B-C completion",           val: "+5 min timer" },
+        { key: "Board Game 'S' space",       val: "$20K Stash (or $40K with ATM Card)" },
+        { key: "Board Game '?' — Time",      val: "+5/10/15/20 min" },
+        { key: "Vault Multiball Jackpot",    val: "Stash value at Centre Ramp + 10 min" },
+        { key: "Lite Outlane drain",         val: "+20 min (ball re-launches!)" },
+        { key: "End-of-Game Bonus Mult (max)", val: "5× via Board Game starts" },
+        { key: "ATM Card effect",            val: "Doubles all 'S' spaces $20K → $40K" },
+      ],
+      rules: [
+        "<strong>All balls re-launch</strong> during Timed Play — no ball loss until Sudden Death (timer reaches 0).",
+        "<strong>A-B-C Rollovers = +5 min.</strong> Complete every pass by cycling lit lanes with flipper buttons. This is the most consistent timer source.",
+        "<strong>ATM Card</strong> (first Vari-Target Cellar Award) doubles all 'S' board spaces from $20K to $40K for the rest of the game. Get this first.",
+        "<strong>Note to Teller</strong> (second Cellar Award) prevents 'Money Bomb' from ending the Board Game when landing on Teller spaces.",
+        "<strong>De-activate Alarm spaces</strong> via A-L-A-R-M completions before entering those Board Game spaces. All 4 de-activated = $50K per future completion.",
+        "<strong>Lite Outlane</strong> Cellar Award: during Timed Play, draining down a lit outlane = +20 free minutes (ball re-launches anyway!).",
+        "<strong>Right Flipper</strong> slowly stops the Safe Dial for better Board Game landing space control. Left Flipper stops it immediately.",
+        "<strong>End-of-Game Bonus Multiplier</strong>: each Board Game start = +1×. Play Board Game as often as possible to reach 5×.",
+      ],
+      benchmarks: [
+        { score: "$500K+", label: "Excellent — multiple Vault Multiball Jackpots" },
+        { score: "$200K+", label: "Good — ATM Card + Vault reached" },
+        { score: "< $50K", label: "Timer drained quickly, Board Game rarely accessed" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=2045",                    icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/safe-cracker",             icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zensite.wpenginepowered.com/wp-content/uploads/2024/04/WP-Safe-Cracker-Pinball-Guide-by-ShoryukenToTheChin.pdf", icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "No traditional Skill Shot — all drained balls re-launch during Timed Play. Focus immediately on A-B-C Rollover Lanes each launch for +5 min timer.",
+      multiball: "<strong>Vault Multiball (3-ball):</strong> Navigate Board Game to Vault (maximize 'S' space visits beforehand for high Stash) → Jackpot = Stash value per Centre Ramp (7). Each Jackpot scored = +10 min timer. Relight Jackpot via Disc spin. <strong>TNT Multiball:</strong> 3 balls, maximize hit volume — every 20 hits = +5 min. Both multiballs are excellent timer accumulators.",
+      goal: "Keep the timer alive via A-B-C Rollover completions (+5 min each) and Board Game '?' Time Awards. Get ATM Card (Cellar Award #1) immediately to double all 'S' Board Game spaces. De-activate all 4 Alarm spaces via A-L-A-R-M Target completions. Navigate Board Game to Vault with maximum 'S' space visits. Vault Multiball Jackpot = Stash value + 10 min per hit. Use 'Lite Outlane' drains for free +20 min during Timed Play.",
+      phases: [
+        { num: "Phase 1 · Timer Management", title: "A-B-C Rollovers + A-L-A-R-M + Cellar", body: "Complete A-B-C Rollovers every pass (+5 min). Hit A-L-A-R-M Targets to de-activate Alarm spaces. Hit Vari-Target (5) repeatedly to access Cellar: get ATM Card first, then Note to Teller." },
+        { num: "Phase 2 · Board Game", title: "S-Spaces → Vault", body: "Complete flashing Drop Target Banks → Centre Ramp lock → enter Bank via Teller/Roof/Vari-Target → Board Game. Use Right Flipper to slow Safe Dial. Target 'S' spaces ($40K each with ATM Card). Choose Time Awards (15–20 min) at '?' spaces. Reach Vault → Vault Multiball." },
+        { num: "Phase 3 · Vault Multiball + Cellar Awards", title: "High Stash = High Jackpot", body: "During Vault Multiball: Centre Ramp repeatedly for Jackpot (= accumulated Stash) + 10 min each. Relight via Disc spin. 'Lite Outlane' Cellar Award: drain intentionally down lit outlane for +20 min (ball re-launches). Repeat Board Game starts for End-of-Game Bonus Multiplier (max 5×)." },
+      ],
+      safeShots: [
+        { name: "Centre Ramp (7)", desc: "Most important shot. Lock, Jackpot, Doughnut. Reliable from right flipper." },
+        { name: "A-B-C Rollovers (10)", desc: "Upper rollovers. +5 min per completion. Cycle with flipper buttons every pass." },
+        { name: "Lite Bank Entry Drop Targets (2)", desc: "Wide bank. Advances all 3 Bank paths toward Vault simultaneously." },
+      ],
+      avoidShots: [
+        { name: "Vari-Target (5) without purpose", desc: "Ball can go erratically. Only approach deliberately for Cellar Award sequence." },
+        { name: "Roof Saucer (9) carelessly", desc: "Only shoot when Roof Entrance is lit for Board Game entry." },
+      ],
+      tips: [
+        { head: "ATM Card doubles everything", body: "The first Cellar Award from Vari-Target doubles all 'S' Board Game spaces from $20K to $40K for the entire game. 8 'S' spaces at $40K each = $320K from one Board Game trip. Get this early." },
+        { head: "Lite Outlane = free timer", body: "During Timed Play, draining down a lit outlane (ball re-launches!) = +20 free minutes. When 'Extra Time' is lit, intentionally drain an outlane — it's 100% profitable." },
+        { head: "Right Flipper for Board Game control", body: "Use Right Flipper to slowly stop the Safe Dial — gives more control over landing space. Left Flipper stops immediately. Slow-stop on a desirable 'S' space before releasing." },
+        { head: "Centre Ramp Right Inlane combo = 2 Doughnuts", body: "Right Inlane → Centre Ramp immediately = 2 Doughnuts instead of 1. Build Doughnuts for Bribe Guard spaces (need 5+)." },
+      ],
+      mistakes: [
+        "Ignoring A-B-C Rollover Lanes — letting the timer drain without completing easy rollover shots.",
+        "Not getting ATM Card or Note to Teller early — unsafe Board Game and Money Bomb disasters.",
+        "Entering Board Game with active Alarm spaces — getting ejected from the game.",
+        "Reaching Vault before maximizing 'S' space visits — low Stash = low Vault Multiball Jackpot.",
+        "Stopping Safe Dial with Left Flipper immediately — use Right Flipper for slow, controlled landing.",
+        "Not using 'Extra Time' lit outlane drains — consequence-free +20 min during Timed Play.",
+      ],
+    },
+
+    hotspots: [
+      { x:48, y:18, type:"key",   label:"TS", name:"Time Safe (Top Centre)",    body:"<strong>Primary timed lock target.</strong> Complete A-B-C Rollovers to add +5 min to timer. Each shot advances Board Game and scores current space value." },
+      { x:18, y:28, type:"key",   label:"LR", name:"Left Ramp",                 body:"Board Game advance — one space forward per shot. Landing on S-spaces with ATM Card = value doubled. Most reliable ramp." },
+      { x:72, y:28, type:"safe",  label:"RR", name:"Right Ramp",                body:"Mirror of Left Ramp for Board Game advance. Also advances Vault Jackpot. Reliable from left flipper." },
+      { x:50, y:38, type:"key",   label:"VT", name:"Vault (Centre Saucer)",     body:"<strong>Collect Vault Multiball Jackpot here.</strong> Jackpot = Stash + 10 min. Build Stash high before collecting. Starts Vault Multiball (2-ball)." },
+      { x:50, y:50, type:"info",  label:"BG", name:"Board Game Spaces",         body:"S = Stash (adds to Vault Jackpot), E = Extra Time (+10 min), X = Double Next. ATM Card doubles all S-space values — save for S-spaces." },
+      { x:14, y:42, type:"safe",  label:"AB", name:"A-B-C Rollovers",           body:"Completing A-B-C adds +5 min to timer. Cycle via flipper buttons. Build clock time early each ball." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"Every drained ball costs significant timer time. Ball preservation paramount." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"Open outlane. Right ramp misses drain right — careful control essential." },
+    ],
+  },
+
+  /* ─── THE GETAWAY: HIGH SPEED II ───────────────────────── */
+  getaway: {
+    name: "The Getaway: High Speed II", sub: "1992 · Williams · Standard",
+    tagline: "Street racing · Supercharger Ramp + rev-based Multiball jackpots",
+    image: "images/getaway.png",
+    difficulty: "Easy–Medium", diffClass: "diff-medium", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1992" },
+        { label: "Designer",     value: "Steve Ritchie" },
+        { label: "Programmer",   value: "Bill Pfutzenreuter" },
+        { label: "Production",   value: "14,015 units" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "A high-speed street racing theme — sequel to the 1986 High Speed. Rev the Supercharger, complete Stoplight Banks to get the green light, then start Supercharger Multiball. The Rev Counter builds jackpot values — higher revs = bigger jackpot.",
+      features: [
+        { name: "Supercharger Ramp", desc: "<strong>Primary shot throughout the entire game.</strong> Each hit adds revs to the Rev Counter and scores Highway value. Completing 3 Stoplight Banks (all lights green) → ball lock lit at Supercharger Ramp. Jackpot during Multiball." },
+        { name: "3 Stoplight Banks (L/C/R)", desc: "Hit all targets in each bank to turn light green. All 3 green → Supercharger lock lit. Complete Stoplights as efficiently as possible to enable Multiball setup." },
+        { name: "Rev Counter", desc: "Builds with each Supercharger Ramp shot. Higher revs = bigger Multiball Jackpot. Revs from single-ball play carry over into Multiball — build them before locking!" },
+        { name: "Tunnel Saucer (Skill Shot)", desc: "Skill Shot target. Awards 'Red Light' (ball save/safety) or license plate progress toward L-I-C-E-N-S-E letters." },
+        { name: "L-I-C-E-N-S-E Targets", desc: "Complete all 7 letters for a special award. Lit via Tunnel Saucer Skill Shot and target hits." },
+        { name: "Highway Mode (Hurry Up)", desc: "Activated periodically. Supercharger Ramp value temporarily increases. Shoot repeatedly to maximize." },
+        { name: "Left/Right Orbits", desc: "Score orbit value during Multiball for additional jackpots." },
+      ],
+      scoring: [
+        { key: "Supercharger Ramp (normal)",   val: "Progressive Highway value" },
+        { key: "Supercharger Jackpot (base)",  val: "10M (grows with revs)" },
+        { key: "Multiball Orbit Jackpots",     val: "Additional jackpots during Multiball" },
+        { key: "Skill Shot (Tunnel Saucer)",   val: "Red Light or License Plate progress" },
+        { key: "L-I-C-E-N-S-E complete",      val: "Special award" },
+      ],
+      rules: [
+        "<strong>Supercharger Ramp is the primary shot</strong> for revs, Highway scoring, Stoplight advancement, and Multiball Jackpot during Multiball.",
+        "<strong>Build revs before Multiball.</strong> Revs carry over from single-ball play into Supercharger Multiball — higher revs = bigger starting Jackpot.",
+        "<strong>Complete all 3 Stoplight Banks</strong> (left, center, right targets all lit green) → Supercharger lock lit → lock 2 balls → Multiball starts.",
+        "<strong>Skill Shot</strong> into Tunnel Saucer provides 'Red Light' (ball save protection) or License Plate letter.",
+      ],
+      benchmarks: [
+        { score: "200M+", label: "Excellent — high revs + multiple Multiballs" },
+        { score: "50M+",  label: "Good — Multiball achieved" },
+        { score: "< 15M", label: "Stoplights not completed" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=1009",                    icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/getaway-high-speed-ii",    icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zensite.wpenginepowered.com/wp-content/uploads/2024/01/WP-Getaway-Pinball-Guide-by-ShoryukenToTheChin.pdf", icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Plunge to land in the <strong>Tunnel Saucer</strong> — choose 'Red Light' for ball save protection, or accept License Plate (L-I-C-E-N-S-E) progress. 'Red Light' is safer on strict settings with no ball save.",
+      multiball: "<strong>Supercharger Multiball (3-ball):</strong> Complete all 3 Stoplight Banks → lock 2 balls via Supercharger Ramp → Multiball. Jackpot at Supercharger Ramp, starting at 10M. <strong>Revs carry over from before Multiball</strong> — higher pre-Multiball rev count = bigger Jackpot. Also: Left and Right Orbit shots score additional Jackpots during Multiball.",
+      goal: "Hit the Tunnel Saucer Skill Shot for Red Light protection. Hammer the Supercharger Ramp throughout the game to build revs and complete Stoplights. Complete all 3 Stoplight Banks to light ball lock. Lock 2 balls → Supercharger Multiball. During Multiball: Supercharger Ramp for growing Jackpot, orbits for additional Jackpots.",
+      phases: [
+        { num: "Phase 1 · Early Ball", title: "Skill Shot + Ramp + Stoplights", body: "Tunnel Saucer Skill Shot (Red Light). Hit Supercharger Ramp aggressively to build revs and advance Stoplights. Complete Left, Centre, and Right Stoplight Banks by hitting their targets." },
+        { num: "Phase 2 · Rev Building + Lock", title: "Pre-Multiball Rev Accumulation", body: "Continue hammering Supercharger Ramp after all Stoplights are green — each ramp shot adds revs that carry into Multiball. Lock 2 balls. Launch 3rd ball → Multiball." },
+        { num: "Phase 3 · Multiball", title: "Ramp Jackpot + Orbit Jackpots", body: "Supercharger Ramp = primary Jackpot. Left/Right Orbits = additional Jackpots during Multiball. Keep all balls in play as long as possible. Rev-based Jackpot grows throughout Multiball." },
+      ],
+      safeShots: [
+        { name: "Supercharger Ramp", desc: "Primary safe shot. Revs, Highway scoring, Stoplights, Multiball Jackpot." },
+        { name: "Stoplight Bank Targets", desc: "Target banks to green-light for Multiball setup. Hit when targets are lit." },
+      ],
+      avoidShots: [
+        { name: "Random orbit shots without purpose", desc: "Orbits score Jackpots during Multiball. Outside Multiball, focus on Supercharger Ramp." },
+      ],
+      tips: [
+        { head: "Revs carry into Multiball", body: "Every Supercharger Ramp hit before Multiball increases the Jackpot you'll collect during Multiball. Don't rush to lock after Stoplights green — keep revving first." },
+      ],
+      mistakes: [
+        "Locking balls immediately after Stoplights go green — missing rev-building opportunity before Multiball.",
+        "Not shooting Supercharger Ramp as the primary shot throughout the game.",
+        "During Multiball, ignoring orbit shots — they score additional Jackpots.",
+      ],
+    },
+
+    hotspots: [
+      { x:48, y:18, type:"key",   label:"SC", name:"Supercharger Ramp",         body:"<strong>The game's engine.</strong> Each shot adds revs (0→5000 RPM). At 5000 RPM → Supercharger Multiball. Rev count carries into Multiball. Spin it up as fast as possible." },
+      { x:18, y:28, type:"key",   label:"LR", name:"Left Ramp (Freeway)",       body:"Freeway shots advance Eject Hole value and keep the police chase going. During Multiball: Left Ramp = Jackpot. Reliable from right flipper." },
+      { x:72, y:30, type:"safe",  label:"RR", name:"Right Ramp (Onramp)",       body:"Advances mileage. During Multiball: Super Jackpot (2× Jackpot). Reliable from left flipper." },
+      { x:50, y:38, type:"key",   label:"TN", name:"Tunnel Saucer",             body:"<strong>Skill Shot target.</strong> Plunge for High Speed award (escalating per ball). Police Helicopter mode. During Multiball: Tunnel = Mega Jackpot." },
+      { x:30, y:45, type:"info",  label:"SL", name:"Stoplight Banks",           body:"Complete Red-Yellow-Green stoplight targets to qualify Multiball locks. Each completion advances Bonus Multiplier." },
+      { x:68, y:45, type:"info",  label:"SR", name:"Right Stoplight",           body:"Mirror stoplight bank. Complete both sets to fully qualify Multiball." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"Open outlane. High-RPM Multiball is chaotic — stay ready to trap. Left side primary drain risk." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"Open outlane. Right Ramp misses slide right. Controlled shots only." },
+    ],
+  },
+
+
+  /* ─── BLACK ROSE ────────────────────────────────────────── */
+  blackrose: {
+    name: "Black Rose", sub: "1992 · Williams/Bally · Standard",
+    tagline: "Pirate cannon · Broadside doubling + Sink Ship scoring",
+    image: "images/black-rose.png",
+    difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams (Bally label)" },
+        { label: "Year",         value: "1992" },
+        { label: "Designers",    value: "John Trudeau & Brian Eddy" },
+        { label: "Programmer",   value: "Brian Eddy" },
+        { label: "Production",   value: "3,746 units" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "A pirate ship theme. The Black Rose (your ship) battles enemy ships using the Cannon. Collect Doubloons, complete SINK SHIP letters, and use the Cannon to collect escalating Broadside Lane awards. Whirlpool Multiball unlocks Hidden Treasure.",
+      features: [
+        { name: "Cannon (Side Ramp)", desc: "Load the Cannon by shooting the Side Ramp. Each load advances the Cannon Level Award. Cannon Level Awards escalate — the most important is <strong>'Double Broadside'</strong> which doubles the Broadside Lane value (up to 32M per hit!)." },
+        { name: "Broadside Lane", desc: "Hit this lane to fire the Cannon for your current Cannon Award. With 'Double Broadside': values escalate 1M → 2M → 4M → 8M → 16M → 32M per hit. Highest consistent scoring opportunity." },
+        { name: "S-I-N-K S-H-I-P Letters", desc: "Complete SINK and SHIP letter sequences to sink enemy ships. Each completion = significant award + End-of-Ball Bonus increase." },
+        { name: "Whirlpool Ramp (9)", desc: "Advance Whirlpool by hitting Ramp repeatedly → lock balls → Whirlpool Multiball. During Multiball: Broadside Lane and ramps for jackpots. Jackpots boosted by current Cannon state." },
+        { name: "Treasure Chest", desc: "Collect Doubloons (pirate currency) for Treasure Chest awards. Doubloons earned via completing letters, ramp shots, and specific features." },
+        { name: "Bonus Multiplier", desc: "Built via rollover completions. Max 5×. Applied to End-of-Ball Bonus." },
+      ],
+      scoring: [
+        { key: "Broadside — base",            val: "1M" },
+        { key: "Broadside — Double Broadside", val: "1M → 2M → 4M → 8M → 16M → 32M" },
+        { key: "SINK SHIP completion",         val: "Major award + bonus" },
+        { key: "Whirlpool Multiball Jackpot",  val: "Escalating via Cannon state" },
+        { key: "Hidden Treasure",              val: "Large award during Whirlpool" },
+        { key: "Bonus Multiplier (max)",       val: "5×" },
+      ],
+      rules: [
+        "<strong>Cannon Level = key to Broadside value.</strong> Load Cannon via Side Ramp to advance level. The 'Double Broadside' Cannon Award doubles the escalating Broadside values.",
+        "<strong>Broadside Lane becomes the primary scoring engine</strong> once Double Broadside is active — hit it repeatedly for exponentially growing values.",
+        "<strong>SINK SHIP letters</strong> advance via target hits across the playfield. Each complete set sinks an enemy ship for a bonus award.",
+        "<strong>Whirlpool Multiball</strong> via Whirlpool Ramp lock shots. During Multiball: Broadside and ramp shots for jackpots.",
+      ],
+      benchmarks: [
+        { score: "300M+", label: "Excellent — Double Broadside maxed + Multiball" },
+        { score: "80M+",  label: "Good — Cannon loaded, multiple SINK SHIP" },
+        { score: "< 20M", label: "Cannon not advanced" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=257",                     icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/black-rose",               icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zensite.wpenginepowered.com/wp-content/uploads/2024/04/WP-Black-Rose-Pinball-Guide-by-ShoryukenToTheChin.pdf", icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Plunge to hit the Skill Shot target. Advances toward Cannon Level or earns initial points. Prioritize whatever gets Cannon loaded fastest.",
+      multiball: "<strong>Whirlpool Multiball:</strong> Hit Whirlpool Ramp (9) repeatedly to advance and lock balls → Multiball. During Multiball: Broadside Lane and ramps for jackpots. Jackpot values scale with current Cannon Level — load Cannon before Multiball for maximum jackpot returns.",
+      goal: "Load the Cannon via Side Ramp shots to advance Cannon Level Awards. Acquire 'Double Broadside' Cannon Award, then repeatedly hit the Broadside Lane for exponentially growing values (1M → 32M per hit). Complete SINK SHIP letters for bonus awards. Activate Whirlpool Multiball with Cannon pre-loaded for maximum jackpots.",
+      phases: [
+        { num: "Phase 1 · Cannon Loading", title: "Side Ramp → Cannon Level", body: "Hit Side Ramp repeatedly to load Cannon and advance through Cannon Level Awards. Work toward 'Double Broadside'. Collect SINK/SHIP letters along the way." },
+        { num: "Phase 2 · Broadside Loop", title: "Double Broadside = Exponential Value", body: "With Double Broadside active: hit Broadside Lane for 1M → 2M → 4M → 8M → 16M → 32M per hit. This is the primary scoring engine. Keep the Cannon loaded by returning to Side Ramp periodically." },
+        { num: "Phase 3 · Whirlpool Multiball", title: "Cannon-Boosted Jackpots", body: "Advance Whirlpool Ramp for lock → Multiball. Broadside Lane and ramp shots during Multiball score scaled jackpots. Maintain Cannon state for maximum returns." },
+      ],
+      safeShots: [
+        { name: "Side Ramp (Cannon loading)", desc: "Primary safe shot. Cannon Level advancement is the game's key mechanic." },
+        { name: "Broadside Lane", desc: "Cannon firing / scoring lane. With Double Broadside active, this is your primary scoring destination." },
+      ],
+      avoidShots: [
+        { name: "Whirlpool Ramp without Multiball setup purpose", desc: "Only shoot when actively building toward Whirlpool lock." },
+      ],
+      tips: [
+        { head: "Double Broadside is everything", body: "The Cannon Level Award 'Double Broadside' transforms the Broadside Lane from a 1M shot to an exponentially escalating engine reaching 32M per hit. Prioritize loading Cannon to reach this award as fast as possible." },
+      ],
+      mistakes: [
+        "Not loading Cannon consistently via Side Ramp — missing the Double Broadside escalation.",
+        "Starting Whirlpool Multiball before reaching Double Broadside Cannon Award — reduced jackpot values.",
+      ],
+    },
+
+    hotspots: [
+      { x:18, y:28, type:"key",   label:"SR", name:"Side Ramp (Cannon Load)",   body:"<strong>Load the Cannon here.</strong> Cannon fires at centre targets for Broadside sequence. Load every opportunity — engine of all high-value scoring." },
+      { x:50, y:20, type:"key",   label:"BS", name:"Broadside Targets",         body:"<strong>Double Broadside: 1M→2M→4M→8M→16M→32M, doubling each hit.</strong> Triggered by Cannon shots. Keep Broadside active — each hit is worth more than the last." },
+      { x:72, y:28, type:"safe",  label:"RR", name:"Right Ramp (Treasure)",     body:"Treasure Ramp. Advances SINK SHIP letters and bonus. Unlocks Whirlpool Multiball when sequence complete. Reliable from left flipper." },
+      { x:48, y:38, type:"key",   label:"SS", name:"SINK SHIP Targets",         body:"Complete S-I-N-K-S-H-I-P → Whirlpool Multiball. Each letter = bonus advance. Multiball Jackpot at Broadside position." },
+      { x:14, y:42, type:"safe",  label:"LO", name:"Left Orbit",                body:"Safe shot. Feeds Cannon load area via upper left." },
+      { x:50, y:52, type:"info",  label:"WP", name:"Whirlpool Saucer",          body:"Awards Whirlpool bonus and Doubloon values. Collect here after SINK SHIP for Multiball start." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"Open outlane. Side Ramp misses feed left drain — deliberate power on Side Ramp." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"Open outlane. Right Ramp misses slide right. Controlled shots only." },
+    ],
+  },
+
+  /* ─── DR. DUDE ──────────────────────────────────────────── */
+  drdude: {
+    name: "Dr. Dude", sub: "1990 · Williams · Standard",
+    tagline: "Groovy vintage · Bag of Tricks multiplier + Reflex 1-2-3 loop",
+    image: "images/dr-dude.png",
+    difficulty: "Easy–Medium", diffClass: "diff-medium", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1990" },
+        { label: "Designer",     value: "Dennis Nordman" },
+        { label: "Programmer",   value: "Bill Pfutzenreuter" },
+        { label: "Production",   value: "~4,000 units" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "A groovy 1990s theme with Dr. Dude as the smooth-talking host. Collect the 'Elements of Coolness' to become totally cool and activate Multiball. Features a spinning Molecular Mixmaster toy and a Dude-O-Meter tracking progress toward wizard mode.",
+      features: [
+        { name: "Bag of Tricks (1)", desc: "Right saucer. Lit every ball start. Best award is <strong>'Bonus Booster at Maximum'</strong> — instantly sets Bonus Multiplier to 6×, the maximum. This is the first priority shot every ball." },
+        { name: "Excellent Ray Saucer (2)", desc: "Left saucer. Collects Elements of Coolness (toward Multiball). Scores Saucer Award." },
+        { name: "Drop Targets Bank (9)", desc: "3 targets. Completing the bank = +2× Bonus Multiplier. 2 completions from base (1×) = 4× — nearly max. Combined with Bag of Tricks, reach 6× quickly." },
+        { name: "Reflex Targets Bank (5)", desc: "3 standup targets. Completing them = 'Reflex Complete' → Excellent Ray Saucer (2) lit → then Gift of Gab (7) → then Magnetic Personality (1). This loop collects Elements and scores 1M–2M per cycle." },
+        { name: "Gift of Gab (7)", desc: "Upper feature shot. Part of the Reflex 1-2-3 loop. Also collects specific Elements of Coolness." },
+        { name: "Molecular Mixmaster Spinner (10)", desc: "Centre spinner. Scores 1M when 'Molecular Million' is lit (after Drop Target completions). Best pure shot-for-shot value in the game." },
+        { name: "Magnetic Personality (1)", desc: "Right magnet/target. Part of Reflex loop and Element collection. Also used for Dude-O-Meter advancement." },
+        { name: "Elements of Coolness + Multiball", desc: "Collect elements to fill the 'Elements' meter → Multiball (3 balls). All scoring doubled during and immediately after Multiball. Dude-O-Meter: 5 Multiballs = Super Dude → Gazillion Point Shot (500K per hit at spinner)." },
+      ],
+      scoring: [
+        { key: "Skill Shot (Bag of Tricks)",      val: "6× instant + bonus award" },
+        { key: "Drop Target completion",          val: "+2× Bonus Multiplier" },
+        { key: "Molecular Million (spinner)",     val: "1M per hit when lit" },
+        { key: "Reflex 1-2-3 loop (per run)",     val: "1M–2M per cycle" },
+        { key: "Bonus Multiplier (max)",          val: "6× (Drop Targets + Bag of Tricks)" },
+        { key: "Post-Multiball scoring",          val: "All scoring doubled" },
+      ],
+      rules: [
+        "<strong>Bag of Tricks</strong> is lit at every ball start. First shot = right saucer. Best award: 'Bonus Booster at Maximum' (instant 6×).",
+        "<strong>Drop Target bank</strong> completion = +2× Bonus Multiplier each time. Two completions from base = 4×; combined with Bag of Tricks 6× option = max. Bonus Multiplier resets each ball.",
+        "<strong>Molecular Million</strong> lights at spinner (10) after Drop Target completions. 1M per spinner pass when lit. Very efficient scoring.",
+        "<strong>Reflex 1-2-3 loop:</strong> Complete Reflex Bank (5) → Excellent Ray Saucer (2) → Gift of Gab (7) → Magnetic Personality (1) → collects Elements + 1M–2M per cycle.",
+        "<strong>All scoring doubled</strong> immediately following a Multiball session.",
+      ],
+      benchmarks: [
+        { score: "50M+",  label: "Excellent — multiple Multiballs + 6× multiplier" },
+        { score: "15M+",  label: "Good — Multiball achieved with some multiplier" },
+        { score: "< 5M",  label: "Bag of Tricks missed, multiplier not built" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=695",                     icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/dr-dude",                  icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zensite.wpenginepowered.com/wp-content/uploads/2024/04/WP-Dr-Dude-Pinball-Guide-by-ShoryukenToTheChin.pdf", icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Shoot the <strong>Bag of Tricks (1)</strong> saucer immediately on ball launch — it's lit at the start of every ball. Cycle through awards with flipper button; the best award is <strong>'Bonus Booster at Maximum'</strong> which instantly sets the Bonus Multiplier to 6×.",
+      multiball: "<strong>Collect Elements of Coolness</strong> via the Reflex 1-2-3 loop (Reflex Bank → Saucer → Gift of Gab → Magnetic Personality). Fill all Elements → 3-Ball Multiball. All scoring is doubled immediately after Multiball ends. 5 total Multiballs = Super Dude → 500K per spinner hit.",
+      goal: "Bag of Tricks on every ball start for possible instant 6× multiplier. Complete Drop Target Bank twice for +4× (or get 6× from Bag of Tricks). Run Reflex 1-2-3 loop for 1M–2M per cycle + Element collection toward Multiball. When Molecular Million is lit at spinner: spam it for 1M per pass.",
+      phases: [
+        { num: "Phase 1 · Every Ball", title: "Bag of Tricks → Multiplier", body: "Bag of Tricks saucer first (6× if 'Bonus Booster at Maximum'). Drop Target Bank × 2 completions for +4× multiplier. Light Molecular Million → spinner for 1M per pass. Build toward Element collection." },
+        { num: "Phase 2 · Reflex Loop", title: "Elements → Multiball", body: "Reflex Bank (5) → Excellent Ray Saucer (2) → Gift of Gab (7) → Magnetic Personality (1) = 1 cycle = Elements collected + 1M–2M. Repeat until Multiball activates." },
+        { num: "Phase 3 · Multiball + Post-Multiball", title: "Doubled Scoring Window", body: "During Multiball: all shots score + Elements repopulate. Immediately post-Multiball: all scoring doubled — spam Molecular Million spinner and Drop Targets for doubled value." },
+      ],
+      safeShots: [
+        { name: "Drop Target Bank (9)", desc: "3 targets. Easy +2× Multiplier per completion. Light Molecular Million." },
+        { name: "Reflex Bank (5)", desc: "3 standups. First step in the Elements loop." },
+        { name: "Molecular Mixmaster Spinner (10)", desc: "1M per pass when 'Molecular Million' is lit. Very high value when active." },
+      ],
+      avoidShots: [
+        { name: "Excellent Ray Saucer (2) without Reflex Complete", desc: "Only shoot when lit by Reflex Bank completion for maximum efficiency." },
+      ],
+      tips: [
+        { head: "Bag of Tricks first shot, every ball", body: "'Bonus Booster at Maximum' is the most valuable award — instant 6× Bonus Multiplier. Hit this saucer before anything else every ball." },
+        { head: "Molecular Million + 6× = pure scoring", body: "With the spinner lit for 1M per pass at 6× Bonus Multiplier, each spinner rip is effectively scoring toward a massive end-of-ball bonus. Keep spinner going." },
+      ],
+      mistakes: [
+        "Missing Bag of Tricks on ball start — foregoing the 6× instant multiplier opportunity.",
+        "Not completing Drop Target Bank twice — leaving multiplier at 1× or 2× when 4× is easily achievable.",
+        "Running Reflex loop out of order — Reflex Bank must be completed before Saucer, Saucer before Gift of Gab, etc.",
+      ],
+    },
+
+    hotspots: [
+      { x:48, y:18, type:"key",   label:"BT", name:"Bag of Tricks Saucer",      body:"<strong>First shot every ball.</strong> 'Bonus Booster at Maximum' = instant 6× Bonus Multiplier. Always shoot this before anything else." },
+      { x:18, y:30, type:"key",   label:"SP", name:"Molecular Mixmaster (Spinner)", body:"<strong>1M per spin when 'Molecular Million' is lit.</strong> With 6× multiplier each rip scores toward massive bonus. Light via Reflex sequence, then spin repeatedly." },
+      { x:72, y:30, type:"safe",  label:"RR", name:"Right Ramp",                body:"Advances Elements (Earth, Air, Water, Fire) and ramp bonus. Part of Molecular Reflex loop. Reliable from left flipper." },
+      { x:50, y:40, type:"key",   label:"DT", name:"Drop Target Bank",          body:"<strong>Each completion = +2× Bonus Multiplier</strong> (max 6× with 3 completions). Wide bank, hittable from both flippers." },
+      { x:28, y:42, type:"safe",  label:"RF", name:"Reflex Bank (5)",           body:"3 standups. Completing lights Excellent Ray Saucer for next step in Elements loop. First step in Molecular Million activation." },
+      { x:68, y:42, type:"info",  label:"GG", name:"Gift of Gab Target",        body:"Completes Reflex → Saucer → Gift of Gab → Spinner loop. Hit after Reflex Bank and Excellent Ray saucer. Lights Spinner for 1M/spin." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"Open outlane. Spinner shots hitting left slingshot can deflect left — control power." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"Open outlane. Right Ramp misses drain right — full-power controlled shots only." },
+    ],
+  },
+
+  spacestation: {
+    name: "Space Station",
+    sub: "1987 · Williams · System 11B",
+    tagline: "Time the Stop 'N Score — patience equals 500K per ramp shot.",
+    image: "images/space-station.webp",
+    difficulty: "Medium-Easy",
+    diffClass: "diff-medium",
+    era: "SS",
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year", value: "1987" },
+        { label: "Designer", value: "Barry Oursler" },
+        { label: "Programmer", value: "Ed Boon" },
+        { label: "Platform", value: "System 11B" },
+        { label: "Production", value: "3,804 units" },
+      ],
+      theme: "Sci-fi space station. Dock ships and shuttles while completing letter banks and timing the Stop 'N Score feature for maximum value. Programmer Ed Boon later created Mortal Kombat.",
+      features: [
+        "Stop 'N Score — Drop Target activates cycling value (20K–99K) on 25-sec timer. Shoot Ramp at peak.",
+        "Stop 'N Score Multiplier up to 5× via USA Rollover completions.",
+        "Bonus Multiplier up to 7× via Drop Target Bank completions.",
+        "Docking Multiball — lock 2 balls via Ramp diverter or 1-2-3 Rollovers.",
+        "SHUTTLE and STATION letter banks — Hold Bonus and lock qualification.",
+        "Left Outlane Kickback (Re-entry) — active at game start, saves one ball.",
+        "Vertical Up-Kicker feeds 1-2-3 Rollovers and relights Docks.",
+        "Jet Bumper value builds to 3,000 pts/hit via 1-2-3 Rollover completions.",
+      ],
+      scoring: [
+        { source: "Stop 'N Score peak (1×)", value: "99,000 pts" },
+        { source: "Stop 'N Score peak (5×)", value: "~495,000 pts" },
+        { source: "USA Rollover completion", value: "+1× Stop 'N Score Mult + 25K" },
+        { source: "Drop Target Bank (3 targets)", value: "52K (or 132K simultaneous)" },
+        { source: "Bonus Multiplier (max)", value: "7×" },
+        { source: "Up-Kicker (USA complete)", value: "100,000 pts" },
+        { source: "Multiball (Stop 'N Score active)", value: "Same as single ball" },
+      ],
+      rules: [
+        "Hit Drop Target at ramp base → Stop 'N Score activates (25-sec cycling display 20K–99K) → shoot Ramp to collect.",
+        "Complete U-S-A Rollovers = +1× Stop 'N Score Multiplier (max 5×). Also lights Up-Kicker for 100K.",
+        "Complete Drop Target Bank (5) = +1× Bonus Multiplier (max 7×).",
+        "Complete S-T-A (4) + T-I-O-N (7) targets to qualify Dock locks for Multiball.",
+        "Complete S-H-U-T-T-L-E (1) targets for Hold Bonus (end-of-ball bonus carried to next ball).",
+        "Complete 1-2-3 Rollovers (10) via Up-Kicker = relight Docks + advance Jet Bumper value.",
+        "Left Outlane Kickback (Re-entry) saves ball — lit at start, relight via target bank completions.",
+        "Ramp Diverter alternates between Left and Right Dock for ball locking.",
+      ],
+      benchmarks: [
+        "Stop 'N Score at 5× with peak timing = ~500K per Ramp shot.",
+        "Getting 2–3 Stop 'N Score collections per ball is strong play.",
+        "USA Rollover multiplier at 3× or better before first Stop 'N Score is ideal.",
+        "Completing STATION early to enable Multiball setup mid-game.",
+      ],
+      resources: [
+        { label: "IPDB Entry", url: "https://www.ipdb.org/machine.cgi?id=2336" },
+        { label: "Pinside Page", url: "https://pinside.com/pinball/machine/space-station" },
+      ],
+    },
+    strategy: {
+      skillShot: "No traditional skill shot. Plunge with moderate force to pass through the U-S-A Rollovers (3) at the top. Each USA completion = +1× Stop 'N Score Multiplier. Start multiplier-building from the very first plunge.",
+      multiball: "Lock 2 balls in the Docking Bays via Ramp shots directed by the Diverter (watch its position). Once multiball starts, Stop 'N Score strategy remains unchanged — Drop Target → wait for peak value → Ramp. Don't frenzy; be patient and time the shots.",
+      goal: "Build the Stop 'N Score Multiplier to 5× via USA Rollovers, then repeatedly collect Stop 'N Score at near-maximum value (99K × 5× = ~495K per Ramp shot). Build Bonus Multiplier to 7× via Drop Target Bank. Complete STATION for Multiball and SHUTTLE for Hold Bonus.",
+      phases: [
+        {
+          name: "Early Ball — Build Multiplier",
+          steps: [
+            "Plunge with moderate force toward USA Rollovers (3) — aim for natural feed through bumpers.",
+            "Each USA completion = +1× Stop 'N Score Multiplier. Build to 3–5× before first collection.",
+            "Hit the Drop Target at the ramp entrance whenever it's accessible — activates Stop 'N Score.",
+            "Trap ball on left flipper, watch the cycling display, shoot Ramp at peak (near 99K).",
+          ],
+        },
+        {
+          name: "Mid Ball — STATION + Drop Target Bank",
+          steps: [
+            "Complete S-T-A targets (4) and T-I-O-N targets (7) to qualify Dock locks for Multiball.",
+            "Complete S-H-U-T-T-L-E (1) for Hold Bonus — bonus carries to next ball if earned.",
+            "Let bumper ricochets naturally hit the Drop Target Bank (5) — don't force direct shots.",
+            "Continue Stop 'N Score loop every time the Drop Target is knocked down.",
+          ],
+        },
+        {
+          name: "Multiball + Bonus Maximization",
+          steps: [
+            "Lock 2 balls via Ramp when Docks are lit. Multiball starts from third launch.",
+            "During Multiball, maintain Stop 'N Score timing — Drop Target → peak → Ramp.",
+            "Complete 1-2-3 Rollovers via Up-Kicker to relight Docks and build Jet Bumper value.",
+            "End of ball: bonus = all hits × multiplier. With Hold Bonus, it carries forward.",
+          ],
+        },
+      ],
+      safeShots: [
+        { name: "Ramp (8) with Stop 'N Score active", desc: "The primary scoring shot. Hit Drop Target first to activate Stop 'N Score, then shoot Ramp when display peaks. Returns via habitrail safely." },
+        { name: "Left Orbit (2) soft shot", desc: "Soft orbit feeds USA Rollovers to build Stop 'N Score multiplier. Full-power orbit bypasses rollovers — use soft power for multiplier building." },
+        { name: "SHUTTLE / STATION target banks", desc: "Wide standup banks accessible from both flippers at medium force. Hit opportunistically for Hold Bonus and Multiball qualification." },
+      ],
+      avoidShots: [
+        { name: "Ramp without Stop 'N Score active", desc: "If the Drop Target hasn't been knocked down, the Ramp scores base points but no Stop 'N Score. Always knock the Drop Target first." },
+        { name: "Direct aiming at Drop Target Bank (5)", desc: "Too hard to aim at directly. Nestled near Jet Bumpers. Let natural ball deflections and bumper ricochets hit it — forcing shots risks outlane drains." },
+      ],
+      tips: [
+        { head: "Trap and time Stop 'N Score", body: "Stop 'N Score is the entire game. Trap the ball on your left flipper and watch the cycling display. Shoot the Ramp when it reads near 99,000. At 5× multiplier this is ~500K per shot — patience is required." },
+        { head: "USA Rollovers carry progress between balls", body: "Once a USA rollover is lit solid, that progress persists. Use this to enter later balls already partway through a multiplier completion." },
+        { head: "Jet Bumper value carries across all balls", body: "Completing 1-2-3 Rollovers via the Up-Kicker raises Jet Bumper value to 3,000 pts/hit permanently for the game. Each bumper hit adds more to the end-of-ball bonus over time." },
+        { head: "Kickback is your insurance", body: "Re-entry is lit at game start. Use it without hesitation when the ball goes toward the left outlane. Don't fret about relighting it — just benefit from the save each ball." },
+      ],
+      mistakes: [
+        "Shooting the Ramp without knocking the Drop Target first — missing the Stop 'N Score opportunity entirely.",
+        "Collecting Stop 'N Score at low value (20K–50K) instead of waiting for the peak near 99K — leaving 75% of the value on the table.",
+        "Trying to directly aim at the Drop Target Bank — risking drains for a shot that bumper ricochets will handle naturally.",
+        "Ignoring USA Rollovers and leaving Stop 'N Score at 1× or 2× multiplier all game.",
+        "Over-plunging past the USA Rollovers on every launch.",
+      ],
+    },
+    hotspots: [
+      { x:48, y:15, type:"key",   label:"US", name:"U-S-A Rollovers (3)",       body:"<strong>+1× Stop 'N Score Multiplier per completion (max 5×).</strong> Moderate plunge feeds through USA Rollovers. Each completion lights Up-Kicker for 100K. Build to 3–5× before first Stop 'N Score." },
+      { x:55, y:32, type:"key",   label:"DT", name:"Drop Target (Ramp Base)",   body:"<strong>Hit to activate Stop 'N Score</strong> — 25-sec cycling display (20K–99K). Always knock this before shooting Ramp. Resets after each Ramp shot." },
+      { x:50, y:22, type:"key",   label:"RM", name:"Ramp (8)",                  body:"<strong>Collect Stop 'N Score here.</strong> Trap ball on left flipper, watch display peak near 99K, then shoot. At 5× multiplier, peak timing = ~495K per shot." },
+      { x:12, y:38, type:"safe",  label:"LO", name:"Left Orbit (2)",            body:"Soft orbit feeds U-S-A Rollovers for multiplier. Full-power bypasses rollovers → Up-Kicker. Use soft power early each ball." },
+      { x:58, y:48, type:"info",  label:"UK", name:"Vertical Up-Kicker (6)",    body:"Feeds 1-2-3 Rollovers (+100K when lit). Completing 1-2-3 relights Dock locks and increases Jet Bumper value to 3K/hit permanent." },
+      { x:30, y:55, type:"info",  label:"SH", name:"SHUTTLE / STATION Targets", body:"Complete SHUTTLE for Hold Bonus (carries bonus to next ball). Complete STATION to qualify Dock locks for Docking Multiball." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"Kickback (Re-entry) active at start — will save once. System 11B: no extra save once kickback is used." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"No rubber. Ramp shots too weak slide right. Shoot with full deliberate power." },
+    ],
+  },
+
 
 };

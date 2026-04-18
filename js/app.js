@@ -117,8 +117,7 @@ function renderHome() {
         ${imgHtml}
         <div class="machine-card-body">
           <div class="card-meta">
-            <span class="card-year">${m.sub.split('·')[0].trim()}</span>
-            <span class="card-mfr">· ${m.sub.split('·')[1].trim()}</span>
+            ${(() => { const p = m.sub.split('·'); return `<span class="card-year">${p[0].trim()}</span>${p[1] ? '<span class="card-mfr">· ' + p[1].trim() + '</span>' : ''}`; })()}
           </div>
           <div class="machine-card-name">${m.name}</div>
           <div class="machine-card-tagline">${m.tagline}</div>
@@ -186,24 +185,42 @@ function renderInfo(m) {
   html += `<div class="feature-card"><div class="feature-desc">${info.theme}</div></div>`;
 
   html += sec('Key Features');
-  info.features.forEach(f => { html += `<div class="feature-card"><div class="feature-name">${f.name}</div><div class="feature-desc">${f.desc}</div></div>`; });
+  info.features.forEach(f => {
+    if (typeof f === 'string') {
+      html += `<div class="feature-card"><div class="feature-desc">${f}</div></div>`;
+    } else {
+      html += `<div class="feature-card"><div class="feature-name">${f.name}</div><div class="feature-desc">${f.desc}</div></div>`;
+    }
+  });
 
   html += sec('Scoring Reference');
   html += '<div class="score-table">';
-  info.scoring.forEach(s => { html += `<div class="score-row"><span class="score-key">${s.key}</span><span class="score-val">${s.val}</span></div>`; });
+  info.scoring.forEach(s => {
+    const k = s.key   ?? s.source ?? '';
+    const v = s.val   ?? s.value  ?? '';
+    html += `<div class="score-row"><span class="score-key">${k}</span><span class="score-val">${v}</span></div>`;
+  });
   html += '</div>';
 
   html += sec('Important Rules');
   info.rules.forEach(r => { html += `<div class="rule-card"><p>${r}</p></div>`; });
 
   html += sec('Benchmark Scores');
-  info.benchmarks.forEach(b => { html += `<div class="benchmark-row"><div class="bm-score">${b.score}</div><div class="bm-label">${b.label}</div></div>`; });
+  info.benchmarks.forEach(b => {
+    if (typeof b === 'string') {
+      html += `<div class="benchmark-row"><div class="bm-label">${b}</div></div>`;
+    } else {
+      html += `<div class="benchmark-row"><div class="bm-score">${b.score}</div><div class="bm-label">${b.label}</div></div>`;
+    }
+  });
 
   html += sec('Resources');
   info.resources.forEach(r => {
+    const name = r.name  ?? r.label ?? r.url;
+    const icon = r.icon  ?? '🔗';
     html += `<a class="resource-link" href="${r.url}" target="_blank" rel="noopener">
-      <span class="resource-icon">${r.icon}</span>
-      <div><div class="resource-name">${r.name}</div><div class="resource-url">${r.url.replace('https://','').replace('http://','')}</div></div>
+      <span class="resource-icon">${icon}</span>
+      <div><div class="resource-name">${name}</div><div class="resource-url">${r.url.replace('https://','').replace('http://','')}</div></div>
     </a>`;
   });
 
@@ -222,10 +239,17 @@ function renderStrategy(m) {
   // ── SKILL SHOT ──
   html += sec('Skill Shot');
   if (s.skillShot) {
-    html += `<div class="skill-shot-card">
-      <div class="skill-shot-title">${s.skillShot.name}${s.skillShot.value ? ' — ' + s.skillShot.value : ''}</div>
-      <div class="skill-shot-body">${s.skillShot.desc}</div>
-    </div>`;
+    if (typeof s.skillShot === 'string') {
+      html += `<div class="skill-shot-card">
+        <div class="skill-shot-title">Skill Shot</div>
+        <div class="skill-shot-body">${s.skillShot}</div>
+      </div>`;
+    } else {
+      html += `<div class="skill-shot-card">
+        <div class="skill-shot-title">${s.skillShot.name}${s.skillShot.value ? ' — ' + s.skillShot.value : ''}</div>
+        <div class="skill-shot-body">${s.skillShot.desc}</div>
+      </div>`;
+    }
   } else {
     html += `<div class="feature-card"><div class="feature-desc" style="font-style:italic">No formal skill shot on this machine.</div></div>`;
   }
@@ -243,29 +267,42 @@ function renderStrategy(m) {
   // ── MULTIBALL ──
   html += sec('Multiball');
   if (s.multiball && s.multiball.length) {
-    s.multiball.forEach(mb => {
-      html += `<div class="mb-card">
-        <div class="mb-name">🎱 ${mb.name}${mb.balls ? ` (${mb.balls}-ball)` : ''}</div>
-        <div class="mb-label">Activate Locks</div>
-        <div class="mb-body">${mb.locks}</div>
-        <div class="mb-label">Start Multiball</div>
-        <div class="mb-body">${mb.start}</div>
-        <div class="mb-label">Jackpots</div>
-        <div class="mb-body">${mb.jackpots}</div>
-        ${mb.tip ? `<div class="mb-label">Strategy Tip</div><div class="mb-body">${mb.tip}</div>` : ''}
-      </div>`;
-    });
+    if (typeof s.multiball === 'string') {
+      html += `<div class="feature-card"><div class="feature-desc">${s.multiball}</div></div>`;
+    } else {
+      s.multiball.forEach(mb => {
+        html += `<div class="mb-card">
+          <div class="mb-name">🎱 ${mb.name}${mb.balls ? ` (${mb.balls}-ball)` : ''}</div>
+          <div class="mb-label">Activate Locks</div>
+          <div class="mb-body">${mb.locks}</div>
+          <div class="mb-label">Start Multiball</div>
+          <div class="mb-body">${mb.start}</div>
+          <div class="mb-label">Jackpots</div>
+          <div class="mb-body">${mb.jackpots}</div>
+          ${mb.tip ? `<div class="mb-label">Strategy Tip</div><div class="mb-body">${mb.tip}</div>` : ''}
+        </div>`;
+      });
+    }
   } else {
     html += `<div class="feature-card"><div class="feature-desc" style="font-style:italic">No multiball on this machine.</div></div>`;
   }
 
   html += sec('Game Plan');
   s.phases.forEach(p => {
-    html += `<div class="phase-card">
-      <div class="phase-num">${p.num}</div>
-      <div class="phase-title">${p.title}</div>
-      <div class="phase-body">${p.body}</div>
-    </div>`;
+    if (p.steps) {
+      // {name, steps[]} format
+      const body = p.steps.map(s => `<p>${s}</p>`).join('');
+      html += `<div class="phase-card">
+        <div class="phase-title">${p.name}</div>
+        <div class="phase-body">${body}</div>
+      </div>`;
+    } else {
+      html += `<div class="phase-card">
+        <div class="phase-num">${p.num}</div>
+        <div class="phase-title">${p.title}</div>
+        <div class="phase-body">${p.body}</div>
+      </div>`;
+    }
   });
 
   html += sec('Safe Shots');
