@@ -1,0 +1,148 @@
+  /* ─── WHIRLWIND ────────────────────────────────────── */
+MACHINES['whirlwind'] = {
+    name: "Whirlwind",  sub: "1990 · Williams · WPC", era: "SS",
+    tagline: "Tornado thriller · lock balls, collect Million Plus jackpots",
+    image: 'images/whirlwind.jpg',
+    difficulty: "Medium–Hard", diffClass: "diff-hard",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Williams Electronics" },
+        { label: "Year",         value: "1990" },
+        { label: "Designer",     value: "Pat Lawlor" },
+        { label: "Platform",     value: "WPC" },
+        { label: "Multiball",    value: "3 types (3-ball max)" },
+        { label: "Top Score",    value: "50–150 million+" },
+      ],
+      theme: "A twister-themed machine set around a Midwestern tornado. Features a large spinning disc (the Whirlwind) mounted center-playfield, a real fan that blows air at the player, four directional targets (NE/NW/SE/SW, color-coded), and the iconic 'Feel the Power of the Wind' fanfare. Designed by Pat Lawlor (later of Addams Family fame).",
+      features: [
+        { name: "FEEL THE POWER Drop Targets", desc: "Three drop targets at the top used for the skill shot. Each target lights independently: POWER (100K), THE (200K), FEEL (300K). All three = 600K total." },
+        { name: "Compass / Directional Targets (NE/NW/SE/SW)", desc: "Four directional targets scattered around the playfield, color-coded: NE=Red, NW=Yellow, SE=Orange, SW=Green. Completing all four lights the ball lock lane. <strong>First multiball:</strong> targets can be hit in any order. <strong>Subsequent multiballs:</strong> only one direction at a time (sequential). This is the primary lock-lighting mechanism for Feel the Power Multiball." },
+        { name: "Ball Lock Lane (Left Side)", desc: "Locks balls for Feel the Power Multiball. Each ball locked advances the bonus multiplier one step: 2× → 3× → 4× → 5× → 6× (max). The <strong>5th lock also lights Extra Ball</strong>; the <strong>6th lock also lights Special</strong> (both at the 6× cap). Double benefit — starts multiball AND raises multiplier." },
+        { name: "Skyway Ramp (Right)", desc: "The right ramp. Awards 1 or 2 Skyway Tolls per trip (briefly shows 2 Tolls after traversing the left inlane). Also used to lock balls in the cup when the ramp is raised (closed). Ramp value starts at 50K, increases by 10K per trip, max 100K." },
+        { name: "3-Toll Ramp (Left)", desc: "The left ramp. Awards 3 Skyway Tolls per trip, spots a compass target, lights the Super Cellar Door, and starts Feel the Power Multiball. The primary jackpot ramp — <strong>starts the Million Plus sequence at 2M</strong>, increasing by 1M each collect up to 10M. Also starts at 50K ramp value, max 100K." },
+        { name: "Spinner", desc: "Located to the right of the Skyway Ramp. Each spin moves the Super Cellar Door award selection one position. Use the spinner to position the highlighted award to what you want <em>before</em> entering the door. Spinner value briefly increases after traversing the left inlane." },
+        { name: "Super Cellar Door (Lower Right)", desc: "Cycling award target with 7 awards: (1) Lo Pressure Jets at Maximum (5K/hit), (2) Super Door Score 500K, (3) Extra Ball lit, (4) Drop Target at Maximum, (5) Quick Multiball lit, (6) Million lit, (7) Hi Pressure Jets at Maximum (5K/hit). Use the Spinner to select the award you want. Collect all 7 for the <strong>Mega Door Bonus</strong> (all 7 + 2M + Special lit)." },
+        { name: "Tornado Drop Target", desc: "A drop target with progressive values advancing with each Skyway Ramp trip: 50K → 75K → 100K → 150K → <strong>Lite Quick Multiball</strong> → Extra Ball. If no value is lit, scores zero. Tone sound indicates current value tier — higher tone = higher value." },
+        { name: "Skyway Tolls", desc: "A toll counter (max 99 tolls) that awards 2K × bonus multiplier per toll at end-of-ball. Built by shooting ramps and loops during normal play." },
+        { name: "Spinning Disc (Center)", desc: "The signature toy — a motorized spinning disc that deflects the ball in unpredictable directions. Adds chaos to center-playfield shots but also scores with each deflection." },
+      ],
+      scoring: [
+        { key: "Skill shot max (all 3 targets)", val: "600,000 pts" },
+        { key: "Million Plus (1st collect)",     val: "2,000,000 pts" },
+        { key: "Million Plus (max, at 9th)",     val: "10,000,000 pts" },
+        { key: "Bonus multiplier (max)",         val: "6× (via ball locks)" },
+        { key: "Skyway Tolls (max)",             val: "99 × 2K × bonus ×" },
+        { key: "Super Cellar Door award",        val: "500,000 pts (base)" },
+        { key: "Mega Door Bonus",                val: "2,000,000 + Special" },
+      ],
+      rules: [
+        "Each ball locked in the lock lane advances the bonus multiplier by 1 step — <strong>locking balls both starts multiball AND raises your multiplier</strong>. The 5th lock also lights Extra Ball; the 6th lock lights Special (both at the 6× cap). Never skip a lock opportunity.",
+        "The <strong>Million Plus jackpot starts at 2M</strong>, increases by 1M each time you collect it during multiball, and maxes at 10M. It resets if you let multiball end without collecting.",
+        "If no Million Plus is collected during Feel the Power Multiball, <strong>Cellar Multiball</strong> (2-ball) automatically starts as a consolation round.",
+        "The <strong>Super Cellar Door</strong> cycles through 7 awards. Use the <strong>Spinner</strong> (right of Skyway Ramp) to position to the award you want before entering. Collect all 7 to light the Mega Door Bonus (all 7 awards + 2M + Special).",
+        "For the <strong>first multiball</strong>, direction targets can be hit in any order. From the <strong>second multiball onward</strong>, only one direction at a time can be completed (one direction lights, then the next).",
+        "<strong>No Extra Balls</strong> in competition settings — Extra Ball awards convert to 1M points.",
+      ],
+      benchmarks: [
+        { score: "50M+",   label: "Excellent — multiple Million Plus collects" },
+        { score: "15–25M", label: "Solid — completed at least one multiball" },
+        { score: "5–10M",  label: "Decent — learning the lock system" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=2765",      icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/whirlwind", icon: "🕹️" },
+      ],
+    },
+
+    strategy: {
+      skillShot: {
+        name: "FEEL THE POWER",
+        value: "Up to 600,000 points",
+        desc: "The plunger sends the ball toward three drop targets labeled <strong>POWER, THE, FEEL</strong>. Each target lit scores independently:<br><br>● <strong>POWER</strong> = 100,000 pts &nbsp;● <strong>THE</strong> = 200,000 pts &nbsp;● <strong>FEEL</strong> = 300,000 pts<br><br>All three = <strong>600,000 total</strong>. The scoring is additive — you get points for every target hit regardless of order. A full clean plunge is a massive early-game boost. Aim for all three every ball.",
+      },
+      multiball: [
+        {
+          name: "Feel the Power Multiball",
+          balls: 3,
+          locks: "Hit the <strong>four directional targets</strong> (NE=Red, NW=Yellow, SE=Orange, SW=Green) to light the lock lane. <strong>First multiball:</strong> any order. <strong>Subsequent multiballs:</strong> one direction at a time (sequential). Each ball successfully locked advances the bonus multiplier one step: 2× → 3× → 4× → 5× → 6× max. The 5th and 6th locks also light Extra Ball and Special respectively. <strong>Lock 2 balls before attempting to start multiball.</strong>",
+          start: "After locking 2 balls, shoot the <strong>3-Toll Ramp (Left)</strong> to release all locked balls and start 3-ball Feel the Power Multiball. Alternatively, locking a 3rd ball in the cup also triggers launch (note: this cup-start only works up to a certain point in the game — later the 3-Toll Ramp becomes required).",
+          jackpots: "Shoot the <strong>3-Toll Ramp (Left)</strong> repeatedly during multiball to collect <strong>Million Plus</strong>. Starts at 2M, increases by 1M each collect, max 10M. Collect 5+ times in a single multiball for 2M + 3M + 4M + 5M + 6M = <strong>20M total</strong>. If no Million Plus collected when multiball ends, Cellar Multiball starts automatically.",
+          tip: "Locking balls is a double win — each lock raises your bonus multiplier AND builds toward multiball. Never miss a lit lock. During multiball, ignore everything except the 3-Toll Ramp. Keep hammering it until a ball drains.",
+        },
+        {
+          name: "Quick Multiball",
+          balls: 2,
+          locks: "Light Quick Multiball by hitting the <strong>Tornado Drop Target</strong> once it has advanced to the 'Lite Quick Multiball' tier (via Skyway Ramp trips), or by collecting it as a <strong>Super Cellar Door award</strong>.",
+          start: "Once Quick Multiball is lit, shoot the ball into the <strong>center cup</strong>. The second ball is released immediately, starting 2-ball Quick Multiball.",
+          jackpots: "Standard 2-ball play with all shots scoring normally. The bonus multiplier (built from Feel the Power locks) amplifies all scoring during Quick Multiball. Focus on lanes and ramps to maintain toll and multiplier progress.",
+          tip: "Use Quick Multiball as a backup or gap-filler between Feel the Power setups. The Super Cellar Door is also worth visiting during Quick Multiball to cycle through its 7 awards.",
+        },
+        {
+          name: "Cellar Multiball",
+          balls: 2,
+          locks: "No lock setup required — this multiball activates automatically.",
+          start: "<strong>Auto-starts</strong> at the end of a Feel the Power Multiball where no Million Plus jackpot was collected. No player action needed.",
+          jackpots: "Standard 2-ball scoring. Less powerful than Feel the Power jackpots. Treat it as a second chance to score — shoot ramps and maintain composure.",
+          tip: "Cellar Multiball is a consolation prize, not a goal. If you get it, play steadily and shoot the 3-Toll Ramp to prime the Million Plus counter for the next Feel the Power Multiball.",
+        },
+      ],
+      goal: "<strong>Lock balls via compass targets to start Feel the Power Multiball and collect escalating Million Plus jackpots on the 3-Toll Ramp.</strong> Each ball locked also raises your bonus multiplier (up to 6×), making the lock lane doubly valuable. Build Skyway Tolls for end-of-ball bonuses.",
+      phases: [
+        {
+          num: "Phase 1 · Early Game",
+          title: "Skill Shot → Compass Targets → Light the Lock",
+          body: "<strong>Start every ball with the FEEL THE POWER skill shot</strong> — aim for all 3 drop targets for 600K.<br><br>Then immediately begin hunting the <strong>four directional targets</strong> (NE=Red, NW=Yellow, SE=Orange, SW=Green). For the first multiball, targets can be hit in any order. Hit all four to light the lock lane. The targets are wide standups approachable from both flippers — they are your Phase 1 safe shots.<br><br>Avoid the spinning disc area until the lock is lit — the disc deflections are unpredictable.",
+        },
+        {
+          num: "Phase 2 · Mid Game",
+          title: "Lock 2 Balls, Build Multiplier",
+          body: "<strong>Shoot the lit lock lane on the left side</strong> to lock balls. Each successful lock advances your bonus multiplier (2× → 3× → ... → 6×).<br><br>After each lock, the compass targets reset — hit all four again to light the next lock. Lock a second ball to set up multiball launch.<br><br>While resetting compass targets, also shoot the <strong>Super Cellar Door</strong> when the ball is on the right side. Cycling its 7 awards is a great secondary task between lock setups.",
+        },
+        {
+          num: "Phase 3 · Multiball",
+          title: "Hammer the 3-Toll Ramp for Million Plus",
+          body: "<strong>Once Feel the Power Multiball starts, ignore everything except the 3-Toll Ramp (Left).</strong><br><br>Each successful ramp shot collects a Million Plus jackpot: 2M, 3M, 4M, 5M, 6M... up to 10M per hit. Collect 5 times = 20M total. With your bonus multiplier at 5–6×, even end-of-ball tolls compound significantly.<br><br>Keep both balls in play as long as possible. If you lose a ball, the surviving ball continues single-ball play — steer it back toward the ramp and lock lane to reset for the next multiball.",
+        },
+      ],
+      safeShots: [
+        { name: "Compass / Directional Targets (NE/NW/SE/SW)", desc: "Four directional standup targets visible around the playfield, color-coded: NE=Red, NW=Yellow, SE=Orange, SW=Green. Your primary Phase 1 and Phase 2 targets. Approachable from both flippers with moderate force." },
+        { name: "Left Loop", desc: "Consistent return that loops back to the right flipper area. Advance Skyway Tolls and lane progress without engaging the spinning disc." },
+        { name: "Super Cellar Door (Lower Right)", desc: "Lower-right entrance that cycles 7 awards including Extra Ball, Quick Multiball, and 500K. A safe detour between lock setups." },
+      ],
+      avoidShots: [
+        { name: "Spinning Disc (Center)", desc: "The deflections are genuinely unpredictable — a ball hitting the disc can go anywhere. Never aim directly at it. Let the ball pass around the disc, not through it." },
+        { name: "Tornado Drop Target (when unlit or low value)", desc: "If no value is lit, the target scores zero — avoid it. Once Quick Multiball is lit on it, hitting it can disrupt your lock setup timing. Only aim for it deliberately when you want Quick Multiball as a backup." },
+      ],
+      tips: [
+        { head: "Lock = multiplier", body: "Every ball you lock is +1 bonus multiplier. Two locks = 4× or 5× bonus, three locks = 5× or 6×. The multiplier raises your Skyway Toll end-of-ball bonus significantly. Never skip a lit lock." },
+        { head: "Million Plus compounds fast", body: "2M + 3M + 4M + 5M + 6M across 5 ramp shots = 20M in one multiball. If you manage 6–7 shots before losing a ball, you can score 27–35M in one multiball session. The escalation is worth protecting." },
+        { head: "Compass targets reset, that's OK", body: "After each lock, you need to re-complete compass targets. This is normal. Think of it as a defined two-step loop: compass targets → lock → compass targets → lock → multiball. Remember: from the second multiball onward, only one direction at a time completes." },
+        { head: "Use the Spinner to aim the Cellar Door", body: "Each spin of the Spinner (right of Skyway Ramp) moves the Super Cellar Door award one position. Before entering the door, spin to line up the award you want — Quick Multiball and Extra Ball (→1M) are the top prizes." },
+        { head: "Tornado Drop Target value ladder", body: "The Tornado Drop Target advances with each Skyway Ramp trip: 50K → 75K → 100K → 150K → Quick Multiball → Extra Ball. At 150K+ it's worth deliberately targeting — don't treat it as just a Quick Multiball button." },
+        { head: "Skyway Tolls are the long game", body: "With 6× multiplier and 80+ tolls banked, your end-of-ball bonus can be 1M+. Shoot ramps and loops consistently between multiball setups to keep the toll count rising." },
+      ],
+      mistakes: [
+        "Missing the 3-Toll Ramp during multiball and chasing other targets — Million Plus is the entire point of multiball.",
+        "Ignoring the compass targets after a lock and wondering why the lock lane isn't lit again.",
+        "Shooting the spinning disc deliberately — its deflections are uncontrolled and dangerous.",
+        "Failing to lock 2 balls before attempting multiball start — wasting early-game energy.",
+        "Neglecting the Super Cellar Door and missing the Quick Multiball / Mega Door Bonus cycles.",
+      ],
+    },
+
+    hotspots: [
+      { x:35, y:10, type:"key",   label:"FP", name:"FEEL THE POWER (Skill Shot)", body:"Three drop targets at the top of the playfield: <strong>POWER (100K) · THE (200K) · FEEL (300K)</strong>. Hit all three on the plunge for 600K total. Additive — each hit scores individually. <strong>Your most reliable early-game points.</strong>" },
+      { x:28, y:22, type:"key",   label:"NE", name:"NE Compass Target (Red)",      body:"One of four directional targets (NE/NW/SE/SW) that must all be completed to <strong>light the ball lock lane</strong>. Wide standup — approachable from either flipper. <strong>First multiball:</strong> any order. <strong>Subsequent multiballs:</strong> one direction at a time. Complete all four to set up Feel the Power Multiball." },
+      { x:70, y:22, type:"key",   label:"SE", name:"SE Compass Target (Orange)",   body:"One of four directional targets (NE/NW/SE/SW). All four must be hit to light the lock lane. <strong>After each ball lock, compass targets reset</strong> — repeat the process to light the next lock." },
+      { x:20, y:40, type:"key",   label:"NW", name:"NW Compass Target (Yellow)",   body:"Part of the compass target system. Aim from the right flipper with moderate force. Completing the directional target set is your primary mid-game task between lock shots." },
+      { x:50, y:32, type:"info",  label:"🌀", name:"Whirlwind Spinning Disc",      body:"The signature feature — a motorized spinning disc that <strong>deflects the ball unpredictably</strong>. Scores with each deflection, but never aim directly at it. Let the ball travel around the disc, not into it." },
+      { x:18, y:50, type:"key",   label:"🔒", name:"Ball Lock Lane (Left)",        body:"<strong>Lock balls here for Feel the Power Multiball.</strong> Each ball locked advances your bonus multiplier by 1 step (up to 6×). Lock 2 balls, then shoot the 3-Toll Ramp (or lock a 3rd ball) to start multiball. Never miss a lit lock." },
+      { x:45, y:47, type:"key",   label:"3T", name:"3-Toll Ramp (Left)",            body:"<strong>The primary multiball jackpot shot.</strong> During Feel the Power Multiball, each ramp shot collects a Million Plus: 2M → 3M → 4M → ... → 10M. Collect 5 hits = 20M total. Also awards 3 Skyway Tolls and spots a direction target during normal play. This is the only shot you should be focused on during multiball." },
+      { x:72, y:58, type:"safe",  label:"CD", name:"Super Cellar Door",            body:"Lower-right entry to the rotating award chamber. Cycles 7 awards: 500K, Extra Ball, Quick Multiball, Million lit, jet max, drop max, Skyway advances. Collect all 7 for <strong>Mega Door Bonus (all 7 + 2M + Special)</strong>. Great secondary target between lock setups." },
+      { x:48, y:62, type:"info",  label:"TO", name:"Tornado Drop Target",          body:"Progressive value drop target. Advances with each Skyway Ramp trip: <strong>50K → 75K → 100K → 150K → Lite Quick Multiball → Extra Ball</strong>. If no value is lit, scores zero. A tone signals the current value — higher tone = higher value. Worth targeting once it reaches 100K+." },
+      { x:50, y:22, type:"info",  label:"↑",  name:"Pop Bumpers",                  body:"Top bumpers. Feed balls from the plunge area into the playfield. The bumper area also factors into Skyway Toll accumulation during normal play." },
+      { x:12, y:75, type:"avoid", label:"!",  name:"Left Outlane (No Post)",       body:"<strong>No outlane post rubber in competition settings</strong> — the ball drains directly. The left side is particularly exposed when the ball kicks off the disc or bumpers unexpectedly. Stay alert on the left side." },
+      { x:88, y:75, type:"avoid", label:"!",  name:"Right Outlane (No Post)",      body:"<strong>No outlane post rubber in competition settings</strong> — straight drain. Right-side shots that miss their target can feed the outlane. Be conservative with power on right-side shots." },
+    ],
+  };

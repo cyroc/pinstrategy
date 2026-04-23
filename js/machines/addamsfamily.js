@@ -1,0 +1,106 @@
+  /* ─── THE ADDAMS FAMILY ─────────────────────────────────── */
+MACHINES['addamsfamily'] = {
+    name: "The Addams Family", sub: "1992 · Bally · Standard",
+    tagline: "Best-selling machine ever · T-H-I-N-G + Mansion Awards",
+    image: "images/addams-family.webp",
+    difficulty: "Hard", diffClass: "diff-hard", era: "DMD",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Midway (Bally label)" },
+        { label: "Year",         value: "1992" },
+        { label: "Designers",    value: "Pat Lawlor & Larry DeMar" },
+        { label: "Programmers",  value: "Larry DeMar & Mike Boon" },
+        { label: "Production",   value: "20,270 units (all-time record)" },
+        { label: "Platform",     value: "WPC" },
+      ],
+      theme: "Based on the 1991 movie. The Addams clan — Gomez, Morticia, Thing (a disembodied hand toy), Fester, Lurch and Cousin It — inhabit a haunted mansion. Collect 12 Mansion Awards to unlock Tour the Mansion wizard mode.",
+      features: [
+        { name: "Left Ramp (6)", desc: "Primary scoring shot. <strong>Million Plus</strong>: 1M → +1M per shot per ball, max 10M. Collects T-H-I-N-G letters N and G (2 shots to complete). Super Jackpot during Multiball. Relights Electric Chair." },
+        { name: "Centre Ramp (10)", desc: "<strong>Bear Kicks</strong>: 250K per hit, cumulative game-wide (max 99). Inner Left Inlane → 2 Bear Kicks in 3-sec window. G-R-A-V-E 'V' letter. Thing Flip trigger via Outer Left Inlane. Jackpot builder during Multiball." },
+        { name: "Thing Ramp (8)", desc: "Feeds ball to Thing Eject Saucer (11). Collects T-H-I-N-G Bonus (5M/10M/15M+) when complete. Extra Ball collection. Multiball lock. 'Thing Multiball' relight." },
+        { name: "Electric Chair Saucer (4)", desc: "Mansion Award collector. Lit by Right Inlane (3 sec) or Left/Centre Ramp (no timer). Swamp Kickout (16) also works when lit. Cycle flashing award via Jet Bumper hits before collecting." },
+        { name: "Bookcase / Vault (12)", desc: "Hit Bookcase Target 5× for G-R-E-E-D → bookcase opens → Vault accessible. During Multiball: each Bookcase hit = +1M Jackpot. <strong>Dirty Pool</strong>: ball into Vault while Bookcase closed = all letters + lock (or Super Jackpot during Multiball)." },
+        { name: "Swamp (14)", desc: "Scores Graveyard Value (1M–4M, grows via Jet Bumpers) + 100K. '5× Graveyard' lit after upper-left flipper path = 5× Graveyard Value at Swamp." },
+        { name: "12 Mansion Awards", desc: "Cousin It (20s mode, Cousin It Targets rack up bonus), Mamushka (20s, all targets +250K), 3/6/9 Mil (instant), Graveyard at Max, Quick Multiball, Fester's Tunnel Hunt (30M total), Séance (3 ramps, 30M), Thing Multiball, Raise the Dead (Jet Bumpers), Lite Extra Ball, Tour the Mansion (?)." },
+        { name: "G-R-A-V-E Targets", desc: "G/R/A Spot Targets + Centre Ramp (V) + Swamp Kickout (E). Completing all = Grave Bonus (2M first, max 10M). Advances Jet Bumpers for higher Graveyard Value." },
+      ],
+      scoring: [
+        { key: "Skill Shot",                 val: "2M → 5M (grows each ball)" },
+        { key: "Million Plus (Left Ramp)",   val: "1M → 10M per ball (resets)" },
+        { key: "T-H-I-N-G Bonus",           val: "5M / 10M / 15M+ (grows)" },
+        { key: "T-H-I-N-G Bonus + 2 Stars", val: "+5M per Star (max +10M)" },
+        { key: "Bear Kick (Centre Ramp)",    val: "250K each, cumulative" },
+        { key: "Multiball Jackpot (max)",    val: "25M" },
+        { key: "Multiball Super Jackpot",    val: "2× or 3× Jackpot" },
+        { key: "Fester's Tunnel Hunt",       val: "30M (5+10+15M)" },
+        { key: "Séance (3 ramps)",           val: "30M (5+10+15M)" },
+        { key: "Tour the Mansion start",     val: "50M immediate" },
+        { key: "Bonus Multiplier (max)",     val: "5× (Right Inlane → Left Orbit)" },
+      ],
+      rules: [
+        "<strong>T-H-I-N-G:</strong> T, H, I pre-collected at game start. N and G from Left Ramp (2 shots). Once complete: Thing Ramp → Saucer = T-H-I-N-G Bonus. Stars (Left Orbit → Lite Star → Left Ramp within 3 sec) add +5M per Star (max 2).",
+        "<strong>Bonus Multiplier:</strong> Right Inlane → Left Orbit (3) within 3 sec = +1× (max 5×). Resets each ball. Only applies to Bear Kicks + Mansion Award portions of bonus.",
+        "<strong>Bear Kicks</strong> are cumulative game-wide. At 15, 25, 35... Bear Kicks: auto-collect flashing Mansion Award. Use Jet Bumpers (Right Orbit) to cycle the flashing award before hitting these milestones.",
+        "<strong>No Kickback or Ball Save.</strong> Both outlanes are exposed — conservative play is essential.",
+        "<strong>Mansion Awards</strong> cycle via Jet Bumper hits. Always pre-position the flashing award to a desirable target before collecting via Electric Chair.",
+        "<strong>Dirty Pool:</strong> Ball entering Vault (12) while Bookcase is closed = all G-R-E-E-D letters + lock / Super Jackpot during Multiball.",
+      ],
+      benchmarks: [
+        { score: "200M+", label: "Excellent — Tour the Mansion achieved" },
+        { score: "80M+",  label: "Good — Multiball + several Mansion Awards" },
+        { score: "< 30M", label: "Early drain or missed Multiball" },
+      ],
+      resources: [
+        { name: "IPDB Entry",       url: "https://www.ipdb.org/machine.cgi?id=20",                      icon: "🎯" },
+        { name: "Pinside Game Page",url: "https://pinside.com/pinball/machine/addams-family",            icon: "🕹️" },
+        { name: "Zen Studios Guide",url: "https://zensite.wpenginepowered.com/wp-content/uploads/2023/07/WP-The-Addams-Family-Pinball-Guide-by-ShoryukenToTheChin.pdf", icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: "Plunge so the ball lands in the <strong>Thing Eject Saucer (11)</strong> — 2M first ball, up to 5M by ball 3. Also collects T-H-I-N-G Bonus if already complete, and Extra Ball if lit. Returns ball to flippers safely.",
+      multiball: "<strong>G-R-E-E-D Multiball (3-ball):</strong> Hit Bookcase Target (12) five times → lock 2 balls → send 3rd to Electric Chair (4) or Vault (12). Jackpot at Train Wreck Target (7): starts 10M, grows +1M per Centre Ramp or Bookcase hit (max 25M). <strong>Super Jackpot at Left Ramp (6) = 2× Jackpot.</strong> Relight via Vault (12). Dirty Pool (ball into Vault while Bookcase closed) = Super Jackpot stays lit. Failed Multiball → 'Multiball' lights 20 sec at Thing Ramp for 2-ball restart.",
+      goal: "Build Bonus Multiplier to 5× each ball via Right Inlane → Left Orbit. Chain Left Ramp shots for escalating Million Plus (1M→10M) and complete T-H-I-N-G in 2 shots for T-H-I-N-G Bonus. Accumulate Bear Kicks via Centre Ramp for auto Mansion Award collection. Target Fester's Tunnel Hunt (30M) and Séance (30M) as priority Mansion Awards. Activate Multiball, build Jackpot to 25M, collect 2× Super Jackpot via Left Ramp. Collect all 12 Mansion Awards for 50M Tour the Mansion wizard start.",
+      phases: [
+        { num: "Phase 1 · Early Ball", title: "Multiplier + T-H-I-N-G", body: "Skill Shot into Thing Eject Saucer (11). Then: Right Inlane → Left Orbit × 5 for 5× Bonus Multiplier. Left Ramp × 2 to collect N and G letters (scoring Million Plus 1M + 2M). Thing Ramp → Saucer for T-H-I-N-G Bonus (5M first ball). Centre Ramp for Bear Kicks." },
+        { num: "Phase 2 · Mid Ball", title: "Mansion Awards + G-R-E-E-D", body: "Right Inlane → Electric Chair for Mansion Awards. Pre-cycle awards via Right Orbit to reach Fester's Tunnel Hunt or Séance. Left Ramp chain: 3M, 4M... Left Orbit → Star → Left Ramp for starred T-H-I-N-G Bonuses (up to 25M). Hit Bookcase Target to build G-R-E-E-D. Lock 2 balls → Multiball." },
+        { num: "Phase 3 · Multiball + Wizard Mode", title: "Jackpot → Tour the Mansion", body: "During Multiball: Centre Ramp + Bookcase hits to build Jackpot to 25M → Train Wreck Target → Left Ramp Super Jackpot. Continue Mansion collection. All 12 → Tour the Mansion: 50M instantly, then Mamushka, Cousin It, Séance, Fester's Tunnel Hunt, Raise the Dead, Thing Multiball in sequence." },
+      ],
+      safeShots: [
+        { name: "Left Ramp (6)", desc: "Most important shot. Million Plus, T-H-I-N-G letters, Super Jackpot, Electric Chair relight. Reliable from right flipper throughout the game." },
+        { name: "Centre Ramp (10)", desc: "Bear Kicks, G-R-A-V-E V letter, Multiball Jackpot builder. Reliable from left flipper." },
+        { name: "Right Inlane → Electric Chair (4)", desc: "Deliberate action with a 3-second window. Shoot Electric Chair immediately after Right Inlane pass." },
+      ],
+      avoidShots: [
+        { name: "Left Orbit (3) without purpose", desc: "Full orbit circles through bumpers — unpredictable return. Only shoot for ADV.X (Bonus Multiplier) or Stars." },
+        { name: "Swamp (14) without 5× active", desc: "100K + Graveyard Value is modest for the risk. Only shoot when 5× Graveyard is lit (5M–20M)." },
+      ],
+      tips: [
+        { head: "Cousin It mode trick", body: "During Cousin It mode, shoot Thing Ramp (8) and hold the Right Flipper up. The ejected ball bounces off and hits Cousin It Targets repeatedly — each hit adds +2M to the Cousin It Total and boosts all target values by 50K. This is the highest-efficiency Mansion mode." },
+        { head: "Bear Kick pre-positioning", body: "Every 10 Bear Kicks at odd multiples of 5 (15, 25, 35...) auto-collects the flashing Mansion Award. Before hitting these milestones, hit the Right Orbit to cycle Jet Bumpers and position the flashing award on Fester's Tunnel Hunt, Séance, or 9 Mil." },
+        { head: "Star stacking for T-H-I-N-G Bonus", body: "Left Orbit → Lite Star at Left Ramp (3 sec) → shoot Left Ramp = collect Star. Max 2 Stars per T-H-I-N-G Bonus = +10M extra. A fully starred 15M T-H-I-N-G Bonus = 25M." },
+        { head: "Dirty Pool hunting", body: "During G-R-E-E-D collection or Multiball, a ball sneaking into the Vault (12) while Bookcase is closed = Super Jackpot that stays lit. Watch the Vault angle during play." },
+      ],
+      mistakes: [
+        "Missing the Bonus Multiplier: not shooting Left Orbit within 3 seconds of Right Inlane pass.",
+        "Not cycling Mansion Awards via Jet Bumpers before collecting — collecting low-value awards (3 Mil) when Fester's Tunnel Hunt would auto-trigger at the next Bear Kick milestone.",
+        "During Multiball, collecting Train Wreck Jackpot before building it — max it to 25M first via Centre Ramp + Bookcase hits.",
+        "Tilting during Cousin It, Mamushka, or Raise the Dead — these modes pay out only on drain. A tilt forfeits the entire accumulated value.",
+        "Not using the Cousin It trick (Thing Ramp + held Right Flipper) — missing the most efficient mode-scoring method.",
+      ],
+    },
+
+    hotspots: [
+      { x:15, y:28, type:"key",   label:"LR", name:"Left Ramp (6)",             body:"<strong>Primary scoring shot.</strong> Million Plus (1M→10M), collects T-H-I-N-G letters N and G. Super Jackpot during Multiball. Shoot early and often." },
+      { x:48, y:14, type:"key",   label:"TE", name:"Thing Eject Saucer (11)",   body:"<strong>Skill Shot target.</strong> 2M–5M on plunge. Collects T-H-I-N-G Bonus (5M/10M/15M+) once complete. Stars via Left Orbit → Left Ramp boost bonus to 25M." },
+      { x:10, y:38, type:"safe",  label:"LO", name:"Left Orbit (3)",            body:"Shoot after Right Inlane for +1× Bonus Multiplier (ADV.X, 3-sec window). Also lights Lite Star at Left Ramp — shoot quickly for +5M Star bonus." },
+      { x:50, y:22, type:"safe",  label:"CR", name:"Centre Ramp (10)",          body:"Bear Kicks (250K each, cumulative max 99). Inner Left Inlane → Centre Ramp = 2 Bear Kicks. Also builds Multiball Jackpot +1M per hit." },
+      { x:62, y:30, type:"safe",  label:"TR", name:"Thing Ramp (8)",            body:"Feeds Thing Eject Saucer. Shoot to collect T-H-I-N-G Bonus. Also Multiball lock. Relights 20 sec after failed Multiball." },
+      { x:72, y:44, type:"key",   label:"EC", name:"Electric Chair Saucer (4)", body:"<strong>Mansion Award collection.</strong> Lit 3 sec by Right Inlane — react immediately. Also lit (no timer) by Left or Centre Ramp. Cycle award with Jet Bumpers first." },
+      { x:76, y:32, type:"info",  label:"BV", name:"Bookcase / Vault (12)",     body:"Hit 5× to complete G-R-E-E-D → Vault for Multiball locks. Dirty Pool: ball in Vault while closed = all G-R-E-E-D + lock. During Multiball = Super Jackpot." },
+      { x:48, y:55, type:"info",  label:"SW", name:"Swamp (14)",                body:"Graveyard Value + 100K. Thing Flip (Outer Left Inlane → Centre Ramp, 6 sec) = table auto-flips here for 5× Graveyard Value up to 20M." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",              body:"No kickback, no rubber. Left Orbit is the primary risk — only shoot for ADV.X or Star combo." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",             body:"No rubber. Trap carefully on right flipper before firing toward Electric Chair." },
+    ],
+  };

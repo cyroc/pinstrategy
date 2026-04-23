@@ -1,0 +1,130 @@
+  /* ─── DEADPOOL ─────────────────────────────────────────── */
+MACHINES['deadpool'] = {
+    name: "Deadpool",  sub: "2018 · Stern · Spike 2",
+    tagline: "Merc with a mouth · Chimichangas & katana ramp combos",
+    image: "images/deadpool.jpg",
+    difficulty: "Medium", diffClass: "diff-medium", era: "Modern",
+
+    info: {
+      stats: [
+        { label: "Manufacturer", value: "Stern Pinball" },
+        { label: "Year",         value: "2018" },
+        { label: "Designer",     value: "George Gomez" },
+        { label: "Platform",     value: "Spike 2 / LCD" },
+        { label: "Multiball",    value: "Multiple (Ninja, Disco, Mechsuit, Lil' DP)" },
+        { label: "Theme",        value: "Marvel Comics — Deadpool" },
+      ],
+      theme: "Based on the Marvel Comics antihero Deadpool (Wade Wilson). Full of fourth-wall-breaking humor, chimichangas, and time-travel adventure. Designed by George Gomez — widely praised for humor, flow, and depth.",
+      features: [
+        { name: "Left Ramp (Katana)", desc: "The primary ramp shot — fast, smooth, feeds back to the left flipper. Advances Battles/Quests and is the backbone of your game plan. Very reliable with good flipper technique." },
+        { name: "Chimichangas", desc: "Shoot the right orbit to advance the Chimichanga Truck, which lights orange shots at major targets. Collecting chimichangas builds the Quest punch card. Completing Quests scores a large Mode Jackpot bonus. Progress carries across balls." },
+        { name: "Left Spinner (Disco)", desc: "Left-side spinner. Ripping it accumulates spins toward Disco Multiball (60 spins). Each spin scores points. One of the most satisfying shots on the table — and the engine for Disco Multiball." },
+        { name: "Right Ramp (Katana Ramp)", desc: "Right ramp is the lock for Ninja Multiball — lock 3 balls here to start. Also scores the Super Skill Shot and Ninjapocalypse combo with the right orbit." },
+        { name: "U-Turn / Colossal Jackpot", desc: "Shooting the U-turn loop twice qualifies the Colossal Jackpot target at the end of the loop. Value built by switch hits — a big, satisfying cash-out opportunity." },
+        { name: "OOF / DEAD / POOL Drop Targets", desc: "OOF drop targets expose the Lil' Deadpool standup. DEAD targets light Battle at the scoop. POOL targets light a Ninja Multiball lock. Completing DEADPOOL (all targets) lights Mystery." },
+        { name: "Pop Bumpers (Upper)", desc: "Upper bumper cluster accessed after ramp exits. Passive scoring — bumper hits light major shots in blue to collect Ninja Stars, which raise Ninja Multiball jackpot values." },
+        { name: "Battles & Quests", desc: "Start Battles (vs. Juggernaut, Mystique, Sabretooth) at the scoop after completing DEAD. Start Quests (T-Rex Quest, Megalodon Quest) by collecting chimichangas then shooting the scoop. Completing all Battles and Quests leads to the wizard modes." },
+      ],
+      scoring: [
+        { key: "Quest Mode Jackpot",        val: "% of all pts scored during quest" },
+        { key: "Ninja Multiball jackpot",   val: "Based on Ninja Stars collected" },
+        { key: "Mechsuit Multiball jackpot",val: "5M base, +100k per subsequent jackpot" },
+        { key: "Disco Multiball jackpot",   val: "Built by switch hits" },
+        { key: "Colossal Jackpot",          val: "Built by switch hits, doubled with strong shot" },
+      ],
+      rules: [
+        "<strong>Chimichangas progress carries between balls</strong> — shoot the right orbit to advance the truck, then hit orange shots to fill the punch card and start Quests.",
+        "The left Katana ramp is your <strong>primary safe shot</strong> all game — it feeds back cleanly and advances Battles/Quests.",
+        "<strong>Stack modes with multiball</strong> whenever possible — Ninja Multiball can stack into Battles and Quests.",
+        "Complete DEAD targets to light a Battle at the scoop; complete POOL targets to relight a Ninja Multiball lock.",
+        "The <strong>left spinner</strong> rewards aggressive play — spin it 60 times to light Disco Multiball. Ripping it on a controlled ball is very efficient scoring.",
+      ],
+      benchmarks: [
+        { score: "2B+",    label: "Excellent — strong Chimichanga runs + multiball" },
+        { score: "500M+",  label: "Solid — completing modes and looping ramps" },
+        { score: "150M+",  label: "Getting the flow" },
+      ],
+      resources: [
+        { name: "IPDB Entry",        url: "https://www.ipdb.org/machine.cgi?id=6567",       icon: "🎯" },
+        { name: "Pinside Game Page", url: "https://pinside.com/pinball/machine/deadpool-le", icon: "🕹️" },
+        { name: "Stern Rules Sheet", url: "https://www.sternpinball.com/games/deadpool/",    icon: "📖" },
+      ],
+    },
+
+    strategy: {
+      skillShot: {
+        name: "Lane Skill Shot (BAM! top lane)",
+        value: "2.5M + 250k per skill shot",
+        desc: "Plunge into the flashing BAM! top lane for the Lane Skill Shot. You can change the flashing lane before launch. For more value: hold the left flipper and shoot up the right ramp for the Super Skill Shot (5M). The 'MXV' combo (right orbit → right ramp) scores 12.5M. Always attempt at minimum the basic lane skill shot.",
+      },
+      multiball: [
+        { name: "Ninja Multiball", balls: 3,
+          locks: "Lock 3 balls at the right Katana ramp. Locks are lit by default; relight by completing POOL targets after first Ninja Multiball.",
+          start: "Lock 3 balls at the right ramp — Ninja Multiball starts automatically.",
+          jackpots: "Jackpots at all major shots based on Ninja Stars collected. Super Jackpot at the right ramp = sum of all jackpots collected. Stacks into Battles and Quests.",
+          tip: "Build Ninja Stars first via bumper hits before starting Ninja Multiball — higher stars = higher jackpots." },
+        { name: "Disco Multiball", balls: 2,
+          locks: "Spin the left spinner 60 times (then 120, 180, etc.) to light Disco Multiball.",
+          start: "Shoot the left spinner until Disco Multiball lights, then start it (cannot be started during other modes).",
+          jackpots: "Shoot lit shots for Disco Jackpots built by switch hits. A random shot starts the Super Jackpot round — left ramp collects it, left spinner raises its value.",
+          tip: "The left spinner is a natural shot from the right flipper — ripping it during regular play passively builds toward Disco Multiball." },
+        { name: "Mechsuit Multiball", balls: 4,
+          locks: "Cash out 45 weapons (shoot white shots, then scoop) to light Mechsuit Multiball at the scoop.",
+          start: "Shoot the scoop with no other modes running after cashing 45 weapons.",
+          jackpots: "All shots lit for jackpots (5M base, +100k each). After 5 jackpots a Super Jackpot lights at the scoop (15M + 250k × jackpots collected).",
+          tip: "The scoop is the Super Jackpot location — after collecting a few jackpots on the playfield, return to the scoop for the big payout." },
+      ],
+      goal: "<strong>Loop the Katana ramp to advance Battles and collect chimichangas via the right orbit, lock 3 balls at the right ramp for Ninja Multiball, and stack an active Battle with multiball for the biggest scoring windows.</strong> The left ramp and right orbit are your engines all game.",
+      phases: [
+        {
+          num: "Phase 1 · Early Game",
+          title: "Establish Left Ramp Flow + Chimichanga Truck",
+          body: "<strong>The left Katana ramp is your home base.</strong> From the right flipper, shoot the left ramp repeatedly to advance the current Battle or Quest. Also shoot the right orbit to advance the Chimichanga Truck — this lights orange shots at major targets. Collect chimichangas along the way to fill your Quest punch card.",
+        },
+        {
+          num: "Phase 2 · Mid Game",
+          title: "Battles, Quests & Ninja Multiball",
+          body: "<strong>Start Battles at the scoop after completing DEAD targets</strong> (or from ball 1). Shoot Juggernaut, Mystique, or Sabretooth using the flashing shots assigned by each Battle. Simultaneously build toward Ninja Multiball by locking 3 balls at the right ramp. <strong>Ninja Multiball stacks into Battles</strong> — this is your best scoring window.",
+        },
+        {
+          num: "Phase 3 · Multiball",
+          title: "Stack Multiball with an Active Battle",
+          body: "<strong>When Ninja Multiball starts, keep ripping the left ramp and right ramp for jackpots.</strong> If a Battle is running simultaneously, every jackpot also scores Battle damage — the stacking is where the big scores come from. Don't panic — trap one ball on the left flipper and continue shooting the ramps with the other. Controlled multiball play vastly outscores frantic ball-chasing.",
+        },
+      ],
+      safeShots: [
+        { name: "Left Ramp (Katana)", desc: "Your primary and safest shot all game. Clean feed back to the left flipper. Advance Battles/Quests and build combos — this ramp does it all." },
+        { name: "Left Spinner", desc: "Ripping the spinner from the right flipper is safe and fast-scoring. Passively builds toward Disco Multiball (60 spins). Very satisfying shot with a reliable return." },
+        { name: "Right Orbit", desc: "Key shot to advance the Chimichanga Truck. Shoot it to light orange chimichanga collection shots at major targets. Also used in the MXV and Ninjapocalypse combos for big points." },
+      ],
+      avoidShots: [
+        { name: "Inner Loop (under pressure)", desc: "The inner loop is fast and the ball return is quick. Only attempt it when you're settled and have a controlled ball — not during multiball chaos or after a bumper eject." },
+        { name: "Risky mode-specific shots", desc: "Some story modes assign difficult standup or combo shots as their objectives. If the assigned shot is too risky, keep shooting the Katana ramp anyway — partial mode progress is still valuable." },
+      ],
+      tips: [
+        { head: "Chimichanga progress is persistent", body: "Chimichanga progress (punch card) carries between balls. Every chimichanga you collect now still counts on your next ball. Shoot the right orbit to advance the truck, then hit the lit orange shots — each one fills the punch card toward Quest start." },
+        { head: "Complete DEAD every ball", body: "Hitting all four DEAD standup targets lights a Battle at the scoop. Battles are your primary mode-based scoring — completing Juggernaut, Mystique, and Sabretooth unlocks Sauron Multiball." },
+        { head: "Spinner lane trapping", body: "After a left ramp, the ball can be caught with a right-flipper trap. From there, shoot the left spinner lane for a controlled, high-value burst. Every spin builds toward Disco Multiball at 60 spins." },
+        { head: "Stack Ninja Multiball with a Battle", body: "Ninja Multiball explicitly stacks into Battles and Quests. Try to lock the first Ninja ball while a Battle is running — the combined window of multiball jackpots + Battle damage is the biggest scoring opportunity in the game." },
+      ],
+      mistakes: [
+        "Not shooting the right orbit to advance the Chimichanga Truck — Quest progress is persistent and compounds across balls.",
+        "Forgetting to hit DEAD targets — Battles won't start at the scoop unless DEAD is completed or a Battle is already lit.",
+        "Playing the U-turn / inner loop recklessly — the ball returns fast and a mishit can feed the center drain.",
+        "Panicking during multiball and losing all balls without collecting jackpots — trap one ball and shoot calmly.",
+        "Tilting when a ball drains during an active Quest — chimichanga progress carries, so keep calm and continue next ball.",
+      ],
+    },
+
+    hotspots: [
+      { x:20, y:15, type:"key",   label:"KR", name:"Katana Ramp (Left)",          body:"<strong>Your primary shot all game.</strong> Smooth, fast, feeds cleanly back to the left flipper. Every ramp shot advances the current Battle or Quest. Loop this relentlessly." },
+      { x:73, y:20, type:"key",   label:"RR", name:"Right Ramp (Ninja Lock)",     body:"<strong>Lock 3 balls here for Ninja Multiball.</strong> Locks are lit by default at game start; relight by completing POOL targets. Also the target for the Super Skill Shot (hold left flipper, shoot right ramp for 5M+). Jackpots here during Ninja Multiball." },
+      { x:16, y:34, type:"key",   label:"~",  name:"Left Spinner (Disco)",        body:"Left-side spinner. <strong>Ripping it builds toward Disco Multiball</strong> (60 spins). On a controlled ball from the right flipper, aim left-center to rip the spinner. One of the best points-per-shot opportunities on the machine." },
+      { x:75, y:35, type:"key",   label:"RO", name:"Right Orbit (Chimichanga Truck)", body:"<strong>Shoot this to advance the Chimichanga Truck</strong>, which lights orange chimichanga shots at major targets. Collect chimichangas to fill your Quest punch card. Also part of the MXV combo (right orbit → right ramp) for 12.5M+." },
+      { x:50, y:20, type:"safe",  label:"IL", name:"U-Turn / Inner Loop",         body:"Loop shot through the upper center. Can score the Colossal Jackpot (2 u-turn shots qualify it at the target). <strong>Ball returns very fast</strong> — only attempt from a controlled position. Don't force it during chaotic play." },
+      { x:42, y:52, type:"key",   label:"OOF", name:"OOF / DEAD / POOL Drop Targets", body:"<strong>OOF drops expose the Lil' Deadpool standup target.</strong> DEAD targets (left side) light a Battle at the scoop. POOL targets (right side) relight a Ninja Multiball lock. Complete all of DEADPOOL to light Mystery at the scoop." },
+      { x:55, y:20, type:"info",  label:"↑",  name:"Pop Bumpers",                 body:"Upper bumper cluster. Passive scoring — every hit lights major shots blue for a Ninja Star. Ninja Stars increase Ninja Multiball jackpot values. Ramp exits feed here; returns can be unpredictable." },
+      { x:12, y:80, type:"avoid", label:"!",  name:"Left Outlane",                body:"Direct drain. Left-side shots that go wide of the ramp entrance can trickle here. Always confirm you have the left ramp angle locked in before shooting — don't spray." },
+      { x:87, y:80, type:"avoid", label:"!",  name:"Right Outlane",               body:"Right outlane catches fast returns from the right ramp and U-turn. After any right-side shot, be positioned and ready before the ball comes back down. The left outlane also qualifies Regeneration ball save every 3 DEADPOOL target completions." },
+    ],
+  };
