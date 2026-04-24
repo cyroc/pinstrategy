@@ -96,5 +96,16 @@ MACHINES['brideofpinbot'] = {
         "Wasting Small Wheel spins: Before Jackpot is lit, Left Lane spins Small Wheel. Use Left Lane to collect Jackpot, not for padding.",
       ],
     },
-    hotspots: [],
+    hotspots: [
+      { x:20, y:30, type:"key",   label:"LL", name:"Left Loop",                  body:"<strong>Primary combo entry.</strong> Value ramps 25K→500K on an 8-second timer. At max (500K), lights Extra Ball at left outlane. Core of loop combo chains — Left Loop → Heart Ramp → Right Loop. Forgiving angle; ~70% success rate for most players." },
+      { x:74, y:30, type:"key",   label:"RL", name:"Right Loop",                 body:"Mirror of Left Loop — value ramps 25K→500K (8-second timer). At max, lights <strong>Jackpot at Left Lane</strong>. Part of the combo rotation. Equal difficulty to Left Loop. Use to alternate with Left Loop for sustained combo chains." },
+      { x:50, y:20, type:"key",   label:"HR", name:"Heart Ramp",                 body:"<strong>Highest single-shot value: 100K→500K→1M.</strong> Tight and precision-dependent — only shoot as the 3rd leg of a combo (Left Loop → Right Loop → Heart Ramp). Big Wheel can award a 1B Heart Ramp shot; with 100× multiplier and Phase 3 doubling = 2B on one shot." },
+      { x:38, y:35, type:"key",   label:"SR", name:"Shuttle Ramp",               body:"Diverts to <strong>Pinbot Playfield</strong> (when lit) or <strong>Bride's Face</strong> (when unlit). Core of Metamorphosis progression. After Phase 1, Shuttle relights. Track lit/unlit state carefully — accidental unlit shots advance Metamorphosis prematurely." },
+      { x:50, y:45, type:"key",   label:"BF", name:"Bride's Face",               body:"<strong>Metamorphosis target.</strong> Phase 1: 1 unlit hit (Vocal Circuits, 250K × mult). Phase 2: 2 unlit hits (Eye Sockets, 250K + 500K). Phase 3 Multiball: 2 hits = Metamorphosis complete, spins Big Wheel. Only shoot when ready to advance phase — timing is critical." },
+      { x:18, y:20, type:"info",  label:"BW", name:"Big Wheel",                  body:"Awarded via Bride's Face hits during Phase 3 Multiball. Spins for random reward — potential 1B Heart Ramp award. With 100× multiplier and 2× Phase 3 doubling = 2B on a single Heart Ramp shot. The table's highest ceiling." },
+      { x:20, y:65, type:"info",  label:"LM", name:"Left Multiplier Spot Target", body:"Hit when flashing to advance bonus multiplier. Caps at 255× combined with Right Multiplier. Priority: build to 10× within first 20 seconds of each ball before chasing combos. Multiplier applies forever — it's your most important resource." },
+      { x:74, y:65, type:"info",  label:"RM", name:"Right Multiplier Spot Target",body:"Mirror of Left Multiplier. Alternate Left → Right to chain multiplier advances rapidly. With 100× multiplier and Phase 3 doubling, a 4-loop combo = 100M+. Don't skip multiplier building for early loop attempts." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",               body:"Open outlane — no save in strict settings. Greedy loop chains (8–10 loops) risk draining left at the end. Stop at 4–6 loops if ball is heading left. Left Loop exit angle can feed here if shot power is inconsistent." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",              body:"Open outlane. Right Loop exits toward right inlane but outlane drain is possible on missed shots. Keep Phase 3 multiball alive by avoiding aggressive right-side play when down to single ball." },
+    ],
   };

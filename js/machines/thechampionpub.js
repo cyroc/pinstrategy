@@ -84,5 +84,15 @@ MACHINES['thechampionpub'] = {
         "Bad Skill Shot Selection: Door Prize risks in strict settings; 1M points is the safest choice.",
       ],
     },
-    hotspots: [],
+    hotspots: [
+      { x:50, y:42, type:"key",   label:"HB", name:"Heavy Bag Target",           body:"<strong>Always safe — direct standups, no ramp angle required.</strong> Primary Training mode target. Essential for Life Bar gain and unlocking fights. Hit repeatedly throughout each ball. Also scores Gut Shots (100K) during active fights. Your safest reliable scoring loop." },
+      { x:22, y:28, type:"key",   label:"CL", name:"Corner Lane",                body:"<strong>Gentle left ramp — safe entry.</strong> Activates fights and video modes once 12 Life Bars are established. Scores Head Shots (500K) during fights. Also lights Spittin Gallery at Corner Lane after winning fights. Low drain risk — use as your main ramp shot throughout the game." },
+      { x:15, y:35, type:"safe",  label:"LO", name:"Left Orbit",                 body:"Flowing shot with natural feed. Builds Shadow Boxing value or advances Jump Rope training. Safe from right flipper. Good for building toward Fisticuffs Multiball letters. Use as filler between Heavy Bag training and Corner Lane fight shots." },
+      { x:50, y:12, type:"key",   label:"SK", name:"Skill Shot (1M)",            body:"<strong>Always choose the 1M points option.</strong> Hold launch button, select 1M — safe, consistent, and accumulates quickly. Avoid Door Prize in strict settings. Smart Punches can also be awarded here — conserve them for Knockouts (1M bonus) in wizard mode or tough opponents, not regular Head Shots." },
+      { x:80, y:35, type:"info",  label:"RO", name:"Right Orbit",                body:"Higher drain risk if misaligned — use cautiously. Contributes to Shadow Boxing value and Jump Rope training advancement. Only shoot when confident in the angle; stick to Left Orbit as the safer orbit option in strict settings." },
+      { x:50, y:20, type:"info",  label:"SB", name:"Speed Bag Ramp",             body:"Required for Speed Bag training (3rd of 3 training modes). Tight angle with a timeout — only commit when the mode is actively lit. Completing Speed Bag training contributes to the 12 Life Bars needed to activate fights. Doubles Purse Value during fights with 10+ hits." },
+      { x:35, y:45, type:"info",  label:"SR", name:"Side Ramps (5/7)",           body:"High risk for outlanes if shot angle is poor. Only shoot when a fight is actively running and Head Shots are specifically required. These are situational shots — not for general scoring. Stick to Corner Lane and Heavy Bag as your fight mechanics." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",               body:"Open outlane. Heavy Bag focus keeps the ball in center-field naturally, reducing outlane exposure. Side ramp misses are the primary left drain cause — avoid side ramps outside of active fight lighting." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",              body:"Open outlane. Right Orbit misalignment is the main right drain risk. Poor Life Bar management during fights (not restoring via Speed Bag or Beer Spot) leaves you vulnerable — a depleted Life Bar forces desperate shots." },
+    ],
   };

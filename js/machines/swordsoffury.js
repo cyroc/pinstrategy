@@ -87,5 +87,15 @@ MACHINES['swordsoffury'] = {
         "Not locking balls for Multiball: Titan Multiball is the highest-value endgame. If you skip it, you're leaving significant points on the table.",
       ],
     },
-    hotspots: [],
+    hotspots: [
+      { x:35, y:28, type:"key",   label:"LR", name:"Lionman Ramp",               body:"<strong>Core progression shot.</strong> Diverts to Magic Targets (advances Lionman Bonus), locks balls for Titan Multiball, or advances Bonus Multiplier — state-dependent. After completing A-V-E-N-G-E-R, shoot within the <strong>10-second Lionman Bonus timer</strong> to bank bonus (up to 1M). Also the Titan Multiball lock mechanism." },
+      { x:50, y:42, type:"key",   label:"AV", name:"A-V-E-N-G-E-R Spot Targets", body:"<strong>Your anchor — complete all 7 for +1× Multiplier (max 7×).</strong> Values escalate each completion: 50K → 150K → 250K → Extra Ball. Hit flashing targets (10K each). Once at 3× multiplier, ball drain only resets to 3× instead of 1× — this is your safety threshold for aggressive play." },
+      { x:22, y:35, type:"safe",  label:"MS", name:"Magic Spinners",             body:"Always safe; generate points and top up Magic Value to 250K ceiling. <strong>Use before completing A-V-E-N-G-E-R</strong> — a low Magic Value (50K) wastes your completion. Spin 3–5 times between target sequences to maintain full value." },
+      { x:15, y:62, type:"safe",  label:"OA", name:"Ogre Alley Shots",           body:"Low-risk value building via Left/Right Outlanes and U-Turns. Values advance 20K → 30K → 40K → 50K → 100K → 500K. Safe filler between ramp sequences. Collect to build points safely without committing to ramp angles." },
+      { x:50, y:18, type:"info",  label:"MT", name:"Magic Targets / Mini-Playfield", body:"Hit 5 Magic Targets to build Lionman Bonus (100K → 1M). Accessible via Lionman Ramp or Magic Tunnel. Complete targets before banking the Lionman Bonus — more targets = bigger payout. During Titan Multiball, Magic Targets are the Jackpot shots (1.5M base)." },
+      { x:60, y:22, type:"info",  label:"TT", name:"Titan Tunnel (Multiball Lock)", body:"Lock 2 balls here (via Lionman Ramp diverts) to start <strong>Titan Multiball</strong> (3 balls). First 10 seconds: 3× multiplier on all shots. Next 10 seconds: 2× multiplier. During 3× window, hit everything — this is where major points happen. Only 1 Jackpot per Multiball activation." },
+      { x:50, y:55, type:"info",  label:"IN", name:"Inlanes",                    body:"Light Avenger and Magic Tunnel. Low-risk plays contributing to A-V-E-N-G-E-R progress and Magic Tunnel access (50K + A-V-E-N-G-E-R letter if lit). Use as passive scoring during flipper transitions." },
+      { x:7,  y:82, type:"avoid", label:"!",  name:"Left Outlane",               body:"Open outlane — no save in strict settings. Aggressive ramp play is the main cause of left outlane drains. Mix in spinner and Ogre Alley shots to maintain ball control. <strong>Build to 3× multiplier ASAP</strong> — then drain only resets to 3×, not 1×." },
+      { x:88, y:82, type:"avoid", label:"!",  name:"Right Outlane",              body:"Open outlane. Missed Lionman Ramp shots can redirect right. Only commit to ramp sequences when multiplier carry-over (3×+) is active — the risk is much lower at that point." },
+    ],
   };
