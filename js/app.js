@@ -135,19 +135,21 @@ function renderHome() {
 ═══════════════════════════════════════════════════════════ */
 function openMachine(id) {
   currentMachine = id;
-  currentTab = 'info';
   const m = MACHINES[id];
+  currentTab = m.quick ? 'quick' : 'info';
 
   document.getElementById('mv-name').textContent = m.name;
   document.getElementById('mv-sub').textContent  = m.sub;
 
+  renderQuick(m);
   renderInfo(m);
   renderStrategy(m);
   renderPlayfield(m);
 
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === 'info'));
+  document.querySelector('.tab-btn[data-tab="quick"]').classList.toggle('hidden', !m.quick);
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === currentTab));
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-  document.getElementById('pane-info').classList.add('active');
+  document.getElementById('pane-' + currentTab).classList.add('active');
 
   document.getElementById('home').classList.add('hidden');
   document.getElementById('machine-view').classList.remove('hidden');
@@ -168,6 +170,33 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
   document.getElementById('pane-' + tab).classList.add('active');
   document.querySelector('.mv-content').scrollTop = 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER — QUICK (30–90 second read)
+═══════════════════════════════════════════════════════════ */
+function renderQuick(m) {
+  const q = m.quick;
+  if (!q) { document.getElementById('quick-content').innerHTML = ''; return; }
+  let html = `<div class="goal-card"><div class="goal-label">🎯 How you score here</div><div class="goal-text">${q.goal}</div></div>`;
+
+  html += sec('Path to Big Points');
+  q.steps.forEach((st, i) => {
+    html += `<div class="quick-step"><div class="quick-step-num">${i + 1}</div><div><div class="quick-step-title">${st.title}</div><div class="quick-step-body">${st.body}</div></div></div>`;
+  });
+
+  html += sec('Key Shots');
+  q.shots.forEach(sh => { html += `<div class="shot-item safe"><div class="shot-dot safe"></div><div><div class="shot-name">${sh.name}</div><div class="shot-desc">${sh.why}</div></div></div>`; });
+
+  if (q.avoid && q.avoid.length) {
+    html += sec("Don't");
+    q.avoid.forEach(a => { html += `<div class="mistake-row"><div class="mistake-x">✕</div><div class="mistake-text">${a}</div></div>`; });
+  }
+
+  if (q.target) html += `<div class="quick-target">🏁 ${q.target}</div>`;
+  html += `<div class="quick-more">More detail in the <a href="#" onclick="switchTab('strategy');return false;">Strategy</a> and <a href="#" onclick="switchTab('info');return false;">Info</a> tabs.</div>`;
+
+  document.getElementById('quick-content').innerHTML = html;
 }
 
 /* ═══════════════════════════════════════════════════════════

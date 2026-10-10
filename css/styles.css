@@ -248,6 +248,15 @@
     .goal-text { font-size: 14px; line-height: 1.6; color: var(--text-dim); position: relative; }
     .goal-text strong { color: var(--text); }
 
+    .quick-step { display: flex; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 14px; margin-bottom: 8px; }
+    .quick-step-num { flex: 0 0 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #111; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+    .quick-step-title { font-size: 14px; font-weight: 800; margin-bottom: 3px; }
+    .quick-step-body { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+    .quick-step-body strong { color: var(--text); }
+    .quick-target { margin-top: 18px; padding: 12px 14px; border-radius: var(--radius); background: rgba(232,160,32,.08); border: 1px solid rgba(232,160,32,.25); font-size: 13px; font-weight: 600; }
+    .quick-more { margin: 16px 0 8px; font-size: 12px; color: var(--text-dim); text-align: center; }
+    .quick-more a { color: var(--accent); }
+
     .phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 16px 16px 20px; margin-bottom: 10px; position: relative; overflow: hidden; }
     .phase-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
     .phase-num   { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 4px; }
