@@ -337,8 +337,8 @@ function renderStrategy(m) {
   html += sec('Safe Shots');
   s.safeShots.forEach(sh => { html += `<div class="shot-item safe"><div class="shot-dot safe"></div><div><div class="shot-name">${sh.name}</div><div class="shot-desc">${sh.desc}</div></div></div>`; });
 
-  html += sec('Shots to Avoid');
-  s.avoidShots.forEach(sh => { html += `<div class="shot-item avoid"><div class="shot-dot avoid"></div><div><div class="shot-name">${sh.name}</div><div class="shot-desc">${sh.desc}</div></div></div>`; });
+  if (s.avoidShots && s.avoidShots.length) html += sec('Shots to Avoid');
+  (s.avoidShots || []).forEach(sh => { html += `<div class="shot-item avoid"><div class="shot-dot avoid"></div><div><div class="shot-name">${sh.name}</div><div class="shot-desc">${sh.desc}</div></div></div>`; });
 
   html += sec('Tips & Tricks');
   s.tips.forEach(t => { html += `<div class="tip-card"><div class="tip-head">${t.head}</div><div class="tip-body">${t.body}</div></div>`; });
