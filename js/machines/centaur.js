@@ -1,357 +1,128 @@
-  /* ─── CENTAUR ──────────────────────────────────────────── */
-MACHINES["centaur"] = {
-    name: "Centaur",
-    sub: "1981 · Bally · Standard Body",
-    era: "SS",
-    tagline: "Sci-fi gothic · ORBS multiball & captive ball points",
+  /* ─── CENTAUR ────────────────────────────────────────────── */
+MACHINES['centaur'] = {
+    name: "Centaur", sub: "1981 · Bally · AS-2518-35", era: "SS",
+    tagline: "O-R-B-S power orbs · unlimited multiball releases · 1-2-3-4 in order + 5X bonus collect",
     image: "images/centaur.jpg",
-    difficulty: "Medium",
-    diffClass: "diff-medium",
+    difficulty: "Medium", diffClass: "diff-medium",
+
+    /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */
+    quick: {
+      goal: "Centaur's multiball has no ball limit: you <strong>bank 'power orbs'</strong> (virtual locks, amber lights above the flippers) and <strong>release them all</strong> for up to 5 balls. Points come from the 1-2-3-4 drops in order and a <strong>timed bonus collect at up to 5X</strong>.",
+      steps: [
+        { title: "O-R-B-S in order",
+          body: "Knock down the 4 <strong>ORBS drop targets</strong> (below the bumpers): in order (left to right) releases a ball for an instant 2-ball multiball; out of order lights the next power orb (max 4)." },
+        { title: "Release all orbs",
+          body: "Hit a lit <strong>release target</strong>: the far upper-right target (lit by 1-2-3-4 in order) or the <strong>Chamber</strong> target behind the left inline drops. All banked balls come out. During multiball: ORBS again, 1-2-3-4 in order, and the left arc." },
+        { title: "Guardians: free release",
+          body: "Light all 4 <strong>inlanes/outlanes</strong> (left flipper moves the left pair, right flipper the right pair) → releases one banked ball (needs an orb lit; once per ball on factory settings)." },
+        { title: "1-2-3-4 + bonus collect",
+          body: "Right <strong>1-2-3-4 drops in order</strong>: 10K/20K/40K/80K + bonus advances, lights the top-right target. Time that shot with the 2X–5X lights in the right lane for a <strong>5X</strong> bonus collect." },
+      ],
+      shots: [
+        { name: "O-R-B-S drop targets", why: "Multiball start and power orbs." },
+        { name: "Far upper-right target", why: "Release all orbs; timed bonus collect (up to 5X)." },
+        { name: "1-2-3-4 drop targets (right)", why: "In order: big bonus advances + lights the release/collect target." },
+        { name: "Left arc → captive ball", why: "10K–50K + bonus advances, doubled via the arc stars. Great multiball shot." },
+      ],
+      avoid: [
+        "Side-to-side shots are risky (narrow centre gap): aim drop/captive-ball shots so rebounds go up and down.",
+        "Without outlane rubbers (comp setup) you must nudge to save balls from the outlanes.",
+      ],
+      target: "Milestones: a 4–5 ball release = good game. Repeated 5X collects = great.",
+    },
+
     info: {
       stats: [
-        {
-          label: "Manufacturer",
-          value: "Bally Mfg. Co.",
-        },
-        {
-          label: "Year",
-          value: "1981",
-        },
-        {
-          label: "Designer",
-          value: "Jim Patla",
-        },
-        {
-          label: "Type",
-          value: "Solid-State EMC",
-        },
-        {
-          label: "Body",
-          value: "Standard",
-        },
-        {
-          label: "Multiball",
-          value: "2-ball (ORBS + Lane)",
-        },
+        { label: "Manufacturer", value: "Bally" },
+        { label: "Year",         value: "1981 (October)" },
+        { label: "Design",       value: "Jim Patla" },
+        { label: "Art / Mechanics", value: "Paul Faris / Irv Grabel" },
+        { label: "Platform",     value: "Bally AS-2518-35" },
+        { label: "Production",   value: "≈3,700 units" },
       ],
-      theme: "Black-and-white science fiction/horror hybrid. A half-human, half-machine Centaur warrior overlooks a stark monochrome playfield with neon red and yellow accents. One of the most visually distinctive early 1980s machines — minimal ornamentation, maximum atmosphere.",
+      theme: "Black-and-white fantasy art of a centaur on a motorcycle, with a talking ('Bad move, human') reverb voice. Re-released as Centaur II in 1983.",
       features: [
-        {
-          name: "ORBS Drop Targets",
-          desc: "Four drop targets (O, R, B, S) on the left-center playfield. Completing in <strong>exact order</strong> (O → R → B → S) starts 2-ball multiball immediately and adds a virtual lock. An out-of-order hit breaks the sequence, but completing the full bank out-of-order <strong>still earns a virtual lock</strong> (just no instant multiball). Up to 4 virtual locks accumulated. Release targets (upper-right standup; standup behind captive ball) can cash in all banked locks to start multiball on demand.",
-        },
-        {
-          name: "Queen's Chamber (Left Saucer)",
-          desc: "The primary scoring destination. A saucer on the left side of the playfield. The main jackpot target during multiball. Aim here whenever the ball feeds the left side cleanly.",
-        },
-        {
-          name: "Left Arc Star Rollovers",
-          desc: "A series of star rollover buttons arranged in a left-side arc. Passing through them lights a 'double points' state that doubles the value of the next captive ball hit. Always shoot the star rollovers before targeting the captive ball.",
-        },
-        {
-          name: "Captive Ball (Right Side)",
-          desc: "A ball held captive behind a post on the right side of the playfield. Striking the captive ball post awards escalating points: 10K → 20K → 30K → 40K → 50K. Doubles to 20K–100K if star rollovers were hit first. <strong>Value is preserved from ball to ball</strong> — progression carries over, so investing early pays off in later balls.",
-        },
-        {
-          name: "1-2-3-4 Drop Targets (Right)",
-          desc: "Completing the bank <strong>in any order</strong> lights the upper-right target for a timed collect bonus shot (aim for the 5× window). Completing <strong>in order</strong> additionally scores 10K + 20K + 40K + 80K = 150K in bonus advances and releases any locked balls.",
-        },
-        {
-          name: "Return/Outlane Lanes (4 total)",
-          desc: "Two return lanes and two outlane lanes (left and right sides). Completing all four starts a 2-ball multiball. This can only happen once per ball — complete them as early as possible. (Note: outlane post rubbers are removed in competition settings.)",
-        },
-        {
-          name: "Pop Bumpers",
-          desc: "Upper bumper cluster. Each hit advances the bonus. High-speed bumper action naturally feeds balls to the top lanes and back to the flippers.",
-        },
+        { name: "O-R-B-S drop targets", desc: "4 drops below the pop bumpers. In order releases a ball (instant 2-ball multiball); out of order lights the next orb." },
+        { name: "Power orb lights (1–4)", desc: "Amber lights between/above the flippers show banked balls (virtual locks)." },
+        { name: "Release targets", desc: "Far upper-right target (above the shooter path) and the Chamber target behind the left inline drops release all banked balls." },
+        { name: "1-2-3-4 drop targets (right)", desc: "Any order lights the far top-right target for bonus collect; in order adds 10K/20K/40K/80K, 1/2/4/8 bonus advances and also lights release." },
+        { name: "Left arc + captive ball", desc: "Captive-ball shots that drop the inline targets: 10K–50K with growing bonus advances (kept between balls on some DIP settings). Rolling over the two arc stars first doubles it." },
+        { name: "Guardian lanes", desc: "4 inlanes/outlanes; all lit = release one ball (once per ball)." },
+        { name: "Green standups", desc: "Left green target resets the 1-4 drops; top green target spots the next 1-4 target." },
       ],
       scoring: [
-        {
-          key: "Captive ball (max)",
-          val: "50,000 pts (preserved ball-to-ball)",
-        },
-        {
-          key: "Captive ball × star rollovers",
-          val: "100,000 pts (doubled)",
-        },
-        {
-          key: "1-2-3-4 drops (any order)",
-          val: "Lights timed collect bonus shot",
-        },
-        {
-          key: "1-2-3-4 drops (in order)",
-          val: "10K + 20K + 40K + 80K + releases locks",
-        },
-        {
-          key: "Bonus base max",
-          val: "79,000 pts",
-        },
-        {
-          key: "Bonus multiplier (top lanes)",
-          val: "Up to 5× (holds at 20K/40K/60K)",
-        },
-        {
-          key: "Max bonus payout",
-          val: "395,000 pts",
-        },
-        {
-          key: "ORBS completion (in order)",
-          val: "2-ball multiball + virtual lock",
-        },
-        {
-          key: "ORBS completion (out of order)",
-          val: "Virtual lock only (no instant multiball)",
-        },
-        {
-          key: "Lane completion (4 lanes)",
-          val: "2-ball multiball (once/ball)",
-        },
-        {
-          key: "Virtual locks max",
-          val: "4 (amber indicators)",
-        },
-        {
-          key: "Queen's Chamber jackpot",
-          val: "Primary multiball target",
-        },
+        { key: "Base bonus",          val: "Max 79K" },
+        { key: "Bonus multiplier",    val: "Up to 5X (top lanes) → 395K" },
+        { key: "1-2-3-4 in order",    val: "10K / 20K / 40K / 80K + 1/2/4/8 bonus advances" },
+        { key: "Captive ball",        val: "10K → 50K (×2 via the arc stars)" },
+        { key: "Bonus collect",       val: "Timed shot multiplier — aim for 5X" },
       ],
       rules: [
-        "ORBS in <strong>exact order O → R → B → S</strong> starts 2-ball multiball immediately + earns a virtual lock. Out-of-order breaks the sequence, but finishing the full bank still earns a virtual lock.",
-        "<strong>Release targets</strong> (upper-right standup; standup behind captive ball inline drops) release all banked virtual locks as a multiball start — an alternative to in-order ORBS.",
-        "The <strong>1-2-3-4 right-side drops in any order</strong> light the upper-right target for a timed collect bonus shot. Completing <em>in order</em> additionally scores escalating points and releases locked balls.",
-        "<strong>Top three lanes</strong> (both flipper buttons shift the lit lane) advance bonus multiplier up to 5×. Base holds at 20K, 40K, and 60K. Max payout: 5× × 79K = 395K.",
-        "Lane Multiball (all 4 return/outlane lanes) can only start <strong>once per ball</strong>. Complete lanes early.",
-        "<strong>No skill shot and no Extra Balls</strong> in competition settings. No outlane post rubbers — the outlanes are fully open.",
+        "<strong>Multiball:</strong> ball count is only limited by banked orbs (up to 4 + the ball in play). More orbs can be earned during multiball (ORBS again) and released.",
+        "<strong>Drain save:</strong> with 3 guardian lanes lit and a ball banked, draining down the fourth lane starts multiball.",
+        "<strong>Ball 3:</strong> a 'pity' timed release can light at the upper-right target.",
+        "<strong>Top lanes:</strong> both flipper buttons move the lit lanes (in opposite directions); completions raise bonus X up to 5X.",
+        "Base bonus is held at 20K/40K/60K steps between balls (operator setting); the multiplier resets.",
+        "Several features depend on DIP switches: orb memory (15), guardian release count (16), last-ball release (21), release target memory (24), bonus X hold (6), inline value memory (14).",
       ],
       benchmarks: [
-        {
-          score: "1,000,000+",
-          label: "Excellent — multiple ORBS completions + Queen's Chamber",
-        },
-        {
-          score: "500,000+",
-          label: "Solid — at least one multiball with good scoring",
-        },
-        {
-          score: "200,000+",
-          label: "Respectable — good drop target and lane work",
-        },
+        { score: "5-ball release", label: "Great game" },
+        { score: "5X collect",     label: "Strong ball" },
+        { score: "ORBS in order",  label: "Baseline" },
       ],
       resources: [
-        {
-          name: "IPDB Entry",
-          url: "https://www.ipdb.org/machine.cgi?id=476",
-          icon: "🎯",
-        },
-        {
-          name: "Pinside Game Page",
-          url: "https://pinside.com/pinball/machine/centaur",
-          icon: "🕹️",
-        },
+        { name: "Rules (silverballmania)", url: "https://rules.silverballmania.com/rules/GrX7q-MLWkn", icon: "📖" },
+        { name: "Rules notes (pinball.org)", url: "https://www.pinball.org/rules/centaur.txt", icon: "📄" },
+        { name: "IPDB Entry",              url: "https://www.ipdb.org/machine.cgi?id=476", icon: "🎯" },
       ],
     },
+
     strategy: {
       skillShot: null,
       multiball: [
-        {
-          name: "ORBS Multiball",
-          balls: 2,
-          locks: "Hit the <strong>ORBS drop targets in strict sequential order: O → R → B → S</strong>. The targets are on the left-center playfield. Focus on one target at a time. Each <em>in-order</em> completion immediately starts multiball + awards a virtual lock. An out-of-order hit breaks the sequence, but finishing the full bank out-of-order <strong>still earns a virtual lock</strong> — never worthless. Up to 4 virtual locks total.",
-          start: "<strong>In-order completion starts multiball immediately</strong> — no additional lock shot required. Alternatively, hit either <strong>release target</strong> (upper-right standup, or standup behind captive ball inline drops) to release all banked virtual locks and start multiball on demand.",
-          jackpots: "The <strong>Queen's Chamber</strong> (left saucer) is the primary jackpot target during multiball. Also work the <strong>1-2-3-4 right-side drops</strong>: completing the bank in <em>any order</em> lights a timed collect bonus shot at the upper-right (aim for the 5× window); completing <em>in order</em> additionally awards 10K + 20K + 40K + 80K and releases locked balls.",
-          tip: "ORBS is repeatable every ball — each completion gives another multiball entry. The more you can chain ORBS sequences within a ball, the more multiball time you accumulate. Patience with the sequential targeting is the key skill on Centaur.",
-        },
-        {
-          name: "Lane Multiball",
-          balls: 2,
-          locks: "Complete all <strong>4 return/outlane lanes</strong> (2 return lanes + 2 outlane lanes) by rolling over them. They light individually as you pass through. No directional requirement — hit all four in any order. <strong>WARNING:</strong> In competition settings, outlane post rubbers are removed, making the outlane lanes more dangerous to trigger.",
-          start: "Once all 4 lanes are lit, 2-ball multiball starts automatically. <strong>This can only happen once per ball</strong>, so complete the lanes as early in the ball as possible. Lane completions happen naturally during normal play — don't force them.",
-          jackpots: "Same as ORBS Multiball — <strong>Queen's Chamber</strong> for primary scoring. The captive ball (with star rollover setup) also scores well during multiball since you have more time to set up the star rollover → captive ball combo.",
-          tip: "Let lane completions happen organically as a byproduct of regular play. Don't sacrifice safe shots trying to hit outlane lanes intentionally — especially with no post rubbers in competition. The Lane Multiball is a bonus, not a plan.",
-        },
+        { name: "Power Orb Multiball", balls: 5,
+          locks: "Bank orbs: O-R-B-S out of order lights the next orb (up to 4 lit).",
+          start: "O-R-B-S in order (releases a ball), a lit release target (all orbs), or the guardian lanes (one banked ball).",
+          jackpots: "No jackpot: multiball is time to complete 1-2-3-4 in order, the captive ball and more orbs.",
+          tip: "Bank several orbs first, then release them all at once." },
       ],
-      goal: "<strong>Complete ORBS drop targets in sequential order to trigger 2-ball multiball repeatedly, then collect Queen's Chamber jackpots during multiball.</strong> Between multiballs, hit left arc star rollovers before the captive ball for doubled points (up to 100K per hit). The 1-2-3-4 sequential drops build bonus for end-of-ball collection.",
+      goal: "<strong>Bank power orbs with O-R-B-S, then release them all</strong> at the upper-right target. Complete the right 1-2-3-4 drops in order and time the bonus collect at 5X.",
       phases: [
-        {
-          num: "Phase 1 · Early Game",
-          title: "Star Rollovers → Captive Ball + Start ORBS",
-          body: "<strong>First priority: left arc star rollovers.</strong> Pass through the left-side arc to light the double-points state, then immediately shoot the <strong>captive ball</strong> on the right side. With star rollovers active, the captive ball pays double: 20K → 40K → 60K → 80K → 100K. This is excellent early-game value with controlled risk.<br><br>While working the captive ball and rollovers, begin identifying the ORBS targets and start working O → R → B → S whenever the ball feeds the left-center area.",
-        },
-        {
-          num: "Phase 2 · ORBS Sequence",
-          title: "Work Through O → R → B → S",
-          body: "<strong>Focus on the ORBS drop targets in order.</strong> Do not rush — wait for the ball to feed a clean shot at each target in turn. O is typically the easiest to reach from the right flipper. Work through R → B → S methodically.<br><br>If you hit a target out of order, stay calm — finish the remaining drops anyway. You still earn a virtual lock when the bank is cleared. Then start a fresh O → R → B → S attempt. Multiball starts <strong>immediately</strong> on completing S in order — no lock shot needed. Alternatively, once locks are banked, use a release target to cash them all in at once.",
-        },
-        {
-          num: "Phase 3 · Multiball",
-          title: "Queen's Chamber All Day",
-          body: "<strong>During multiball, aim exclusively for the Queen's Chamber</strong> (left saucer). Every successful hit during multiball is your jackpot. Keep both balls in play and feed the left saucer repeatedly.<br><br>When ball time allows, also work the <strong>1-2-3-4 right-side drops</strong>. Completing the bank in any order lights the upper-right timed collect bonus shot — aim for the 5× window. Completing in order also earns 150K in bonus advances and releases locked balls.<br><br>After multiball ends, immediately start working ORBS again for the next entry.",
-        },
+        { num: "Phase 1", title: "Bank orbs", body: "O-R-B-S drops; guardian lanes with lane change." },
+        { num: "Phase 2", title: "Release", body: "1-2-3-4 in order to light the far top-right target; shoot it to release all orbs." },
+        { num: "Phase 3", title: "Collect", body: "Build bonus and X, then time the collect shot for 5X." },
       ],
       safeShots: [
-        {
-          name: "Left Arc Star Rollovers",
-          desc: "Safe, repeatable pass through the left arc. Always shoot these before targeting the captive ball to double the payout. Low risk, high reward when combined correctly.",
-        },
-        {
-          name: "Captive Ball (Right)",
-          desc: "A controlled shot from the left flipper. The ball stays captive — no risk of drain. Progressive value 10K→50K (or doubled to 100K with star rollovers). <strong>Value is preserved from ball to ball</strong> — invest early for compounding returns. One of the safest high-value shots on the machine.",
-        },
-        {
-          name: "Queen's Chamber (Left Saucer)",
-          desc: "Left side saucer — your primary jackpot location. Safe ball exit, consistent return to the flippers. The main focus during multiball.",
-        },
+        { name: "Up-and-down shots", desc: "Shots whose rebounds come straight back are safer than cross-table ones." },
       ],
       avoidShots: [
-        {
-          name: "Outlane Areas (No Post Rubbers)",
-          desc: "In competition settings, outlane post rubbers are absent — balls heading toward the outlanes drain directly. Play conservatively on the sides, especially with a fast-moving ball.",
-        },
-        {
-          name: "ORBS Out of Order",
-          desc: "Don't rush ORBS. An out-of-order hit resets the entire sequence. Wait for a clean shot at each target in sequence rather than risking a reset that wastes your progress.",
-        },
+        { name: "Bumper exits", desc: "Balls grazing the side walls after the bumpers are dangerous." },
       ],
       tips: [
-        {
-          head: "Star rollovers before captive ball — always",
-          body: "The star rollover double is only active for the next captive ball hit. Establish this as a habit: arc first, then captive ball. The difference is 10K→50K vs 20K→100K — effectively doubling your captive ball income every time.",
-        },
-        {
-          head: "ORBS patience is the skill",
-          body: "The sequential order requirement is strict. Wait for the ball to feed near the correct target before shooting. A rushed out-of-order hit costs you the entire sequence. Take your time with each letter.",
-        },
-        {
-          head: "Out-of-order ORBS still banks a lock",
-          body: "A mis-hit breaks the sequence for instant multiball, but finishing the remaining drops earns a virtual lock anyway. Never abandon the bank after a mis-hit — finish it for the lock credit, then start a fresh in-order attempt.",
-        },
-        {
-          head: "Virtual locks: use release targets to cash in",
-          body: "Banked virtual locks can be released all at once by hitting either release target (upper-right standup, or standup behind the captive ball inline drops). No need to grind through ORBS again if you have multiple locks saved.",
-        },
-        {
-          head: "Captive ball value carries over",
-          body: "The progressive captive ball value (10K–50K) is preserved from ball to ball. Investing in early balls means later balls start at higher base values — at 50K × star rollover double = 100K per hit.",
-        },
-        {
-          head: "Top lanes build bonus multiplier",
-          body: "Completing the top three lanes (both flipper buttons shift the lit lane in opposite directions) advances the bonus multiplier up to 5×. Base holds at 20K, 40K, and 60K. Max payout: 5× × 79K = 395,000 pts.",
-        },
-        {
-          head: "1-2-3-4 drops: any order lights collect bonus",
-          body: "Completing all four drops in any order lights the upper-right timed collect bonus shot — watch the lane lights and aim for the 5× window. Completing in order also earns 150K in bonus advances and releases locked balls.",
-        },
-        {
-          head: "Let lanes complete naturally",
-          body: "The 4 return/outlane lanes for Lane Multiball complete themselves during normal play. Don't adjust your shot selection to force lane completions — especially dangerous with no post rubbers on the outlanes.",
-        },
+        { head: "Out-of-order fix", body: "Messed up 1-2-3-4? The left green target resets them." },
+        { head: "Captive ball double", body: "Roll over the two left-arc stars before the captive ball for double value." },
       ],
       mistakes: [
-        "Abandoning the ORBS bank after a mis-hit — finish the remaining drops to still earn the virtual lock.",
-        "Forgetting to hit star rollovers before the captive ball and leaving the double-points state unused.",
-        "Not knowing captive ball value carries over — hitting it ball one builds value for balls two and three.",
-        "Not shooting the Queen's Chamber during multiball — it's the entire point of multiball on Centaur.",
-        "Deliberately aiming for outlane lanes with no post rubbers — the risk is not worth it.",
-        "Never using the release targets to cash in banked virtual locks — they are a shortcut to multiball.",
-        "Ignoring the top lanes bonus multiplier — with a 79K base, 5× = 395K max payout.",
+        "Shooting a release target with only one orb banked when more could be banked first.",
+        "Shooting ORBS out of order (no instant multiball).",
       ],
     },
+
     hotspots: [
-      {
-        x: 39.1,
-        y: 37.3,
-        type: "key",
-        label: "O",
-        name: "ORBS — 'O' Target",
-        body: "<strong>First target in the ORBS sequence.</strong> Hit O first, then R → B → S in order. Reachable from the right flipper with a mid-strength left-center shot. If you hit any other ORBS target before O, the sequence resets.",
-      },
-      {
-        x: 45.1,
-        y: 36.6,
-        type: "key",
-        label: "R",
-        name: "ORBS — 'R' Target",
-        body: "Second in the ORBS sequence (O → <strong>R</strong> → B → S). Only attempt this after lighting O. Same approach angle as O — right flipper, mid-strength. Stay methodical.",
-      },
-      {
-        x: 55.9,
-        y: 34.9,
-        type: "key",
-        label: "B",
-        name: "ORBS — 'B' Target",
-        body: "Third in the ORBS sequence (O → R → <strong>B</strong> → S). Be patient — wait for a clean ball position before shooting. Don't rush and risk an out-of-order hit.",
-      },
-      {
-        x: 61.3,
-        y: 34.3,
-        type: "key",
-        label: "S",
-        name: "ORBS — 'S' Target (Start!)",
-        body: "Fourth and final target (O → R → B → <strong>S</strong>). <strong>Completing S immediately starts 2-ball multiball</strong> and banks a virtual lock (amber light). No additional lock shot needed — multiball starts on contact.",
-      },
-      {
-        x: 18,
-        y: 30,
-        type: "key",
-        label: "QC",
-        name: "Queen's Chamber (Left Saucer)",
-        body: "<strong>Your primary jackpot target.</strong> During multiball, aim here exclusively. Safe saucer exit that feeds the ball back to the flippers. Also scores well in single-ball play. The entire multiball strategy is: get here as often as possible.",
-      },
-      {
-        x: 22,
-        y: 55,
-        type: "safe",
-        label: "★",
-        name: "Left Arc Star Rollovers",
-        body: "Roll through this left-side arc to activate <strong>double-points mode</strong> for the next captive ball hit. Always do this before shooting the captive ball. Progressive value: 20K → 40K → 60K → 80K → 100K (vs 10K→50K without star rollovers).",
-      },
-      {
-        x: 75,
-        y: 45,
-        type: "safe",
-        label: "CB",
-        name: "Captive Ball (Right Side)",
-        body: "A ball held captive behind a post. <strong>Hit it after star rollovers for doubled points</strong> (up to 100K). <strong>Progressive value is preserved from ball to ball</strong> — early investment pays off later. Shoot from the left flipper — the captive ball can't drain. One of the safest high-value shots on the machine.",
-      },
-      {
-        x: 68,
-        y: 53,
-        type: "info",
-        label: "1",
-        name: "1-2-3-4 Drop Targets",
-        body: "Completing the bank <strong>in any order</strong> lights the upper-right timed collect bonus shot — aim for the 5× window. Completing <strong>in order</strong> also scores 10K + 20K + 40K + 80K = 150K bonus advances and releases locked balls. Worth doing either way.",
-      },
-      {
-        x: 72,
-        y: 59,
-        type: "info",
-        label: "4",
-        name: "Timed Collect Bonus (Upper-Right)",
-        body: "Lit after completing the 1-2-3-4 bank. Watch the lane lights leading to the upper-right target — <strong>time your shot for the 5× window</strong>. Scoring multiplied on the collect. Also lit for releasing locked balls when drops were completed in order.",
-      },
-      {
-        x: 50,
-        y: 18,
-        type: "info",
-        label: "↑",
-        name: "Pop Bumpers",
-        body: "Upper bumper cluster. Each hit advances the bonus. The bumpers also feed balls to the top lanes and back down — expect fast, unpredictable ball returns. Always be ready at the flippers after bumper action.",
-      },
-      {
-        x: 12,
-        y: 78,
-        type: "avoid",
-        label: "!",
-        name: "Left Outlane (No Post)",
-        body: "<strong>No outlane post rubber in competition settings</strong> — straight drain. Play conservatively when the ball is on the left side. Even though the left outlane lane completes toward Lane Multiball, it's rarely worth the drain risk to target it intentionally.",
-      },
-      {
-        x: 88,
-        y: 78,
-        type: "avoid",
-        label: "!",
-        name: "Right Outlane (No Post)",
-        body: "<strong>No outlane post rubber in competition settings</strong> — straight drain. Right-side shots that miss can feed here. Keep right-side shots controlled and moderate-strength.",
-      },
+      { x: 48,   y: 33,   type: "key",   label: "ORBS", name: "O-R-B-S Drop Targets",
+        body: "Left to right in order: instant 2-ball multiball + a banked orb." },
+      { x: 82,   y: 8,   type: "key",   label: "RT", name: "Right Lane → Release / Collect Target",
+        body: "Far upper-right target: release all orbs when lit; timed bonus collect (aim for 5X)." },
+      { x: 82,   y: 44.5, type: "key",   label: "1-4", name: "1-2-3-4 Drop Targets",
+        body: "In order: 10K–80K, bonus advances, lights release + collect." },
+      { x: 12.5, y: 10,   type: "info",  label: "CH", name: "Inline Drops / Chamber Release",
+        body: "Clear the inline drops behind the captive ball to reach the Chamber release target." },
+      { x: 13.5, y: 31.5, type: "info",  label: "CB", name: "Left Arc / Captive Ball",
+        body: "10K–50K value (doubled via the arc stars)." },
+      { x: 15.5, y: 42.5, type: "info",  label: "RS", name: "Reset 1-4 Target", body: "Resets the 1-2-3-4 drops if you hit them out of order." },
+      { x: 72,   y: 16,   type: "info",  label: "SP", name: "Spot 1-4 Target", body: "Spots the next 1-2-3-4 target." },
+      { x: 50,   y: 18,   type: "info",  label: "PB", name: "Pop Bumpers", body: "Exits can graze the walls toward the outlanes." },
+      { x: 6.5,  y: 70,   type: "avoid", label: "!",  name: "Left Outlane / Guardian", body: "Guardian lane. Nudge — comp setups remove the outlane bounce-back rubber." },
+      { x: 84,   y: 70,   type: "avoid", label: "!",  name: "Right Outlane / Guardian", body: "Guardian lane. Nudge — comp setups remove the outlane bounce-back rubber." },
     ],
   };
