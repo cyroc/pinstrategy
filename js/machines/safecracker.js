@@ -2,7 +2,7 @@
 MACHINES['safecracker'] = {
     name: "Safe Cracker", sub: "1996 · Bally (Williams) · WPC-95",
     tagline: "Timed game · break into the bank · board game to the Vault · Vault & Token Multiball",
-    image: "images/safe-cracker.png",
+    image: "images/safe-cracker.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

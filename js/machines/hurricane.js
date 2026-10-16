@@ -2,7 +2,7 @@
 MACHINES['hurricane'] = {
     name: "Hurricane", sub: "1991 · Williams · WPC (DMD)",
     tagline: "Ducks → Juggler locks · Hurricane 1M/2M/5M multiball · multiplied scoring after · Palace Jackpot",
-    image: "images/hurricane.jpg",
+    image: "images/hurricane.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

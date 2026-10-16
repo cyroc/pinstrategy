@@ -2,7 +2,7 @@
 MACHINES['attackfrommars'] = {
     name: "Attack from Mars", sub: "1995 · Bally (Williams) · WPC-95",
     tagline: "Destroy saucers · Multiball Super Jackpot · Total Annihilation · Rule the Universe",
-    image: "images/attack-from-mars.jpg",
+    image: "images/attack-from-mars.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

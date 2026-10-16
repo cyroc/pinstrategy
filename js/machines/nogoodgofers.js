@@ -2,7 +2,7 @@
 MACHINES['nogoodgofers'] = {
     name: "No Good Gofers", sub: "1997 · Williams · WPC-95",
     tagline: "Play 9 holes of golf · Bud & Buzz locks → Multiball · Hole-in-One Super Jackpot · Hole-in-One Challenge",
-    image: "images/no-good-gofers.png",
+    image: "images/no-good-gofers.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

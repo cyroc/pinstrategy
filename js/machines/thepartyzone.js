@@ -3,7 +3,7 @@ MACHINES['thepartyzone'] = {
     name: "The Party Zone",
     sub: "1991 · Bally (Williams) · WPC",
     tagline: "Happy Hour Multiball → Rocket Fuel jackpots & the Big Bang · W-O-O-C payoff lane (10× playfield) · Robotic Comic",
-    image: "images/party-zone.jpg",
+    image: "images/party-zone.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

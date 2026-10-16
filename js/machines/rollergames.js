@@ -2,7 +2,7 @@
 MACHINES['rollergames'] = {
     name: "Rollergames", sub: "1990 · Williams · System 11C", era: "SS",
     tagline: "WAR targets light locks · Wall jackpots · Sudden Death millions",
-    image: 'images/rollergames.jpg',
+    image: 'images/rollergames.webp',
     difficulty: "Medium", diffClass: "diff-medium",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

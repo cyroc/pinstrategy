@@ -2,7 +2,7 @@
 MACHINES['paragon'] = {
     name: "Paragon",  sub: "1979 · Bally · Widebody",
     tagline: "Bonus game: 5× multiplier + 20K super bonus · Golden Cliffs saucer · PARAGON letters · beware the Beast's Lair",
-    image: "images/paragon.jpg",
+    image: "images/paragon.webp",
     difficulty: "Hard", diffClass: "diff-hard", era: "SS",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

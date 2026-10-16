@@ -3,7 +3,7 @@ MACHINES["cirqusvoltaire"] = {
     name: "Cirqus Voltaire",
     sub: "1997 · Bally (Williams) · WPC-95",
     tagline: "Stack multiballs, beat the Ringmaster, complete 9 Marvels to Join the Cirqus.",
-    image: "images/cirqus-voltaire.jpg",
+    image: "images/cirqus-voltaire.webp",
     difficulty: "Medium",
     diffClass: "diff-medium",
     era: "DMD",

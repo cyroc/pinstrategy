@@ -3,7 +3,7 @@ MACHINES['talesofthearabiannights'] = {
     name: "Tales of the Arabian Nights",
     sub: "1996 · Williams · WPC-95",
     tagline: "Spin the Lamp for a carried-over bonus · 7 Tales → Jewels → Genie Battle · Make A Wish · Genie Multiball",
-    image: "images/tales-arabian-nights.jpg",
+    image: "images/tales-arabian-nights.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

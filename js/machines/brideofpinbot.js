@@ -2,7 +2,7 @@
 MACHINES['brideofpinbot'] = {
     name: "Bride of Pinbot", sub: "1991 · Williams · WPC (alphanumeric)", era: "SS",
     tagline: "Shuttle Ramp → bring her to life · Big Wheel up to 1 Billion · Heartbeat Ramp millions",
-    image: "images/bride-of-pinbot.jpg",
+    image: "images/bride-of-pinbot.webp",
     difficulty: "Medium", diffClass: "diff-medium",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

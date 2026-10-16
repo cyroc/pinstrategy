@@ -3,7 +3,7 @@ MACHINES['swordsoffury'] = {
     name: "Swords of Fury",
     sub: "1988 · Williams · System 11B",
     tagline: "Titan Multiball (3×/2× playfield) · upper-playfield Jackpot · AVENGER · Lionman · Ogres Alley",
-    image: "images/swords-of-fury.jpg",
+    image: "images/swords-of-fury.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "SS",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

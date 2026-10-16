@@ -2,7 +2,7 @@
 MACHINES['getaway'] = {
     name: "The Getaway: High Speed II", sub: "1992 · Williams · WPC Fliptronics II",
     tagline: "Run the red lights → Multiball · Supercharger Jackpots · shift through 5 gears",
-    image: "images/getaway-playfield.jpg",
+    image: "images/getaway-playfield.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

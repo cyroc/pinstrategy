@@ -3,7 +3,7 @@ MACHINES['monsterbash'] = {
     name: "Monster Bash",
     sub: "1998 · Williams · WPC-95",
     tagline: "Six monster modes → Monster Bash · Frankenstein & Mosh Pit Multiball · Monsters of Rock",
-    image: "images/monster-bash.jpg",
+    image: "images/monster-bash.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

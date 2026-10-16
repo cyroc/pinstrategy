@@ -3,7 +3,7 @@ MACHINES['worldcupsoccer'] = {
     name: "World Cup Soccer",
     sub: "1994 · Bally (Williams) · WPC-S (DMD)",
     tagline: "Goals → Ultra modes & TV Awards · Multiball vs 15 teams (Germany 250M) · Travel 9 cities → World Cup Final (500M)",
-    image: "images/world-cup-soccer.jpg",
+    image: "images/world-cup-soccer.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

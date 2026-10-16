@@ -3,7 +3,7 @@ MACHINES['whitewater'] = {
     name: "White Water",
     sub: "1993 · Williams · WPC (DMD)",
     tagline: "Advance the Raft through 7 Hazards → Wet Willie's (100M) · Triple Jackpots at Insanity Falls · Whirlpool Awards · Vacation Jackpot",
-    image: "images/white-water.jpg",
+    image: "images/white-water.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

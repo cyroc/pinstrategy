@@ -2,7 +2,7 @@
 MACHINES['blackrose'] = {
     name: "Black Rose", sub: "1992 · Bally (Williams) · WPC Fliptronics II",
     tagline: "Load the cannon · Double Broadside · Sink Ships · Pirate's Cove Multiball",
-    image: "images/black-rose.png",
+    image: "images/black-rose.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

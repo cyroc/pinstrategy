@@ -3,7 +3,7 @@ MACHINES['startrek'] = {
     name: "Star Trek: The Next Generation",
     sub: "1993 · Williams · WPC-DCS",
     tagline: "7 missions + artifacts → Final Frontier · Borg Multiball with cannon jackpots · Warp 9 · Neutral Zone · Captain rank",
-    image: "images/star-trek-tng.jpg",
+    image: "images/star-trek-tng.webp",
     difficulty: "Medium-Hard", diffClass: "diff-medium-hard", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

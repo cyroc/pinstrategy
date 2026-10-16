@@ -2,7 +2,7 @@
 MACHINES['flashgordon'] = {
     name: "Flash Gordon",  sub: "1981 · Bally · AS-2518-35",
     tagline: "Split-level playfield · bonus X to 5X · playfield 2X/3X/5X · collect bonus",
-    image: "images/flash-gordon.png",
+    image: "images/flash-gordon.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "SS",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

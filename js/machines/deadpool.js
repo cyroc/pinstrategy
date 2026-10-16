@@ -2,7 +2,7 @@
 MACHINES['deadpool'] = {
     name: "Deadpool",  sub: "2018 · Stern · Spike 2",
     tagline: "Battles at the scoop · Ninja Multiball · Lil' Deadpool · Playfield X · BOOM button",
-    image: "images/deadpool.jpg",
+    image: "images/deadpool.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "Modern",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

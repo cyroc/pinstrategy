@@ -2,7 +2,7 @@
 MACHINES['ironmaiden'] = {
     name: "Iron Maiden: Legacy of the Beast",  sub: "2018 · Stern · Spike 2",
     tagline: "Eddie Battles + Soul Shards · Trooper & Mummy Multiball · Playfield X · Power Jackpot",
-    image: "images/iron-maiden.png",
+    image: "images/iron-maiden.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "Modern",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

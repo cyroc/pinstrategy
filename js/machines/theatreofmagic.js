@@ -2,7 +2,7 @@
 MACHINES['theatreofmagic'] = {
     name: "Theatre of Magic", sub: "1995 · Bally (Williams) · WPC-S",
     tagline: "Theatre Multiball (100M trunk shot) · Tiger Saw Multiball · 8 Illusions · Midnight Madness · Grand Finale",
-    image: "images/theatre-of-magic.jpg",
+    image: "images/theatre-of-magic.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

@@ -2,7 +2,7 @@
 MACHINES['roadshow'] = {
     name: "Red and Ted's Road Show", sub: "1994 · Williams · WPC-S (DCS)",
     tagline: "Bulldozer days → Payday Multiball (40M+ jackpots) · 18 city modes · Bridge Out bonus X · Super Payday",
-    image: "images/road-show.png",
+    image: "images/road-show.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

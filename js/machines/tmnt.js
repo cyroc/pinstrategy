@@ -2,7 +2,7 @@
 MACHINES['tmnt'] = {
     name: "Teenage Mutant Ninja Turtles",  sub: "2020 · Stern · Spike 2 (Pro shown)",
     tagline: "Pick a turtle · 8 Episodes → Team-Up Multiball & Final Battle · Ninja Pizza & Turtle Power Multiball · 2× playfield",
-    image: "images/tmnt.jpg",
+    image: "images/tmnt.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "Modern",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

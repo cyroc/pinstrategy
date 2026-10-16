@@ -2,7 +2,7 @@
 MACHINES['jm'] = {
     name: "Johnny Mnemonic",  sub: "1995 · Williams · WPC-S",
     tagline: "Data Glove & Cyber Matrix locks · five 30M+ modes → Power Down · Yakuza Strike",
-    image: "images/johnny-mnemonic.jpg",
+    image: "images/johnny-mnemonic.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

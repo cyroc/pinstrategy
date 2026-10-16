@@ -2,7 +2,7 @@
 MACHINES['creaturefromtheblacklagoon'] = {
     name: "Creature from the Black Lagoon", sub: "1992 · Bally (Midway) · WPC Fliptronics II",
     tagline: "F-I-L-M → Multiball · Rescue the Girl · multiplied Jackpots & Super Jackpots",
-    image: "images/creature-black-lagoon.jpg",
+    image: "images/creature-black-lagoon.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

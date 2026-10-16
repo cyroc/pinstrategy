@@ -2,7 +2,7 @@
 MACHINES['twilightzone'] = {
     name: "Twilight Zone", sub: "1993 · Bally (Midway) · WPC Fliptronics II",
     tagline: "GUMBALL → Multiball Piano jackpots · Powerball Mania · Door Panels to Lost in the Zone",
-    image: "images/twilight-zone.png",
+    image: "images/twilight-zone.webp",
     difficulty: "Hard", diffClass: "diff-hard", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

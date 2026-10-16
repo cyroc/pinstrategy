@@ -2,7 +2,7 @@
 MACHINES['startrek25'] = {
     name: "Star Trek 25th Anniversary", sub: "1991 · Data East · Version 3",
     tagline: "9 dilithium crystals → Primary Crystal → Transporter Multiball · jackpots up to 100M",
-    image: "images/star-trek-25th.jpg",
+    image: "images/star-trek-25th.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

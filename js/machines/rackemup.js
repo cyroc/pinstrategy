@@ -2,7 +2,7 @@
 MACHINES['rackemup'] = {
     name: "Rack 'Em Up!",  sub: "1983 · Gottlieb (Mylstar) · System 80A",
     tagline: "Pool theme · fill the rack with solids and stripes · lane change · spinner · Special at the left outlane",
-    image: "images/rack-em-up.jpg",
+    image: "images/rack-em-up.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "SS",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

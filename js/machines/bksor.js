@@ -2,7 +2,7 @@
 MACHINES['bksor'] = {
     name: "Black Knight: Sword of Rage",  sub: "2019 · Stern · Spike 2",
     tagline: "Monster Battles · Triple Knights · KNIGHT Multiball · Magna-Save & Super Modes",
-    image: "images/bksor.jpg",
+    image: "images/bksor.webp",
     difficulty: "Hard", diffClass: "diff-hard", era: "Modern",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

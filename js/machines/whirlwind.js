@@ -2,7 +2,7 @@
 MACHINES['whirlwind'] = {
     name: "Whirlwind",  sub: "1990 · Williams · System 11B",
     tagline: "Move the storm → lock 2 balls → Million Plus at the 3-Toll Ramp (2M → 10M) · Quick Multiball · Super Cellar Door · spinning disks",
-    image: "images/whirlwind.jpg",
+    image: "images/whirlwind.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "SS",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

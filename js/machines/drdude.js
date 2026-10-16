@@ -2,7 +2,7 @@
 MACHINES['drdude'] = {
     name: "Dr. Dude", sub: "1990 · Bally · System 11C",
     tagline: "3 Elements of Coolness → Mix Master Multiball · Reflex 1-2-3 · Dude-O-Meter → Gazillion shot",
-    image: "images/dr-dude.png",
+    image: "images/dr-dude.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "SS",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

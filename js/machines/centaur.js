@@ -2,7 +2,7 @@
 MACHINES['centaur'] = {
     name: "Centaur", sub: "1981 · Bally · AS-2518-35", era: "SS",
     tagline: "O-R-B-S power orbs · unlimited multiball releases · 1-2-3-4 in order + 5X bonus collect",
-    image: "images/centaur.jpg",
+    image: "images/centaur.webp",
     difficulty: "Medium", diffClass: "diff-medium",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

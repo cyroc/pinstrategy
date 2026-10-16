@@ -3,7 +3,7 @@ MACHINES['thechampionpub'] = {
     name: "The Champion Pub",
     sub: "1998 · Bally (Williams) · WPC-95",
     tagline: "Train → fight the boxer for the purse · 5 wins = Pub Champion · stack multiballs · Cash Fights up to 240M",
-    image: "images/champion-pub.jpg",
+    image: "images/champion-pub.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

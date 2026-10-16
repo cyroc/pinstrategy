@@ -2,7 +2,7 @@
 MACHINES['viking'] = {
     name: "Viking",  sub: "1980 · Bally · Standard body",
     tagline: "Bonus game: 5× from the inline drops · 50K standup · collect bonus at the top saucer · 20K/40K super bonus",
-    image: "images/viking.jpg",
+    image: "images/viking.webp",
     difficulty: "Easy-Medium", diffClass: "diff-medium", era: "SS",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

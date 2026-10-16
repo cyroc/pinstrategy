@@ -2,7 +2,7 @@
 MACHINES['junkyard'] = {
     name: "Junk Yard", sub: "1996 · Williams · WPC-95",
     tagline: "Collect junk → build contraptions → Adventures → Outer Space · Crane Multiball",
-    image: "images/junk-yard.png",
+    image: "images/junk-yard.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

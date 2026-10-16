@@ -3,7 +3,7 @@ MACHINES['indianajones'] = {
     name: "Indiana Jones: The Pinball Adventure",
     sub: "1993 · Williams · WPC (DMD, widebody)",
     tagline: "Lock in the Idol → Ark/Stones/Grail Jackpots · 12 movie modes · Path of Adventure · Eternal Life",
-    image: "images/indiana-jones.jpg",
+    image: "images/indiana-jones.webp",
     difficulty: "Medium-Hard", diffClass: "diff-medium-hard", era: "DMD",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */

@@ -2,7 +2,7 @@
 MACHINES['funhouse'] = {
     name: "Funhouse", sub: "1990 · Williams · WPC (alphanumeric)",
     tagline: "Advance the clock to midnight · lock in the Hidden Hallway · Rudy's mouth → Million+ Trapdoor",
-    image: "images/funhouse.png",
+    image: "images/funhouse.webp",
     difficulty: "Medium", diffClass: "diff-medium", era: "SS",
 
     /* ── QUICK GUIDE (30–90 s read) ───────────────────────────── */
