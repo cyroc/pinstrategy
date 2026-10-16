@@ -17,7 +17,7 @@ MACHINES['worldcupsoccer'] = {
         { title: "Multiball (3 balls)",
           body: "Build shots (left orbit, both ramps, Striker hole) light the 5 soccer-ball words; then lock on a <strong>ramp</strong> and start at the <strong>TV scoop</strong>. Goal = Jackpot for the current team; a <strong>ramp or the Assist saucer</strong> relights it for the next, better team." },
         { title: "Cities → Final",
-          body: "Both <strong>ramps</strong> (tickets) or both top rollovers light TRAVEL; the <strong>left orbit spinner</strong> collects the next city (10M–20M). Boston = 40M hurry-up at the left orbit. After LA, the <strong>TV scoop</strong> starts the World Cup Final: 45 s, 5 balls." },
+          body: "Both <strong>ramps</strong> (tickets) or both top rollovers light TRAVEL; the <strong>left orbit spinner</strong> collects the next city (10M–20M). Boston = 40M hurry-up at the left orbit. After LA, the <strong>TV scoop</strong> starts the World Cup Final: 45 s of multiball, balls re-plunged freely." },
       ],
       shots: [
         { name: "Goal (past the goalie)", why: "10M goals; Ultra modes; TV Awards; multiball Jackpots." },
