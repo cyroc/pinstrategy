@@ -74,7 +74,8 @@ MACHINES['xmen'] = {
       ],
       resources: [
         { name: "Rulesheet (Tilt Forums wiki)", url: "https://pinballrulesheets.com/stern/the-uncanny-x-men-rulesheet.html", icon: "📖" },
-        { name: "IPDB Entry",                   url: "https://www.ipdb.org/machine.cgi?id=6779", icon: "🎯" },
+        { name: "IPDB Entry (Pro)",             url: "https://www.ipdb.org/machine.cgi?id=7068", icon: "🎯" },
+        { name: "IPDB Premium / LE",            url: "https://www.ipdb.org/machine.cgi?id=7069", icon: "🎯" },
         { name: "Pinside Game Page (Pro)",      url: "https://pinside.com/pinball/machine/uncanny-x-men-pro", icon: "🕹️" },
       ],
     },
