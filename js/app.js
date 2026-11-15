@@ -106,7 +106,9 @@ function renderHome() {
 
   container.innerHTML = entries.map(([id, m]) => {
     const imgHtml = m.image
-      ? `<img class="machine-card-img" src="${m.image}" alt="${m.name} playfield" />`
+      ? `<img class="machine-card-img" src="${m.image.replace(/^images\/([^/]+)\.\w+$/, 'images/thumbs/$1.webp')}"
+             loading="lazy" decoding="async" alt="${m.name} playfield"
+             onerror="this.onerror=null;this.src='${m.image}'" />`
       : `<div class="card-placeholder">
            <div class="card-placeholder-grid"></div>
            <div class="card-placeholder-glow"></div>
