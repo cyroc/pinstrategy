@@ -348,6 +348,12 @@ function renderStrategy(m) {
   html += sec('Common Mistakes');
   s.mistakes.forEach(mt => { html += `<div class="mistake-row"><div class="mistake-x">✕</div><div class="mistake-text">${mt}</div></div>`; });
 
+  if (s.trivia && s.trivia.length) {
+    html += sec('Trivia Answers');
+    if (s.triviaNote) html += `<div class="feature-card"><div class="feature-desc" style="font-style:italic">${s.triviaNote}</div></div>`;
+    s.trivia.forEach(t => { html += `<div class="tip-card"><div class="tip-head">${t.q}</div><div class="tip-body">${t.a}</div></div>`; });
+  }
+
   document.getElementById('strat-content').innerHTML = html;
 }
 
